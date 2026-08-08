@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Totalplay - Encuesta de Clima y Felicidad</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f3f6",
+                        "primary-fixed": "#dde1ff",
+                        "secondary": "#914c00",
+                        "on-secondary-fixed": "#2f1500",
+                        "on-secondary-fixed-variant": "#6f3900",
+                        "surface-tint": "#0046fa",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-dim": "#dadadc",
+                        "outline-variant": "#c4c5da",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-background": "#1a1c1e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#d4d9ff",
+                        "primary-container": "#0047ff",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#434657",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdcc4",
+                        "surface-variant": "#e2e2e5",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001257",
+                        "error": "#ba1a1a",
+                        "primary": "#0035c5",
+                        "outline": "#747688",
+                        "background": "#f9f9fc",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-bright": "#f9f9fc",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#474949",
+                        "inverse-primary": "#b9c3ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1a1c1e",
+                        "primary-fixed-dim": "#b9c3ff",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary-container": "#613100",
+                        "secondary-container": "#ff8a00",
+                        "surface": "#f9f9fc",
+                        "on-tertiary-container": "#dbdbdb",
+                        "tertiary-container": "#5f6061",
+                        "on-primary-fixed-variant": "#0033c0",
+                        "secondary-fixed-dim": "#ffb77f",
+                        "tertiary-fixed": "#e2e2e2",
+                        // Glacier Light Custom Colors
+                        "glacier-ice": "#7dd3fc",
+                        "glacier-lavender": "#c8a0f0",
+                        "glacier-dark": "#1a2438"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "40px",
+                        "base": "8px",
+                        "max-width-content": "800px",
+                        "element-gap": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "display-scale": ["Montserrat"],
+                        "headline-xl": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-scale": ["20px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-headline-xl,
+        .font-headline-lg {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.35);
+            /* High transparency white glassmorphism card */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: 0 20px 50px rgba(0, 53, 197, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .gradient-button {
+            background: linear-gradient(135deg, #0035c5 0%, #C8A0F0 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 4px 15px rgba(0, 53, 197, 0.25));
+        }
+
+        .gradient-button:hover:not(:disabled) {
+            filter: drop-shadow(0 8px 25px rgba(200, 160, 240, 0.45));
+            transform: translateY(-2px);
+        }
+
+        .brand-orange-text {
+            color: #ff8a00;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            50% {
+                transform: scale(1.02) translate(-5px, 2px);
+            }
+        }
+
+        .bg-animate {
+            animation: breathe 20s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background h-screen w-screen flex flex-col font-body-md overflow-hidden select-none">
+
+    <!-- Background Image Layer -->
+    <div class="fixed inset-0 z-0 bg-animate pointer-events-none opacity-45 blur-[1px]"
+        style="background-image: url('imagenes_back/stitch_totalplay_creative_innovation_survey/screen_opt.jpg'); background-size: cover; background-position: center center; background-attachment: fixed;">
+    </div>
+
+    <!-- Ambient Aurora Glow Behind the card (Lavender & Blue) -->
+    <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div
+            class="w-[600px] h-[450px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[120px] floating">
+        </div>
+    </div>
+
+    <div
+        class="fixed inset-0 z-0 bg-gradient-to-br from-primary-fixed/20 via-transparent to-secondary-fixed/20 pointer-events-none">
+    </div>
+
+    <!-- Main Content centered, absolute no scroll -->
+    <main class="h-full w-full flex items-center justify-center p-4 relative z-10">
+        <div
+            class="glass-panel w-full max-w-max-width-content rounded-[32px] p-6 md:p-10 relative overflow-hidden flex flex-col max-h-[95vh] justify-between">
+            <!-- Branding Accent -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/5 rounded-bl-full -mr-10 -mt-10"></div>
+
+            <!-- Integrated TopNavBar -->
+            <header
+                class="flex justify-between items-center w-full pb-2 mb-3 bg-transparent border-b border-outline-variant/30">
+                <div class="flex items-center h-12 overflow-hidden">
+                    <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
+                        class="h-28 w-auto object-contain -my-8">
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span
+                        class="material-symbols-outlined text-primary hover:text-primary-container transition-colors scale-95 cursor-pointer">account_circle</span>
+                </div>
+            </header>
+
+            <div class="flex flex-col space-y-6 overflow-y-auto pr-1">
+
+                <!-- STEP 0: START -->
+                <div id="step_start" class="flex flex-col items-center text-center space-y-6 py-4">
+                    <!-- Headline Section -->
+                    <div class="space-y-4">
+                        <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-black">
+                            Tu voz hace la <span class="brand-orange-text">diferencia</span>
+                        </h1>
+                        <p
+                            class="text-on-surface-variant font-body-md text-body-md max-w-[600px] mx-auto leading-relaxed">
+                            Bienvenido a la <span class="font-bold text-primary">Encuesta de Satisfacción y
+                                Felicidad</span>. Responde de manera rápida y fluida para ayudarnos a construir un mejor
+                            lugar para todos. Tu opinión es el motor de nuestro crecimiento.
+                        </p>
+                    </div>
+
+                    <!-- Stats/Highlights Bento Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full pt-2">
+                        <div
+                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-primary text-2xl"
+                                style="font-variation-settings: 'FILL' 0;">timer</span>
+                            <p class="font-label-bold text-label-bold text-on-surface">3 Minutos</p>
+                        </div>
+                        <div
+                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-primary text-2xl"
+                                style="font-variation-settings: 'FILL' 0;">lock</span>
+                            <p class="font-label-bold text-label-bold text-on-surface">Anónimo</p>
+                        </div>
+                        <div
+                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-primary text-2xl"
+                                style="font-variation-settings: 'FILL' 0;">bolt</span>
+                            <p class="font-label-bold text-label-bold text-on-surface">Fluido</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="pt-4 w-full md:w-auto">
+                        <button onclick="nextQuestion()"
+                            class="gradient-button w-full md:w-64 py-5 px-8 rounded-full text-white font-label-bold text-label-bold uppercase tracking-widest flex items-center justify-center gap-2 group">
+                            <span>Iniciar Encuesta</span>
+                            <span
+                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                        <p class="mt-4 text-[12px] text-outline italic">Haz clic para comenzar tu experiencia</p>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC QUESTION VIEW -->
+                <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-5 py-2">
+                    <div class="flex items-center gap-2">
+                        <span id="qCategory"
+                            class="text-[11px] font-bold text-primary uppercase tracking-widest">Dimensión</span>
+                        <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
+                    </div>
+
+                    <h2 id="qText"
+                        class="font-headline-lg-mobile md:text-[26px] md:leading-[1.3] text-on-surface tracking-tight font-bold">
+                        Pregunta de prueba</h2>
+
+                    <div id="qAnswersContainer" class="py-1">
+                        <!-- Answers injected here -->
+                    </div>
+
+                    <div id="kHint" class="flex items-center justify-center gap-2 text-xs text-outline font-semibold">
+                        <!-- Keyboard Hint injected here -->
+                    </div>
+                </div>
+
+                <!-- STEP SUCCESS -->
+                <div id="step_success" class="hidden flex flex-col items-center text-center space-y-5 pt-4">
+                    <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-3xl"
+                            style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </div>
+
+                    <h1 class="font-headline-lg text-on-surface tracking-tight font-black">¡Muchas gracias por
+                        participar!</h1>
+                    <p class="text-on-surface-variant font-body-md text-body-md max-w-[500px]">
+                        Tus respuestas se han guardado con éxito. Tu opinión nos ayuda a construir un mejor lugar para
+                        todos día con día.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 w-full max-w-sm pt-2">
+                        <div
+                            class="bg-surface-container p-5 rounded-2xl border border-outline-variant/30 text-center shadow-sm">
+                            <p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">eNPS
+                                otorgado</p>
+                            <p id="resEnps" class="font-headline-xl text-primary font-black mt-2">-</p>
+                        </div>
+                        <div
+                            class="bg-surface-container p-5 rounded-2xl border border-outline-variant/30 text-center shadow-sm">
+                            <p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Felicidad
+                                Laboral</p>
+                            <p id="resHappiness" class="font-headline-xl text-secondary-container font-black mt-2">-</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="toggleRaw()"
+                            class="raw-btn px-4 py-2 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-on-surface transition-colors">
+                            Ver respuesta JSON
+                        </button>
+                        <pre id="jsonDisplay"
+                            class="hidden text-left p-4 rounded-xl bg-surface-container-high/90 border border-outline-variant/40 mt-4 max-w-md overflow-x-auto text-[11px] font-mono text-primary-fixed-dim"></pre>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NAVIGATION FOOTER -->
+            <div id="surveyFooter" style="display: none;"
+                class="flex justify-between items-center pt-4 mt-4 border-t border-outline-variant/30">
+                <button id="btnPrev" onclick="prevQuestion()"
+                    class="px-6 py-3 border border-outline-variant/60 rounded-full text-sm font-label-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>Atrás</span>
+                </button>
+
+                <!-- Centered Linear Progress Indicator -->
+                <div class="flex flex-col items-center gap-1.5">
+                    <span id="progressIndex" class="font-label-bold text-[12px] text-primary">1 de 21</span>
+                    <div class="w-24 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+                        <div id="progressBar"
+                            class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300"
+                            style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <button id="btnNext" onclick="nextQuestion()"
+                    class="px-8 py-3 bg-primary text-white rounded-full text-sm font-label-bold uppercase tracking-wider flex items-center gap-2 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all">
+                    <span>Siguiente</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // List of Likert scale configurations with custom colors and emojis matching the Glacier theme
+        const LIKERT_LEVELS = [
+            { text: "Totalmente de acuerdo", emoji: "😄", color: "#0046fa", borderClass: "border-primary", bgClass: "bg-primary-fixed/20" },
+            { text: "De acuerdo", emoji: "🙂", color: "#00b9ff", borderClass: "border-[#00b9ff]", bgClass: "bg-cyan-50" },
+            { text: "Ni de acuerdo, ni desacuerdo", emoji: "😐", color: "#914c00", borderClass: "border-secondary-container", bgClass: "bg-secondary-fixed/30" },
+            { text: "En desacuerdo", emoji: "🙁", color: "#ba1a1a", borderClass: "border-error", bgClass: "bg-error-container/30" },
+            { text: "Totalmente en desacuerdo", emoji: "😠", color: "#93000a", borderClass: "border-[#93000a]", bgClass: "bg-red-100" }
+        ];
+
+        // All questions array structured sequentially
+        const QUESTIONS = [
+            {
+                id: "enps",
+                category: "Recomendación eNPS",
+                text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?",
+                type: "scale10",
+                minText: "Nada probable",
+                maxText: "Extremadamente probable"
+            },
+            {
+                id: "enps_reason",
+                category: "Recomendación eNPS",
+                text: "¿Por qué otorgaste esta calificación?",
+                type: "textarea"
+            },
+            // Orgullo
+            { id: "orgullo_1", category: "Orgullo y Pertenencia", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
+            { id: "orgullo_2", category: "Orgullo y Pertenencia", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
+            // Mi formador
+            { id: "formador_1", category: "Mi Formador", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
+            { id: "formador_2", category: "Mi Formador", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
+            { id: "formador_3", category: "Mi Formador", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
+            { id: "formador_4", category: "Mi Formador", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
+            { id: "formador_5", category: "Mi Formador", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
+            // Reconocimiento
+            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
+            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
+            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
+            // Desarrollo
+            { id: "desarrollo_1", category: "Desarrollo", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
+            { id: "desarrollo_2", category: "Desarrollo", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
+            { id: "desarrollo_3", category: "Desarrollo", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
+            // Colaboración
+            { id: "colaboracion_1", category: "Colaboración", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
+            { id: "colaboracion_2", category: "Colaboración", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
+            // Retribución
+            { id: "retribucion_1", category: "Retribución y Flexibilidad", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
+            { id: "retribucion_2", category: "Retribución y Flexibilidad", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
+            { id: "retribucion_3", category: "Retribución y Flexibilidad", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
+            // Happiness
+            {
+                id: "happiness",
+                category: "Felicidad General",
+                text: "Tomando en cuenta todas las preguntas anteriores, del 0 al 10. ¿Qué tan feliz te sientes trabajando en esta empresa?",
+                type: "scale10",
+                startAtZero: true,
+                minText: "Muy infeliz",
+                maxText: "Extremadamente feliz"
+            }
+        ];
+
+        let currentQuestionIdx = -1; // -1 means Start screen
+        const surveyResponses = {};
+
+        // Keyboard navigation bindings
+        window.addEventListener("keydown", (e) => {
+            if (currentQuestionIdx < 0 || currentQuestionIdx >= QUESTIONS.length) {
+                if (currentQuestionIdx === -1 && e.key === "Enter") {
+                    nextQuestion();
+                }
+                return;
+            }
+
+            const q = QUESTIONS[currentQuestionIdx];
+
+            if (q.type === "likert") {
+                const num = parseInt(e.key);
+                if (num >= 1 && num <= 5) {
+                    const cards = document.querySelectorAll("#qAnswersContainer .emoji-card");
+                    if (cards[num - 1]) cards[num - 1].click();
+                }
+            } else if (q.type === "scale10") {
+                const num = parseInt(e.key);
+                if (!isNaN(num)) {
+                    let targetVal = num;
+                    if (num === 0 && q.startAtZero) {
+                        targetVal = 0;
+                    }
+                    const btn = document.querySelector(`.pill-btn[data-val="${targetVal}"]`);
+                    if (btn) btn.click();
+                }
+                if (e.key.toLowerCase() === 't') {
+                    const btn = document.querySelector(`.pill-btn[data-val="10"]`);
+                    if (btn) btn.click();
+                }
+            } else if (q.type === "textarea") {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    nextQuestion();
+                }
+            }
+        });
+
+        // Initialize micro-interactions
+        document.querySelectorAll('.gradient-button').forEach(btn => {
+            btn.addEventListener('mousedown', function () { this.style.transform = 'scale(0.95)'; });
+            btn.addEventListener('mouseup', function () { this.style.transform = 'scale(1)'; });
+            btn.addEventListener('mouseleave', function () { this.style.transform = 'scale(1)'; });
+        });
+
+        function showQuestion(idx) {
+            const startScreen = document.getElementById("step_start");
+            const dynamicCard = document.getElementById("dynamicQuestionCard");
+            const successScreen = document.getElementById("step_success");
+            const footer = document.getElementById("surveyFooter");
+
+            startScreen.classList.add("hidden");
+            dynamicCard.classList.add("hidden");
+            successScreen.classList.add("hidden");
+
+            if (idx === -1) {
+                startScreen.classList.remove("hidden");
+                footer.style.display = "none";
+                return;
+            }
+
+            if (idx >= QUESTIONS.length) {
+                successScreen.classList.remove("hidden");
+                footer.style.display = "none";
+
+                document.getElementById("resEnps").textContent = surveyResponses["enps"] || "-";
+                document.getElementById("resHappiness").textContent = surveyResponses["happiness"] || "-";
+                document.getElementById("jsonDisplay").textContent = JSON.stringify(surveyResponses, null, 4);
+                return;
+            }
+
+            footer.style.display = "flex";
+
+            document.getElementById("progressIndex").textContent = `${idx + 1} de ${QUESTIONS.length}`;
+            const percent = Math.round(((idx + 1) / QUESTIONS.length) * 100);
+            const progressBar = document.getElementById("progressBar");
+            if (progressBar) {
+                progressBar.style.width = `${percent}%`;
+            }
+
+            const q = QUESTIONS[idx];
+            document.getElementById("qCategory").textContent = q.category;
+            document.getElementById("qText").textContent = q.text;
+
+            const answersContainer = document.getElementById("qAnswersContainer");
+            answersContainer.innerHTML = "";
+
+            const hint = document.getElementById("kHint");
+            hint.style.display = "flex";
+
+            if (q.type === "likert") {
+                const grid = document.createElement("div");
+                grid.className = "flex flex-col sm:flex-row gap-2 md:gap-4 my-2 w-full justify-center";
+
+                LIKERT_LEVELS.forEach((level, i) => {
+                    const card = document.createElement("div");
+
+                    const isSelected = (surveyResponses[q.id] === level.text);
+                    if (isSelected) {
+                        card.className = `flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border-2 ${level.borderClass} ${level.bgClass} cursor-pointer transition-all relative scale-[1.01] shadow-sm w-full`;
+                    } else {
+                        card.className = "flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border border-outline-variant/40 bg-surface-container-low/40 hover:bg-surface-container hover:border-primary/50 cursor-pointer transition-all relative group w-full";
+                    }
+
+                    card.innerHTML = `
+                        <div class="absolute top-2 right-2 text-[10px] text-outline/60 bg-surface-container-high/40 px-1.5 py-0.5 rounded font-mono font-bold hidden sm:block">${i + 1}</div>
+                        <div class="text-3xl sm:mb-2 group-hover:scale-110 transition-transform shrink-0">${level.emoji}</div>
+                        <div class="text-[12px] font-bold text-left sm:text-center leading-snug ${isSelected ? 'text-on-surface' : 'text-on-surface-variant'}">${level.text}</div>
+                    `;
+
+                    card.onclick = () => {
+                        selectResponse(q.id, level.text, card, grid);
+                    };
+
+                    grid.appendChild(card);
+                });
+                answersContainer.appendChild(grid);
+                hint.innerHTML = `Presiona del <span class="key-badge">1</span> al <span class="key-badge">5</span> para responder rápido`;
+            }
+            else if (q.type === "scale10") {
+                const container = document.createElement("div");
+                container.className = "flex flex-col gap-4 w-full";
+
+                const grid = document.createElement("div");
+                grid.className = "flex flex-wrap gap-1 md:gap-2.5 justify-center py-2";
+
+                const startVal = q.startAtZero ? 0 : 1;
+                for (let i = startVal; i <= 10; i++) {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+
+                    const isSelected = (surveyResponses[q.id] === i);
+                    if (isSelected) {
+                        btn.className = "pill-btn w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-bold text-xs md:text-sm bg-gradient-to-br from-primary to-[#C8A0F0] text-white scale-[1.08] shadow-md transition-all";
+                    } else {
+                        btn.className = "pill-btn w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-bold text-xs md:text-sm bg-surface-container-low border border-outline-variant/50 text-on-surface-variant hover:border-primary hover:text-primary transition-all";
+                    }
+
+                    btn.setAttribute("data-val", i);
+                    btn.textContent = i;
+
+                    btn.onclick = () => {
+                        selectResponse(q.id, i, btn, grid);
+                    };
+
+                    grid.appendChild(btn);
+                }
+
+                const labels = document.createElement("div");
+                labels.className = "flex justify-between text-[10px] md:text-xs font-bold text-outline px-1.5 max-w-[340px] md:max-w-[570px] mx-auto w-full mt-1";
+                labels.innerHTML = `<span>${q.minText}</span><span>${q.maxText}</span>`;
+
+                container.appendChild(grid);
+                container.appendChild(labels);
+                answersContainer.appendChild(container);
+
+                hint.innerHTML = `Presiona del <span class="key-badge">0</span> al <span class="key-badge">9</span> (tecla <span class="key-badge">T</span> para 10)`;
+            }
+            else if (q.type === "textarea") {
+                const textarea = document.createElement("textarea");
+                textarea.className = "w-full min-h-[120px] bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all resize-none";
+                textarea.placeholder = "Escribe de la manera más clara posible tu respuesta...";
+                textarea.value = surveyResponses[q.id] || "";
+
+                textarea.addEventListener("input", (e) => {
+                    surveyResponses[q.id] = e.target.value;
+                    validateNextBtn();
+                });
+
+                answersContainer.appendChild(textarea);
+                textarea.focus();
+                hint.innerHTML = `Presiona <span class="key-badge">Enter</span> para continuar`;
+            }
+
+            dynamicCard.classList.remove("hidden");
+            validateNextBtn();
+
+            const btnPrev = document.getElementById("btnPrev");
+            btnPrev.style.visibility = (idx === 0) ? "hidden" : "visible";
+        }
+
+        function selectResponse(questionId, val, element, container) {
+            surveyResponses[questionId] = val;
+            showQuestion(currentQuestionIdx);
+
+            setTimeout(() => {
+                if (surveyResponses[questionId] === val && currentQuestionIdx < QUESTIONS.length) {
+                    nextQuestion();
+                }
+            }, 350);
+        }
+
+        function validateNextBtn() {
+            const btnNext = document.getElementById("btnNext");
+            const q = QUESTIONS[currentQuestionIdx];
+
+            let isAnswered = false;
+            if (q) {
+                const val = surveyResponses[q.id];
+                if (q.type === "textarea") {
+                    isAnswered = true;
+                } else {
+                    isAnswered = (val !== undefined && val !== null);
+                }
+            }
+
+            btnNext.disabled = !isAnswered;
+
+            if (currentQuestionIdx === QUESTIONS.length - 1) {
+                btnNext.innerHTML = `<span>Finalizar</span><span class="material-symbols-outlined text-sm">check</span>`;
+            } else {
+                btnNext.innerHTML = `<span>Siguiente</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            showQuestion(currentQuestionIdx);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                currentQuestionIdx--;
+                showQuestion(currentQuestionIdx);
+            }
+        }
+
+        function toggleRaw() {
+            const display = document.getElementById("jsonDisplay");
+            display.classList.toggle("hidden");
+            if (!display.classList.contains("hidden")) {
+                display.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+
+</html>
