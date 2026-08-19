@@ -17,8 +17,8 @@ var ADMIN_CONFIG = {
   // Clave secreta privada para generar el hash diario
   SECRET_KEY: "TOTALPLAY_CLIMA_2026_SECURE_KEY",
   
-  // Correo institucional al que llegará el enlace todos los días a las 8:00 AM
-  ADMIN_EMAIL: "tu_correo@totalplay.com.mx",
+  // Puedes poner varios correos separados por comas
+  ADMIN_EMAILS: "tu_correo@totalplay.com.mx, otro_admin@totalplay.com.mx",
   
   // URL pública donde está alojado tu admin.html
   ADMIN_APP_URL: "https://climatotalplay.netlify.app/admin.html"
@@ -76,8 +76,12 @@ function sendDailyAdminEmail() {
     </div>
   `;
 
+  var recipients = Array.isArray(ADMIN_CONFIG.ADMIN_EMAILS)
+    ? ADMIN_CONFIG.ADMIN_EMAILS.join(",")
+    : (ADMIN_CONFIG.ADMIN_EMAILS || ADMIN_CONFIG.ADMIN_EMAIL);
+
   MailApp.sendEmail({
-    to: ADMIN_CONFIG.ADMIN_EMAIL,
+    to: recipients,
     subject: "🔐 Enlace Diario al Panel de Administración - Totalplay (" + todayStr + ")",
     htmlBody: htmlMessage
   });
