@@ -499,29 +499,34 @@
             const hint = document.getElementById("kHint");
             const quickTapHint = document.getElementById("quickTapHint");
 
-            // RENDER LIKERT SCALE (Optimizado vertical en móvil, fila táctil)
+            // RENDER LIKERT SCALE (5 columnas en escritorio, lista táctil en móvil)
             if (q.type === "likert") {
                 if (quickTapHint) quickTapHint.classList.remove("hidden");
                 const grid = document.createElement("div");
-                grid.className = "flex flex-col gap-2 my-1 w-full";
+                grid.className = "grid grid-cols-1 md:grid-cols-5 gap-2.5 md:gap-3 my-2 w-full justify-center";
 
                 LIKERT_LEVELS.forEach((level) => {
                     const card = document.createElement("button");
                     card.type = "button";
                     const isSelected = (surveyResponses[q.id] === level.text);
 
-                    card.className = `w-full p-3 sm:p-3.5 rounded-2xl border text-left flex items-center justify-between gap-3 transition-all cursor-pointer active:scale-[0.98] ${isSelected
-                        ? `${level.activeBg} ring-2 ring-primary/40 font-bold shadow-sm option-selected`
+                    card.className = `w-full p-3.5 md:p-5 rounded-2xl border text-left md:text-center flex flex-row md:flex-col items-center justify-between md:justify-center gap-3 transition-all cursor-pointer relative group active:scale-[0.98] ${isSelected
+                        ? `${level.activeBg} ring-2 ring-primary/40 font-bold shadow-md option-selected`
                         : "bg-surface-container-lowest/90 border-outline-variant/40 text-on-surface hover:border-primary/50 hover:bg-surface-container-low"
                         }`;
 
                     card.setAttribute("data-val", level.val);
                     card.innerHTML = `
-                        <div class="flex items-center gap-3 min-w-0">
-                            <span class="text-2xl sm:text-3xl shrink-0">${level.emoji}</span>
-                            <span class="text-xs sm:text-sm leading-tight ${isSelected ? 'font-black' : 'font-semibold'}">${level.text}</span>
+                        <!-- Badge de puntos en escritorio -->
+                        <span class="absolute top-2 right-2 text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-md bg-surface-container-high/70 text-outline hidden md:block">${level.val} pts</span>
+                        
+                        <div class="flex md:flex-col items-center gap-3 md:gap-2.5 min-w-0 w-full">
+                            <span class="text-2xl sm:text-3xl md:text-4xl shrink-0 group-hover:scale-110 transition-transform">${level.emoji}</span>
+                            <span class="text-xs sm:text-sm leading-snug md:text-center ${isSelected ? 'font-black' : 'font-semibold'}">${level.text}</span>
                         </div>
-                        <div class="flex items-center gap-2 shrink-0">
+
+                        <!-- Badge móvil -->
+                        <div class="flex items-center gap-2 shrink-0 md:hidden">
                             <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-surface-container-high/60 text-outline">${level.val} pts</span>
                             <div class="w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-primary bg-primary text-white' : 'border-outline-variant/60'}">
                                 ${isSelected ? '<span class="material-symbols-outlined text-xs">check</span>' : ''}
@@ -539,14 +544,14 @@
                 if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">5</span> para responder rápido (5 = Máximo)`;
             }
 
-            // RENDER SCALE 0 TO 10 (Optimizado 2 filas táctiles en móvil)
+            // RENDER SCALE 0 TO 10 (Botones proporcionales y centrados)
             else if (q.type === "scale10") {
                 if (quickTapHint) quickTapHint.classList.remove("hidden");
                 const container = document.createElement("div");
-                container.className = "flex flex-col gap-3 w-full py-1";
+                container.className = "flex flex-col gap-3.5 w-full max-w-2xl mx-auto py-2";
 
                 const grid = document.createElement("div");
-                grid.className = "grid grid-cols-6 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 justify-center";
+                grid.className = "grid grid-cols-6 sm:flex sm:flex-nowrap gap-1.5 sm:gap-2 md:gap-2.5 justify-center items-center w-full";
 
                 const startVal = q.startAtZero ? 0 : 1;
                 for (let i = startVal; i <= 10; i++) {
@@ -560,7 +565,7 @@
                     else if (i <= 8) colorTier = "hover:border-amber-400";
                     else colorTier = "hover:border-emerald-500";
 
-                    btn.className = `h-11 sm:h-12 rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm transition-all active:scale-90 ${isSelected
+                    btn.className = `w-full sm:w-12 sm:h-12 md:w-14 md:h-14 aspect-square sm:aspect-auto h-11 rounded-xl sm:rounded-2xl flex items-center justify-center font-bold text-xs sm:text-sm md:text-base transition-all active:scale-95 shrink-0 ${isSelected
                         ? "bg-gradient-to-br from-primary to-[#C8A0F0] text-white ring-2 ring-primary/40 scale-105 shadow-md font-black option-selected"
                         : `bg-surface-container-lowest border border-outline-variant/50 ${colorTier} shadow-xs`
                         }`;
@@ -576,7 +581,7 @@
                 }
 
                 const labels = document.createElement("div");
-                labels.className = "flex justify-between text-[11px] font-bold text-outline px-1";
+                labels.className = "flex justify-between text-[11px] sm:text-xs font-bold text-outline px-1 w-full";
                 labels.innerHTML = `<span>${q.minText}</span><span>${q.maxText}</span>`;
 
                 container.appendChild(grid);
