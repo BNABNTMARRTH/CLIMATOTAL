@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Panel de Administración | Clima Laboral Totalplay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
@@ -42,6 +42,7 @@
         body {
             font-family: 'Outfit', sans-serif;
             background-color: #f0f4fd;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .glass-card {
@@ -53,15 +54,8 @@
         }
 
         @keyframes breathe {
-
-            0%,
-            100% {
-                transform: scale(1) translate(0, 0);
-            }
-
-            50% {
-                transform: scale(1.02) translate(-5px, 2px);
-            }
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.02) translate(-5px, 2px); }
         }
 
         .bg-animate {
@@ -70,7 +64,7 @@
     </style>
 </head>
 
-<body class="min-h-screen text-on-surface flex flex-col justify-between relative overflow-x-hidden">
+<body class="min-h-[100dvh] text-on-surface flex flex-col justify-between relative overflow-x-hidden p-3 sm:p-6">
 
     <!-- Background Layer -->
     <div class="fixed inset-0 z-0 bg-animate pointer-events-none opacity-35 blur-[1px]"
@@ -79,39 +73,81 @@
 
     <!-- Ambient Aurora Glow Behind Card -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div
-            class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]">
-        </div>
+        <div class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]"></div>
     </div>
 
     <!-- MAIN CONTAINER -->
-    <main class="w-full max-w-5xl mx-auto p-4 md:p-8 relative z-10 my-auto">
-        <div class="glass-card rounded-[32px] p-6 md:p-10 space-y-6">
+    <main class="w-full max-w-5xl mx-auto relative z-10 my-auto">
+
+        <!-- ⛔ PANTALLA DE ACCESO RESTRINGIDO (Si el token falta o expiró) -->
+        <div id="unauthorizedScreen" class="hidden glass-card rounded-[32px] p-6 sm:p-12 text-center max-w-lg mx-auto space-y-6 shadow-2xl">
+            <div class="w-20 h-20 rounded-full bg-rose-500/10 border-2 border-rose-500/30 flex items-center justify-center text-rose-600 mx-auto shadow-md">
+                <span class="material-symbols-outlined text-4xl">lock</span>
+            </div>
+
+            <div class="space-y-2">
+                <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-black uppercase font-mono tracking-wider">
+                    Acceso Restringido
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-black text-on-surface tracking-tight">
+                    Enlace de Acceso Inválido o Expirado
+                </h1>
+                <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+                    Por seguridad, la dirección del panel cambia todos los días. Para ingresar, utiliza el <span class="font-bold text-primary">enlace enviado a tu correo institucional a las 8:00 AM</span>.
+                </p>
+            </div>
+
+            <!-- Entrada manual de código opcional -->
+            <div class="bg-surface-container-low/70 p-4 rounded-2xl border border-outline-variant/30 text-left space-y-3">
+                <label for="manualTokenInput" class="text-xs font-bold text-on-surface-variant flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-primary text-base">key</span>
+                    <span>¿Tienes el código del día? Ingrésalo aquí:</span>
+                </label>
+                <div class="flex gap-2">
+                    <input id="manualTokenInput" type="text" placeholder="Ej: TP-20260819-A8F43B21"
+                        class="flex-1 px-3.5 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-xs font-mono font-bold text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 uppercase">
+                    <button onclick="submitManualToken()" class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-hover transition-colors flex items-center gap-1 shrink-0 shadow-sm">
+                        <span>Validar</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+                <p id="tokenErrorMsg" class="hidden text-[11px] text-rose-600 font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">error</span> Código no válido para el día de hoy
+                </p>
+            </div>
+
+            <div class="pt-1">
+                <a href="index.html" class="inline-flex items-center gap-1.5 text-xs text-outline hover:text-primary font-bold transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>Ir a la Encuesta de Colaboradores</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 📊 DASHBOARD AUTORIZADO (Visible únicamente con token válido) -->
+        <div id="authorizedDashboard" class="hidden glass-card rounded-[32px] p-5 sm:p-8 md:p-10 space-y-6">
 
             <!-- HEADER -->
-            <header
-                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+            <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
                 <div class="flex items-center gap-4">
                     <div class="h-12 overflow-hidden flex items-center">
-                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
-                            class="h-28 w-auto object-contain -my-8">
+                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-28 w-auto object-contain -my-8">
                     </div>
                     <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de
-                                Administración</h1>
-                            <span
-                                class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase font-mono tracking-wider">Admin</span>
+                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de Administración</h1>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase font-mono tracking-wider flex items-center gap-1">
+                                <span class="material-symbols-outlined text-xs">verified_user</span>
+                                <span>Autorizado</span>
+                            </span>
                         </div>
-                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral
-                        </p>
+                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <a href="index.html"
-                        class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
+                    <a href="index.html" class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
                         <span class="material-symbols-outlined text-sm">assignment</span>
                         <span>Ir a Encuesta</span>
                     </a>
@@ -119,11 +155,9 @@
             </header>
 
             <!-- TOOLBAR / FILTERS -->
-            <div
-                class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
                 <div class="flex items-center gap-2">
-                    <label for="globalAreaFilter"
-                        class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                    <label for="globalAreaFilter" class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
                         <span class="material-symbols-outlined text-primary text-base">filter_alt</span>
                         <span>Filtrar por Área:</span>
                     </label>
@@ -140,13 +174,10 @@
                 </div>
 
                 <div class="flex items-center gap-2.5 self-end sm:self-auto">
-                    <span id="globalTotalBadge"
-                        class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
+                    <span id="globalTotalBadge" class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
                         0 respuestas
                     </span>
-                    <button onclick="loadGlobalData()"
-                        class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center"
-                        title="Actualizar datos desde Google Sheets">
+                    <button onclick="loadGlobalData()" class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center" title="Actualizar datos desde Google Sheets">
                         <span id="refreshIcon" class="material-symbols-outlined text-base">refresh</span>
                     </button>
                 </div>
@@ -158,36 +189,22 @@
                 <p class="text-xs text-on-surface-variant font-bold">Cargando respuestas desde Google Sheets...</p>
             </div>
 
-            <!-- CONFIG WARNING -->
-            <div id="globalConfigWarning"
-                class="hidden bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-800 space-y-2">
-                <div class="flex items-center gap-2 font-bold text-amber-700">
-                    <span class="material-symbols-outlined text-base">warning</span>
-                    <span>Configuración de Google Sheets pendiente</span>
-                </div>
-                <p>Verifica que la constante <code class="bg-amber-100 px-1 py-0.5 rounded font-mono">SCRIPT_URL</code>
-                    contenga la URL correcta de tu Web App de Google Apps Script.</p>
-            </div>
-
             <!-- MAIN METRICS CONTAINER -->
             <div id="globalMetricsContainer" class="hidden space-y-6">
 
                 <!-- TOP CARDS: eNPS & CLIMA GLOBAL -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+                    
                     <!-- Card eNPS Global -->
-                    <div
-                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
+                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global
-                                Consolidado</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global Consolidado</span>
                             <span class="text-[10px] text-outline font-semibold">Recomendación Empresa</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
                                 <span id="gEnpsScore" class="text-4xl font-black text-emerald-600 font-mono">+0</span>
-                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente
-                                    (Fidelidad Alta)</p>
+                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente (Fidelidad Alta)</p>
                             </div>
                             <div class="text-right text-xs space-y-0.5">
                                 <p class="text-emerald-600 font-bold">Promotores: <span id="gPctProm">0%</span></p>
@@ -196,31 +213,24 @@
                             </div>
                         </div>
                         <!-- Bar visual eNPS -->
-                        <div
-                            class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
-                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500"
-                                style="width: 0%"></div>
-                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%">
-                            </div>
-                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%">
-                            </div>
+                        <div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
+                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%"></div>
+                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
                         </div>
                     </div>
 
                     <!-- Card Promedio General Clima -->
-                    <div
-                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral
-                                General</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral General</span>
                             <div class="flex items-baseline gap-2">
                                 <span id="gOverallScore" class="text-4xl font-black text-primary font-mono">0.00</span>
                                 <span class="text-xs text-outline font-bold">/ 5.00</span>
                             </div>
                             <p id="gOverallLabel" class="text-xs font-bold text-on-surface-variant">Satisfecho 😄</p>
                         </div>
-                        <div
-                            class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
+                        <div class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
                             <span id="gOverallEmoji" class="text-4xl">😄</span>
                         </div>
                     </div>
@@ -231,10 +241,8 @@
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por
-                                Dimensión</h2>
-                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el
-                                desglose de preguntas</p>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por Dimensión</h2>
+                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el desglose de preguntas</p>
                         </div>
                     </div>
                     <div id="gCategoriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
@@ -303,29 +311,64 @@
             return { text: "Infeliz", colorClass: "text-red-600", bgBadge: "bg-red-600", emoji: "😠" };
         }
 
+        // GESTIÓN DE TOKEN DE ACCESO
+        function getAccessToken() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("access") || urlParams.get("token") || window.location.hash.replace("#", "") || sessionStorage.getItem("tp_admin_token");
+            return token ? token.trim() : "";
+        }
+
+        function setAccessToken(token) {
+            sessionStorage.setItem("tp_admin_token", token);
+            const url = new URL(window.location);
+            url.searchParams.set("access", token);
+            window.history.replaceState({}, "", url);
+        }
+
+        function submitManualToken() {
+            const input = document.getElementById("manualTokenInput");
+            const err = document.getElementById("tokenErrorMsg");
+            if (!input || !input.value.trim()) return;
+
+            setAccessToken(input.value.trim());
+            if (err) err.classList.add("hidden");
+            loadGlobalData();
+        }
+
         let rawGlobalData = [];
 
         async function loadGlobalData() {
+            const unauthScreen = document.getElementById("unauthorizedScreen");
+            const authDashboard = document.getElementById("authorizedDashboard");
             const loading = document.getElementById("globalLoading");
-            const warning = document.getElementById("globalConfigWarning");
             const container = document.getElementById("globalMetricsContainer");
             const refreshIcon = document.getElementById("refreshIcon");
 
-            if (!SCRIPT_URL || SCRIPT_URL.trim() === "") {
-                loading.classList.add("hidden");
-                warning.classList.remove("hidden");
-                container.classList.add("hidden");
+            const currentToken = getAccessToken();
+
+            if (!currentToken) {
+                unauthScreen.classList.remove("hidden");
+                authDashboard.classList.add("hidden");
                 return;
             }
 
+            authDashboard.classList.remove("hidden");
+            unauthScreen.classList.add("hidden");
             loading.classList.remove("hidden");
-            warning.classList.add("hidden");
             container.classList.add("hidden");
             if (refreshIcon) refreshIcon.classList.add("animate-spin");
 
             try {
-                const response = await fetch(SCRIPT_URL);
+                const response = await fetch(`${SCRIPT_URL}?access=${encodeURIComponent(currentToken)}`);
                 const result = await response.json();
+
+                if (result.status === "unauthorized" || result.authorized === false) {
+                    unauthScreen.classList.remove("hidden");
+                    authDashboard.classList.add("hidden");
+                    const err = document.getElementById("tokenErrorMsg");
+                    if (err) err.classList.remove("hidden");
+                    return;
+                }
 
                 if (result.status === "success" && Array.isArray(result.data)) {
                     rawGlobalData = result.data;
@@ -335,7 +378,8 @@
                 }
             } catch (err) {
                 console.error("Error al consultar datos globales:", err);
-                alert("Ocurrió un error al consultar Google Sheets. Verifica la URL de tu script.");
+                unauthScreen.classList.remove("hidden");
+                authDashboard.classList.add("hidden");
             } finally {
                 loading.classList.add("hidden");
                 if (refreshIcon) refreshIcon.classList.remove("animate-spin");
@@ -388,7 +432,6 @@
             let sumClimate = 0, countClimate = 0;
             const categorySums = {};
 
-            // Inicializar las dimensiones y sus preguntas en orden
             QUESTIONS.filter(q => q.type === "likert").forEach(q => {
                 if (!categorySums[q.category]) {
                     categorySums[q.category] = {
@@ -415,7 +458,6 @@
                     else detractores++;
                 }
 
-                // Clima Laboral Likert
                 QUESTIONS.filter(q => q.type === "likert").forEach(q => {
                     const ansText = r[q.id];
                     if (ansText && LIKERT_SCORES[ansText]) {
@@ -525,7 +567,7 @@
             }
         }
 
-        // Cargar datos automáticamente al abrir la página
+        // Cargar datos automáticamente
         loadGlobalData();
     </script>
 </body>

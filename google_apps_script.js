@@ -1,30 +1,118 @@
 /**
  * GOOGLE APPS SCRIPT PARA ENCUESTA DE CLIMA LABORAL TOTALPLAY
+ * Con Sistema de Seguridad de Enlace Diario Rotativo (Magic Link)
  * 
  * Instrucciones de instalación:
  * 1. Abre tu hoja de Google Sheets.
  * 2. Ve a "Extensiones" > "Apps Script".
- * 3. Borra todo el código que aparezca y pega este script.
- * 4. Haz clic en "Guardar" (icono de disco).
- * 5. Haz clic en "Implementar" > "Nueva implementación".
- * 6. Selecciona el tipo "Aplicación web".
- * 7. En "Ejecutar como", selecciona "Yo".
- * 8. En "Quién tiene acceso", selecciona "Cualquier persona" (Anyone).
- * 9. Haz clic en "Implementar", autoriza los permisos y COPIA la URL de la aplicación web.
- * 10. Pega esa URL en tu index.html en la constante SCRIPT_URL.
+ * 3. Reemplaza todo el código por este script.
+ * 4. Ajusta la variable ADMIN_CONFIG con tu correo y la URL de tu página.
+ * 5. Haz clic en "Guardar" (icono de disco).
+ * 6. Haz clic en "Implementar" > "Gestionar implementaciones" > Edita y crea una "Nueva versión".
+ * 7. (Opcional) Ejecuta la función "crearTriggerDiario8AM()" una sola vez para programar el envío automático diario a las 8:00 AM.
  */
 
-// Permite peticiones POST desde la encuesta web
+// CONFIGURACIÓN DEL ADMINISTRADOR
+var ADMIN_CONFIG = {
+  // Clave secreta privada para generar el hash diario
+  SECRET_KEY: "TOTALPLAY_CLIMA_2026_SECURE_KEY",
+  
+  // Correo institucional al que llegará el enlace todos los días a las 8:00 AM
+  ADMIN_EMAIL: "tu_correo@totalplay.com.mx",
+  
+  // URL pública donde está alojado tu admin.html
+  ADMIN_APP_URL: "https://climatotalplay.netlify.app/admin.html"
+};
+
+/**
+ * Genera el token criptográfico único para la fecha indicada (o el día de hoy)
+ * Formato: TP-YYYYMMDD-XXXXXXXX
+ */
+function getDailyToken(optDateStr) {
+  var dateStr = optDateStr || Utilities.formatDate(new Date(), "America/Mexico_City", "yyyy-MM-dd");
+  var raw = dateStr + "_" + ADMIN_CONFIG.SECRET_KEY;
+  var digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, raw);
+  var hex = "";
+  for (var i = 0; i < 4; i++) {
+    var byteVal = (digest[i] < 0 ? digest[i] + 256 : digest[i]).toString(16);
+    hex += (byteVal.length === 1 ? "0" : "") + byteVal;
+  }
+  return "TP-" + dateStr.replace(/-/g, "") + "-" + hex.toUpperCase();
+}
+
+/**
+ * Envía por correo el enlace de acceso del día con diseño Totalplay
+ * Se ejecuta automáticamente todos los días a las 8:00 AM mediante el Trigger
+ */
+function sendDailyAdminEmail() {
+  var token = getDailyToken();
+  var todayStr = Utilities.formatDate(new Date(), "America/Mexico_City", "dd/MM/yyyy");
+  var linkUrl = ADMIN_CONFIG.ADMIN_APP_URL + "?access=" + token;
+
+  var htmlMessage = `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px rgba(0,0,0,0.06);">
+      <div style="background: linear-gradient(135deg, #0035c5 0%, #7b2cbf 100%); padding: 32px 24px; text-align: center; color: #ffffff;">
+        <h1 style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">Totalplay® Clima Laboral</h1>
+        <p style="margin: 6px 0 0 0; font-size: 13px; opacity: 0.9; font-weight: 500;">Enlace de Acceso Diario al Panel de Administración</p>
+      </div>
+      <div style="padding: 32px 26px; color: #1a202c; line-height: 1.6;">
+        <p style="font-size: 15px; margin-top: 0;">Hola <strong>Administrador</strong>,</p>
+        <p style="font-size: 14px; color: #4a5568;">Aquí tienes tu enlace de seguridad exclusivo para consultar las respuestas consolidadas y métricas de clima laboral de hoy (<strong>${todayStr}</strong>):</p>
+        
+        <div style="text-align: center; margin: 32px 0;">
+          <a href="${linkUrl}" target="_blank" style="background: #0035c5; color: #ffffff; text-decoration: none; padding: 15px 32px; font-size: 14px; font-weight: bold; border-radius: 50px; display: inline-block; box-shadow: 0 4px 15px rgba(0,53,197,0.35);">
+            🔐 Abrir Panel de Administración
+          </a>
+        </div>
+
+        <div style="background: #f7fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0035c5; padding: 14px 16px; border-radius: 8px; font-size: 12px; color: #4a5568;">
+          <p style="margin: 0 0 6px 0;"><strong>Código de acceso del día:</strong> <code style="font-family: monospace; background: #edf2f7; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #0035c5;">${token}</code></p>
+          <span style="color: #718096; font-size: 11px;">⚠️ Este enlace expira automáticamente hoy a las 11:59 PM. Mañana a las 8:00 AM recibirás un nuevo enlace automático.</span>
+        </div>
+      </div>
+      <div style="background: #edf2f7; padding: 16px; text-align: center; font-size: 11px; color: #718096;">
+        Totalplay® 2026 - San Luis | Sistema de Seguridad Automatizado
+      </div>
+    </div>
+  `;
+
+  MailApp.sendEmail({
+    to: ADMIN_CONFIG.ADMIN_EMAIL,
+    subject: "🔐 Enlace Diario al Panel de Administración - Totalplay (" + todayStr + ")",
+    htmlBody: htmlMessage
+  });
+}
+
+/**
+ * Función para programar automáticamente el envío diario a las 8:00 AM
+ * Solo necesitas ejecutar esta función una vez en el editor de Apps Script.
+ */
+function crearTriggerDiario8AM() {
+  var triggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === "sendDailyAdminEmail") {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+  ScriptApp.newTrigger("sendDailyAdminEmail")
+    .timeBased()
+    .atHour(8)
+    .everyDays(1)
+    .inTimezone("America/Mexico_City")
+    .create();
+    
+  Logger.log("Trigger diario a las 8:00 AM programado con éxito.");
+}
+
+// RECIBE RESPUESTAS DE LA ENCUESTA (POST)
 function doPost(e) {
   var lock = LockService.getScriptLock();
   try {
-    // Espera hasta 10 segundos si entran varias respuestas simultáneas
     lock.waitLock(10000);
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName("Respuestas");
 
-    // Si la pestaña no existe, se crea con sus encabezados
     if (!sheet) {
       sheet = ss.insertSheet("Respuestas");
       sheet.appendRow([
@@ -109,26 +197,39 @@ function doPost(e) {
   }
 }
 
-// Permite peticiones GET para consultar todas las respuestas en la vista de Dashboard Global del proyecto
+// CONSULTA DE RESPUESTAS PROTEGIDA CON TOKEN DIARIO (GET)
 function doGet(e) {
   try {
+    var reqToken = (e && e.parameter && (e.parameter.access || e.parameter.token)) || "";
+    var currentToken = getDailyToken();
+
+    // Verificación de seguridad del token diario
+    if (!reqToken || reqToken.trim().toUpperCase() !== currentToken.toUpperCase()) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ 
+          status: "unauthorized", 
+          authorized: false, 
+          message: "Acceso denegado: El enlace de acceso no es válido o ha expirado." 
+        }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName("Respuestas");
 
     if (!sheet) {
       return ContentService
-        .createTextOutput(JSON.stringify({ status: "success", total: 0, data: [] }))
+        .createTextOutput(JSON.stringify({ status: "success", authorized: true, total: 0, data: [] }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
     var values = sheet.getDataRange().getValues();
     if (values.length <= 1) {
       return ContentService
-        .createTextOutput(JSON.stringify({ status: "success", total: 0, data: [] }))
+        .createTextOutput(JSON.stringify({ status: "success", authorized: true, total: 0, data: [] }))
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    var headers = values[0];
     var data = [];
 
     for (var i = 1; i < values.length; i++) {
@@ -141,7 +242,6 @@ function doGet(e) {
         responses: {}
       };
 
-      // Si la columna JSON existe, parsearla
       if (row[jsonColIdx]) {
         try {
           item.responses = JSON.parse(row[jsonColIdx]);
@@ -156,7 +256,7 @@ function doGet(e) {
     }
 
     return ContentService
-      .createTextOutput(JSON.stringify({ status: "success", total: data.length, data: data }))
+      .createTextOutput(JSON.stringify({ status: "success", authorized: true, total: data.length, data: data }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
