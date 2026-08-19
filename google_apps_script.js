@@ -21,7 +21,7 @@ var ADMIN_CONFIG = {
   ADMIN_EMAILS: "tu_correo@totalplay.com.mx, otro_admin@totalplay.com.mx",
   
   // URL pública donde está alojado tu admin.html
-  ADMIN_APP_URL: "https://climatotalplay.netlify.app/admin.html"
+  ADMIN_APP_URL: "https://encuesta-totalplay-sanluis.netlify.app/admin.html"
 };
 
 /**
