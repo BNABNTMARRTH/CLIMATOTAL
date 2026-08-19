@@ -53,8 +53,15 @@
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.02) translate(-5px, 2px); }
+
+            0%,
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            50% {
+                transform: scale(1.02) translate(-5px, 2px);
+            }
         }
 
         .bg-animate {
@@ -72,7 +79,9 @@
 
     <!-- Ambient Aurora Glow Behind Card -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]"></div>
+        <div
+            class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]">
+        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
@@ -80,23 +89,29 @@
         <div class="glass-card rounded-[32px] p-6 md:p-10 space-y-6">
 
             <!-- HEADER -->
-            <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+            <header
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
                 <div class="flex items-center gap-4">
                     <div class="h-12 overflow-hidden flex items-center">
-                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-28 w-auto object-contain -my-8">
+                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
+                            class="h-28 w-auto object-contain -my-8">
                     </div>
                     <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de Administración</h1>
-                            <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase font-mono tracking-wider">Admin</span>
+                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de
+                                Administración</h1>
+                            <span
+                                class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase font-mono tracking-wider">Admin</span>
                         </div>
-                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral</p>
+                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral
+                        </p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <a href="index.html" class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
+                    <a href="index.html"
+                        class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
                         <span class="material-symbols-outlined text-sm">assignment</span>
                         <span>Ir a Encuesta</span>
                     </a>
@@ -104,9 +119,11 @@
             </header>
 
             <!-- TOOLBAR / FILTERS -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
                 <div class="flex items-center gap-2">
-                    <label for="globalAreaFilter" class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                    <label for="globalAreaFilter"
+                        class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
                         <span class="material-symbols-outlined text-primary text-base">filter_alt</span>
                         <span>Filtrar por Área:</span>
                     </label>
@@ -123,10 +140,13 @@
                 </div>
 
                 <div class="flex items-center gap-2.5 self-end sm:self-auto">
-                    <span id="globalTotalBadge" class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
+                    <span id="globalTotalBadge"
+                        class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
                         0 respuestas
                     </span>
-                    <button onclick="loadGlobalData()" class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center" title="Actualizar datos desde Google Sheets">
+                    <button onclick="loadGlobalData()"
+                        class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center"
+                        title="Actualizar datos desde Google Sheets">
                         <span id="refreshIcon" class="material-symbols-outlined text-base">refresh</span>
                     </button>
                 </div>
@@ -139,12 +159,14 @@
             </div>
 
             <!-- CONFIG WARNING -->
-            <div id="globalConfigWarning" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-800 space-y-2">
+            <div id="globalConfigWarning"
+                class="hidden bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-800 space-y-2">
                 <div class="flex items-center gap-2 font-bold text-amber-700">
                     <span class="material-symbols-outlined text-base">warning</span>
                     <span>Configuración de Google Sheets pendiente</span>
                 </div>
-                <p>Verifica que la constante <code class="bg-amber-100 px-1 py-0.5 rounded font-mono">SCRIPT_URL</code> contenga la URL correcta de tu Web App de Google Apps Script.</p>
+                <p>Verifica que la constante <code class="bg-amber-100 px-1 py-0.5 rounded font-mono">SCRIPT_URL</code>
+                    contenga la URL correcta de tu Web App de Google Apps Script.</p>
             </div>
 
             <!-- MAIN METRICS CONTAINER -->
@@ -152,17 +174,20 @@
 
                 <!-- TOP CARDS: eNPS & CLIMA GLOBAL -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
+
                     <!-- Card eNPS Global -->
-                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global Consolidado</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global
+                                Consolidado</span>
                             <span class="text-[10px] text-outline font-semibold">Recomendación Empresa</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
                                 <span id="gEnpsScore" class="text-4xl font-black text-emerald-600 font-mono">+0</span>
-                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente (Fidelidad Alta)</p>
+                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente
+                                    (Fidelidad Alta)</p>
                             </div>
                             <div class="text-right text-xs space-y-0.5">
                                 <p class="text-emerald-600 font-bold">Promotores: <span id="gPctProm">0%</span></p>
@@ -171,24 +196,31 @@
                             </div>
                         </div>
                         <!-- Bar visual eNPS -->
-                        <div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
-                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
-                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%"></div>
-                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+                        <div
+                            class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
+                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500"
+                                style="width: 0%"></div>
+                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%">
+                            </div>
+                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Card Promedio General Clima -->
-                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral General</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral
+                                General</span>
                             <div class="flex items-baseline gap-2">
                                 <span id="gOverallScore" class="text-4xl font-black text-primary font-mono">0.00</span>
                                 <span class="text-xs text-outline font-bold">/ 5.00</span>
                             </div>
                             <p id="gOverallLabel" class="text-xs font-bold text-on-surface-variant">Satisfecho 😄</p>
                         </div>
-                        <div class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
+                        <div
+                            class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
                             <span id="gOverallEmoji" class="text-4xl">😄</span>
                         </div>
                     </div>
@@ -199,8 +231,10 @@
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por Dimensión</h2>
-                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el desglose de preguntas</p>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por
+                                Dimensión</h2>
+                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el
+                                desglose de preguntas</p>
                         </div>
                     </div>
                     <div id="gCategoriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
@@ -214,7 +248,7 @@
     </main>
 
     <footer class="py-4 text-center text-xs text-outline font-medium relative z-10">
-        Totalplay © 2026 - Sistema de Gestión de Clima Laboral
+        Totalplay® 2026 - San Luis
     </footer>
 
     <script>
