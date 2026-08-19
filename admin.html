@@ -54,8 +54,15 @@
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.02) translate(-5px, 2px); }
+
+            0%,
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            50% {
+                transform: scale(1.02) translate(-5px, 2px);
+            }
         }
 
         .bg-animate {
@@ -73,40 +80,49 @@
 
     <!-- Ambient Aurora Glow Behind Card -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]"></div>
+        <div
+            class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]">
+        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
     <main class="w-full max-w-5xl mx-auto relative z-10 my-auto">
 
         <!-- ⛔ PANTALLA DE ACCESO RESTRINGIDO (Si el token falta o expiró) -->
-        <div id="unauthorizedScreen" class="hidden glass-card rounded-[32px] p-6 sm:p-12 text-center max-w-lg mx-auto space-y-6 shadow-2xl">
-            <div class="w-20 h-20 rounded-full bg-rose-500/10 border-2 border-rose-500/30 flex items-center justify-center text-rose-600 mx-auto shadow-md">
+        <div id="unauthorizedScreen"
+            class="hidden glass-card rounded-[32px] p-6 sm:p-12 text-center max-w-lg mx-auto space-y-6 shadow-2xl">
+            <div
+                class="w-20 h-20 rounded-full bg-rose-500/10 border-2 border-rose-500/30 flex items-center justify-center text-rose-600 mx-auto shadow-md">
                 <span class="material-symbols-outlined text-4xl">lock</span>
             </div>
 
             <div class="space-y-2">
-                <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-black uppercase font-mono tracking-wider">
+                <span
+                    class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-black uppercase font-mono tracking-wider">
                     Acceso Restringido
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-black text-on-surface tracking-tight">
                     Enlace de Acceso Inválido o Expirado
                 </h1>
                 <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-                    Por seguridad, la dirección del panel cambia todos los días. Para ingresar, utiliza el <span class="font-bold text-primary">enlace enviado a tu correo institucional a las 8:00 AM</span>.
+                    Por seguridad, la dirección del panel cambia todos los días. Para ingresar, utiliza el <span
+                        class="font-bold text-primary">enlace que se te envía a tu correo.</span>.
                 </p>
             </div>
 
             <!-- Entrada manual de código opcional -->
-            <div class="bg-surface-container-low/70 p-4 rounded-2xl border border-outline-variant/30 text-left space-y-3">
-                <label for="manualTokenInput" class="text-xs font-bold text-on-surface-variant flex items-center gap-1.5">
+            <div
+                class="bg-surface-container-low/70 p-4 rounded-2xl border border-outline-variant/30 text-left space-y-3">
+                <label for="manualTokenInput"
+                    class="text-xs font-bold text-on-surface-variant flex items-center gap-1.5">
                     <span class="material-symbols-outlined text-primary text-base">key</span>
-                    <span>¿Tienes el código del día? Ingrésalo aquí:</span>
+                    <span>¿Tienes el código? Ingrésalo aquí:</span>
                 </label>
                 <div class="flex gap-2">
-                    <input id="manualTokenInput" type="text" placeholder="Ej: TP-20260819-A8F43B21"
+                    <input id="manualTokenInput" type="text" placeholder="Ej: TP-AAAAMMDD-ABCXXXXX"
                         class="flex-1 px-3.5 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-xs font-mono font-bold text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 uppercase">
-                    <button onclick="submitManualToken()" class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-hover transition-colors flex items-center gap-1 shrink-0 shadow-sm">
+                    <button onclick="submitManualToken()"
+                        class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-hover transition-colors flex items-center gap-1 shrink-0 shadow-sm">
                         <span>Validar</span>
                         <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
@@ -117,7 +133,8 @@
             </div>
 
             <div class="pt-1">
-                <a href="index.html" class="inline-flex items-center gap-1.5 text-xs text-outline hover:text-primary font-bold transition-colors">
+                <a href="index.html"
+                    class="inline-flex items-center gap-1.5 text-xs text-outline hover:text-primary font-bold transition-colors">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
                     <span>Ir a la Encuesta de Colaboradores</span>
                 </a>
@@ -128,26 +145,32 @@
         <div id="authorizedDashboard" class="hidden glass-card rounded-[32px] p-5 sm:p-8 md:p-10 space-y-6">
 
             <!-- HEADER -->
-            <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+            <header
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
                 <div class="flex items-center gap-4">
                     <div class="h-12 overflow-hidden flex items-center">
-                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-28 w-auto object-contain -my-8">
+                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
+                            class="h-28 w-auto object-contain -my-8">
                     </div>
                     <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de Administración</h1>
-                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase font-mono tracking-wider flex items-center gap-1">
+                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de
+                                Administración</h1>
+                            <span
+                                class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase font-mono tracking-wider flex items-center gap-1">
                                 <span class="material-symbols-outlined text-xs">verified_user</span>
                                 <span>Autorizado</span>
                             </span>
                         </div>
-                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral</p>
+                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral
+                        </p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <a href="index.html" class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
+                    <a href="index.html"
+                        class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
                         <span class="material-symbols-outlined text-sm">assignment</span>
                         <span>Ir a Encuesta</span>
                     </a>
@@ -155,9 +178,11 @@
             </header>
 
             <!-- TOOLBAR / FILTERS -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
                 <div class="flex items-center gap-2">
-                    <label for="globalAreaFilter" class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                    <label for="globalAreaFilter"
+                        class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
                         <span class="material-symbols-outlined text-primary text-base">filter_alt</span>
                         <span>Filtrar por Área:</span>
                     </label>
@@ -174,10 +199,13 @@
                 </div>
 
                 <div class="flex items-center gap-2.5 self-end sm:self-auto">
-                    <span id="globalTotalBadge" class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
+                    <span id="globalTotalBadge"
+                        class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
                         0 respuestas
                     </span>
-                    <button onclick="loadGlobalData()" class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center" title="Actualizar datos desde Google Sheets">
+                    <button onclick="loadGlobalData()"
+                        class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center"
+                        title="Actualizar datos desde Google Sheets">
                         <span id="refreshIcon" class="material-symbols-outlined text-base">refresh</span>
                     </button>
                 </div>
@@ -194,17 +222,20 @@
 
                 <!-- TOP CARDS: eNPS & CLIMA GLOBAL -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
+
                     <!-- Card eNPS Global -->
-                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global Consolidado</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global
+                                Consolidado</span>
                             <span class="text-[10px] text-outline font-semibold">Recomendación Empresa</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <div>
                                 <span id="gEnpsScore" class="text-4xl font-black text-emerald-600 font-mono">+0</span>
-                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente (Fidelidad Alta)</p>
+                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente
+                                    (Fidelidad Alta)</p>
                             </div>
                             <div class="text-right text-xs space-y-0.5">
                                 <p class="text-emerald-600 font-bold">Promotores: <span id="gPctProm">0%</span></p>
@@ -213,24 +244,31 @@
                             </div>
                         </div>
                         <!-- Bar visual eNPS -->
-                        <div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
-                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
-                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%"></div>
-                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+                        <div
+                            class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
+                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500"
+                                style="width: 0%"></div>
+                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%">
+                            </div>
+                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Card Promedio General Clima -->
-                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+                    <div
+                        class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
                         <div class="space-y-1">
-                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral General</span>
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral
+                                General</span>
                             <div class="flex items-baseline gap-2">
                                 <span id="gOverallScore" class="text-4xl font-black text-primary font-mono">0.00</span>
                                 <span class="text-xs text-outline font-bold">/ 5.00</span>
                             </div>
                             <p id="gOverallLabel" class="text-xs font-bold text-on-surface-variant">Satisfecho 😄</p>
                         </div>
-                        <div class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
+                        <div
+                            class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
                             <span id="gOverallEmoji" class="text-4xl">😄</span>
                         </div>
                     </div>
@@ -241,8 +279,10 @@
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por Dimensión</h2>
-                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el desglose de preguntas</p>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por
+                                Dimensión</h2>
+                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el
+                                desglose de preguntas</p>
                         </div>
                     </div>
                     <div id="gCategoriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
