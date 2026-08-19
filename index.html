@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Totalplay - Encuesta de Clima y Felicidad</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Totalplay - Encuesta de Clima Laboral</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
     <script id="tailwind-config">
@@ -15,88 +15,26 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "surface-container-low": "#f3f3f6",
-                        "primary-fixed": "#dde1ff",
-                        "secondary": "#914c00",
-                        "on-secondary-fixed": "#2f1500",
-                        "on-secondary-fixed-variant": "#6f3900",
-                        "surface-tint": "#0046fa",
-                        "surface-container-highest": "#e2e2e5",
-                        "surface-dim": "#dadadc",
-                        "outline-variant": "#c4c5da",
-                        "on-tertiary-fixed": "#1a1c1c",
-                        "on-background": "#1a1c1e",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-container": "#d4d9ff",
-                        "primary-container": "#0047ff",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#434657",
-                        "surface-container": "#eeeef0",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "on-secondary": "#ffffff",
-                        "secondary-fixed": "#ffdcc4",
-                        "surface-variant": "#e2e2e5",
-                        "surface-container-lowest": "#ffffff",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "error-container": "#ffdad6",
-                        "on-primary-fixed": "#001257",
-                        "error": "#ba1a1a",
+                    colors: {
                         "primary": "#0035c5",
-                        "outline": "#747688",
-                        "background": "#f9f9fc",
-                        "inverse-on-surface": "#f0f0f3",
-                        "surface-container-high": "#e8e8ea",
-                        "surface-bright": "#f9f9fc",
-                        "on-primary": "#ffffff",
-                        "tertiary": "#474949",
-                        "inverse-primary": "#b9c3ff",
-                        "on-error": "#ffffff",
-                        "on-surface": "#1a1c1e",
-                        "primary-fixed-dim": "#b9c3ff",
-                        "inverse-surface": "#2f3133",
-                        "on-secondary-container": "#613100",
-                        "secondary-container": "#ff8a00",
+                        "primary-hover": "#0028a0",
+                        "primary-container": "#0047ff",
+                        "primary-fixed": "#dde1ff",
+                        "secondary": "#ff8a00",
                         "surface": "#f9f9fc",
-                        "on-tertiary-container": "#dbdbdb",
-                        "tertiary-container": "#5f6061",
-                        "on-primary-fixed-variant": "#0033c0",
-                        "secondary-fixed-dim": "#ffb77f",
-                        "tertiary-fixed": "#e2e2e2",
-                        // Glacier Light Custom Colors
-                        "glacier-ice": "#7dd3fc",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-container": "#eeeef0",
+                        "surface-container-high": "#e8e8ea",
+                        "on-surface": "#1a1c1e",
+                        "on-surface-variant": "#434657",
+                        "outline": "#747688",
+                        "outline-variant": "#c4c5da",
                         "glacier-lavender": "#c8a0f0",
-                        "glacier-dark": "#1a2438"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "container-padding": "40px",
-                        "base": "8px",
-                        "max-width-content": "800px",
-                        "element-gap": "24px",
-                        "gutter": "24px",
-                        "margin-mobile": "16px"
-                    },
-                    "fontFamily": {
-                        "label-bold": ["Inter"],
-                        "headline-lg-mobile": ["Montserrat"],
-                        "headline-lg": ["Montserrat"],
-                        "display-scale": ["Montserrat"],
-                        "headline-xl": ["Montserrat"],
-                        "body-md": ["Inter"]
-                    },
-                    "fontSize": {
-                        "label-bold": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
-                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
-                        "display-scale": ["20px", { "lineHeight": "1", "fontWeight": "600" }],
-                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
-                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    fontFamily: {
+                        "headline": ["Montserrat", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
                     }
                 },
             },
@@ -111,310 +49,276 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif !important;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7fe;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        h1,
-        h2,
-        h3,
-        .font-headline-xl,
-        .font-headline-lg {
-            font-family: 'Montserrat', sans-serif !important;
+        h1, h2, h3, .font-headline {
+            font-family: 'Montserrat', sans-serif;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.35);
-            /* High transparency white glassmorphism card */
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            box-shadow: 0 20px 50px rgba(0, 53, 197, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 20px 40px -15px rgba(0, 53, 197, 0.08), 0 0 15px rgba(0, 0, 0, 0.03);
         }
 
         .gradient-button {
             background: linear-gradient(135deg, #0035c5 0%, #C8A0F0 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 4px 15px rgba(0, 53, 197, 0.25));
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 53, 197, 0.25);
         }
 
-        .gradient-button:hover:not(:disabled) {
-            filter: drop-shadow(0 8px 25px rgba(200, 160, 240, 0.45));
-            transform: translateY(-2px);
+        .gradient-button:active {
+            transform: scale(0.97);
         }
 
         .brand-orange-text {
             color: #ff8a00;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
-
         @keyframes breathe {
-
-            0%,
-            100% {
-                transform: scale(1) translate(0, 0);
-            }
-
-            50% {
-                transform: scale(1.02) translate(-5px, 2px);
-            }
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.02) translate(-5px, 2px); }
         }
 
         .bg-animate {
-            animation: breathe 20s ease-in-out infinite;
+            animation: breathe 25s ease-in-out infinite;
+        }
+
+        @keyframes questionAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.99);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-question {
+            animation: questionAppear 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Pulse highlight on option selection */
+        @keyframes selectPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1.01); }
+        }
+
+        .option-selected {
+            animation: selectPulse 0.3s ease-out forwards;
         }
     </style>
 </head>
 
-<body class="bg-background text-on-background h-screen w-screen flex flex-col font-body-md overflow-hidden select-none">
+<body class="min-h-[100dvh] w-full flex flex-col justify-between items-center p-3 sm:p-4 md:p-6 relative select-none">
 
-    <!-- Background Image Layer -->
-    <div class="fixed inset-0 z-0 bg-animate pointer-events-none opacity-45 blur-[1px]"
+    <!-- Background Layer -->
+    <div class="fixed inset-0 z-0 bg-animate pointer-events-none opacity-35 blur-[1px]"
         style="background-image: url('imagenes_back/stitch_totalplay_creative_innovation_survey/screen_opt.jpg'); background-size: cover; background-position: center center; background-attachment: fixed;">
     </div>
 
-    <!-- Ambient Aurora Glow Behind the card (Lavender & Blue) -->
+    <!-- Ambient Aurora Glow -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div
-            class="w-[600px] h-[450px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[120px] floating">
+        <div class="w-[600px] h-[450px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/20 via-[#0035c5]/10 to-transparent blur-[120px]"></div>
+    </div>
+
+    <!-- MAIN CARD CONTAINER -->
+    <main class="w-full max-w-[840px] relative z-10 my-auto">
+        
+        <!-- Mascota visible solo en desktop en pantalla de inicio -->
+        <div id="mascot_welcome" class="hidden lg:block absolute -left-44 bottom-0 z-20 pointer-events-none transition-all duration-500">
+            <img src="artesencuesta/tplayoficina_sin_fondo.png" alt="Mascota Totalplay" class="h-[460px] w-auto object-contain drop-shadow-2xl">
         </div>
-    </div>
 
-    <div
-        class="fixed inset-0 z-0 bg-gradient-to-br from-primary-fixed/20 via-transparent to-secondary-fixed/20 pointer-events-none">
-    </div>
-
-    <!-- Main Content centered, absolute no scroll -->
-    <main class="h-full w-full flex items-center justify-center p-4 relative z-10">
-        <div class="relative w-full max-w-[920px] flex items-center justify-center">
-
-            <!-- Mascota flotante a la izquierda (visible en pantalla inicio step_start) -->
-            <div id="mascot_welcome"
-                class="hidden lg:block absolute -left-44 bottom-0 z-20 pointer-events-none transition-all duration-500">
-                <img src="artesencuesta/tplayoficina_sin_fondo.png" alt="Mascota Totalplay"
-                    class="h-[480px] w-auto object-contain drop-shadow-2xl">
-            </div>
-
-            <div
-                class="glass-panel w-full rounded-[32px] p-6 md:p-10 relative overflow-hidden flex flex-col max-h-[95vh] justify-between">
-                <!-- Branding Accent -->
-                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/5 rounded-bl-full -mr-10 -mt-10">
+        <div class="glass-panel w-full rounded-3xl p-4 sm:p-7 md:p-9 relative overflow-hidden flex flex-col justify-between">
+            
+            <!-- TOP NAVBAR -->
+            <header class="flex justify-between items-center w-full pb-3 mb-2 border-b border-outline-variant/30">
+                <div class="flex items-center h-10 sm:h-12 overflow-hidden">
+                    <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-24 sm:h-28 w-auto object-contain -my-7 sm:-my-8">
                 </div>
 
-                <!-- Integrated TopNavBar -->
-                <header
-                    class="flex justify-between items-center w-full pb-2 mb-3 bg-transparent border-b border-outline-variant/30">
-                    <div class="flex items-center h-12 overflow-hidden">
-                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
-                            class="h-28 w-auto object-contain -my-8">
+                <!-- Live question counter & badge (visible only during survey) -->
+                <div id="topProgressBadge" class="hidden flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono">
+                    <span class="material-symbols-outlined text-xs sm:text-sm">analytics</span>
+                    <span id="topProgressText">Pregunta 1 / 20</span>
+                </div>
+            </header>
+
+            <!-- STICKY TOP PROGRESS BAR -->
+            <div id="topProgressBarContainer" class="hidden w-full h-1.5 bg-outline-variant/30 rounded-full overflow-hidden mb-3">
+                <div id="topProgressBar" class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+
+            <!-- DYNAMIC CONTENT CONTAINER -->
+            <div class="flex flex-col space-y-4">
+
+                <!-- STEP 0: START SCREEN -->
+                <div id="step_start" class="flex flex-col items-center text-center space-y-4 sm:space-y-6 py-2 sm:py-4">
+                    
+                    <!-- Headline Section -->
+                    <div class="space-y-2 sm:space-y-3">
+                        <h1 class="text-2xl sm:text-4xl md:text-5xl text-on-surface tracking-tight font-black font-headline">
+                            Tu voz hace la <span class="brand-orange-text">diferencia</span>
+                        </h1>
+                        <p class="text-on-surface-variant text-xs sm:text-sm md:text-base max-w-[560px] mx-auto leading-relaxed">
+                            Bienvenido a la <span class="font-bold text-primary">Encuesta de Clima Laboral</span>. Tu opinión sincera y anónima nos ayuda a mejorar día a día.
+                        </p>
                     </div>
-                </header>
 
-                <div class="flex flex-col space-y-6 overflow-y-auto pr-1">
-
-                    <!-- STEP 0: START -->
-                    <div id="step_start" class="flex flex-col items-center text-center space-y-6 py-4">
-                        <!-- Headline Section -->
-                        <div class="space-y-4">
-                            <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-black">
-                                Tu voz hace la <span class="brand-orange-text">diferencia</span>
-                            </h1>
-                            <p
-                                class="text-on-surface-variant font-body-md text-body-md max-w-[600px] mx-auto leading-relaxed">
-                                Bienvenido a la <span class="font-bold text-primary">Encuesta de Clima Laboral</span>.
-                                Responde de manera rápida y sencilla para ayudarnos a construir un mejor lugar para
-                                todos.
-                            </p>
+                    <!-- Highlight Badges (3 columns on all screens) -->
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3 w-full max-w-lg pt-1">
+                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                            <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">timer</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-on-surface">3 Min</span>
                         </div>
-
-                        <!-- Stats/Highlights Bento Row -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full pt-2">
-                            <div
-                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                                <span class="material-symbols-outlined text-primary text-2xl"
-                                    style="font-variation-settings: 'FILL' 0;">timer</span>
-                                <p class="font-label-bold text-label-bold text-on-surface">3 Minutos</p>
-                            </div>
-                            <div
-                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                                <span class="material-symbols-outlined text-primary text-2xl"
-                                    style="font-variation-settings: 'FILL' 0;">lock</span>
-                                <p class="font-label-bold text-label-bold text-on-surface">Anónimo</p>
-                            </div>
-                            <div
-                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                                <span class="material-symbols-outlined text-primary text-2xl"
-                                    style="font-variation-settings: 'FILL' 0;">bolt</span>
-                                <p class="font-label-bold text-label-bold text-on-surface">Fluido</p>
-                            </div>
+                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                            <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">lock</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-on-surface">100% Anónimo</span>
                         </div>
-
-                        <!-- Selector de Área de Trabajo -->
-                        <div class="w-full max-w-xl mx-auto space-y-3 pt-1 text-left">
-                            <div class="flex items-center justify-between">
-                                <label
-                                    class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
-                                    <span class="material-symbols-outlined text-primary text-base">domain</span>
-                                    <span>¿A qué área perteneces?</span>
-                                </label>
-                                <span id="areaWarning"
-                                    class="hidden text-xs text-rose-500 font-bold flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-sm">error</span> Selecciona tu área para
-                                    comenzar
-                                </span>
-                            </div>
-
-                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="areaGridContainer">
-                                <!-- Botones de áreas inyectados dinámicamente -->
-                            </div>
-                        </div>
-
-                        <!-- CTA -->
-                        <div class="pt-2 w-full md:w-auto">
-                            <button onclick="startSurvey()"
-                                class="gradient-button w-full md:w-64 py-5 px-8 rounded-full text-white font-label-bold text-label-bold uppercase tracking-widest flex items-center justify-center gap-2 group">
-                                <span>Iniciar Encuesta</span>
-                                <span
-                                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                            </button>
+                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                            <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">bolt</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-on-surface">1-Tap Rápido</span>
                         </div>
                     </div>
 
-                    <!-- DYNAMIC QUESTION VIEW -->
-                    <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-5 py-2">
-                        <div class="flex items-center gap-2">
-                            <span id="qCategory"
-                                class="text-[11px] font-bold text-primary uppercase tracking-widest">Dimensión</span>
-                            <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
-                        </div>
-
-                        <h2 id="qText"
-                            class="font-headline-lg-mobile md:text-[26px] md:leading-[1.3] text-on-surface tracking-tight font-bold">
-                            Pregunta de prueba</h2>
-
-                        <div id="qAnswersContainer" class="py-1">
-                            <!-- Answers injected here -->
-                        </div>
-
-                        <div id="kHint"
-                            class="flex items-center justify-center gap-2 pt-2 text-center text-xs text-outline font-semibold">
-                            <!-- Keyboard Hint injected here -->
-                        </div>
-                    </div>
-
-                    <!-- STEP SUCCESS (PANTALLA DE AGRADECIMIENTO) -->
-                    <div id="step_success" class="hidden flex flex-col items-center text-center space-y-6 py-6 max-w-lg mx-auto">
-                        <!-- Icono de Confirmación -->
-                        <div class="relative">
-                            <div class="w-20 h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-md">
-                                <span class="material-symbols-outlined text-4xl">check_circle</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3">
-                            <span id="userAreaBadge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
-                                <span class="material-symbols-outlined text-sm">domain</span>
-                                <span id="lblUserArea">Área</span>
+                    <!-- Work Area Selector -->
+                    <div class="w-full max-w-xl mx-auto space-y-2.5 pt-2 text-left">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-primary text-base">domain</span>
+                                <span>¿A qué área perteneces?</span>
+                            </label>
+                            <span id="areaWarning" class="hidden text-xs text-rose-500 font-bold flex items-center gap-1 animate-pulse">
+                                <span class="material-symbols-outlined text-sm">error</span> Selecciona tu área
                             </span>
-                            <h1 class="font-headline-xl text-2xl md:text-3xl text-on-surface tracking-tight font-black">
-                                ¡Muchas gracias por tu participación!
-                            </h1>
-                            <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
-                                Tus respuestas han sido enviadas de forma <span class="font-bold text-primary">segura y anónima</span>. Tu opinión es fundamental para continuar construyendo un mejor entorno de trabajo para todos en <span class="font-bold text-on-surface">Totalplay</span>.
-                            </p>
                         </div>
 
-                        <div class="p-4 rounded-2xl bg-surface-container-low/60 border border-outline-variant/30 text-xs text-on-surface-variant max-w-md w-full">
-                            <p class="flex items-center justify-center gap-1.5 font-bold text-on-surface">
-                                <span class="material-symbols-outlined text-base text-primary">shield</span>
-                                <span>Confidencialidad Garantizada</span>
-                            </p>
-                            <p class="mt-1 text-[11px]">Tus valoraciones se consolidan de manera general con las de tu equipo.</p>
-                        </div>
-
-                        <div class="pt-2">
-                            <button onclick="restartSurvey()" class="px-6 py-3 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-primary hover:border-primary transition-all flex items-center gap-2">
-                                <span class="material-symbols-outlined text-base">restart_alt</span>
-                                <span>Responder otra encuesta</span>
-                            </button>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5" id="areaGridContainer">
+                            <!-- Inyectado dinámicamente -->
                         </div>
                     </div>
 
+                    <!-- CTA Iniciar -->
+                    <div class="pt-2 w-full max-w-xs">
+                        <button onclick="startSurvey()" class="gradient-button w-full py-4 px-6 rounded-full text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg">
+                            <span>Comenzar Encuesta</span>
+                            <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- NAVIGATION FOOTER -->
-                <div id="surveyFooter" style="display: none;"
-                    class="flex justify-between items-center pt-4 mt-4 border-t border-outline-variant/30">
-                    <button id="btnPrev" onclick="prevQuestion()"
-                        class="px-6 py-3 border border-outline-variant/60 rounded-full text-sm font-label-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">arrow_back</span>
-                        <span>Atrás</span>
-                    </button>
-
-                    <!-- Centered Linear Progress Indicator -->
-                    <div class="flex flex-col items-center gap-1.5">
-                        <span id="progressIndex" class="font-label-bold text-[12px] text-primary">1 de 21</span>
-                        <div class="w-24 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
-                            <div id="progressBar"
-                                class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300"
-                                style="width: 0%;"></div>
-                        </div>
+                <!-- STEP 1+: DYNAMIC QUESTION CARD -->
+                <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-3 sm:space-y-4 py-1">
+                    
+                    <div class="flex items-center gap-2">
+                        <span id="qCategory" class="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest">Dimensión</span>
+                        <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
                     </div>
 
-                    <button id="btnNext" onclick="nextQuestion()"
-                        class="px-8 py-3 bg-primary text-white rounded-full text-sm font-label-bold uppercase tracking-wider flex items-center gap-2 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all">
-                        <span>Siguiente</span>
-                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
+                    <h2 id="qText" class="text-base sm:text-xl md:text-2xl text-on-surface tracking-tight font-bold font-headline leading-snug">
+                        Pregunta
+                    </h2>
+
+                    <!-- Auto-advance hint on mobile -->
+                    <div id="quickTapHint" class="flex items-center gap-1 text-[11px] font-semibold text-primary/80">
+                        <span class="material-symbols-outlined text-xs">touch_app</span>
+                        <span>Toca una opción para avanzar automáticamente</span>
+                    </div>
+
+                    <div id="qAnswersContainer" class="py-1">
+                        <!-- Respuestas inyectadas dinámicamente -->
+                    </div>
+
+                    <div id="kHint" class="hidden sm:flex items-center justify-center gap-2 pt-1 text-center text-xs text-outline font-semibold">
+                        <!-- Teclado en desktop -->
+                    </div>
+                </div>
+
+                <!-- STEP SUCCESS (AGRADECIMIENTO) -->
+                <div id="step_success" class="hidden flex flex-col items-center text-center space-y-4 sm:space-y-5 py-6 max-w-lg mx-auto animate-question">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-md">
+                        <span class="material-symbols-outlined text-3xl sm:text-4xl">check_circle</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <span id="userAreaBadge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
+                            <span class="material-symbols-outlined text-sm">domain</span>
+                            <span id="lblUserArea">Área</span>
+                        </span>
+                        <h1 class="text-2xl sm:text-3xl text-on-surface tracking-tight font-black font-headline">
+                            ¡Muchas gracias por tu participación!
+                        </h1>
+                        <p class="text-on-surface-variant text-xs sm:text-sm leading-relaxed">
+                            Tus respuestas han sido enviadas de forma <span class="font-bold text-primary">segura y anónima</span>. Tu opinión es clave para seguir construyendo un mejor Totalplay para todos.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-surface-container-low/80 border border-outline-variant/30 text-xs text-on-surface-variant max-w-md w-full">
+                        <p class="flex items-center justify-center gap-1.5 font-bold text-on-surface">
+                            <span class="material-symbols-outlined text-base text-primary">shield</span>
+                            <span>Confidencialidad Garantizada</span>
+                        </p>
+                        <p class="mt-0.5 text-[11px]">Tus valoraciones se consolidan de manera general con las de tu equipo.</p>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="restartSurvey()" class="px-5 py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-primary hover:border-primary transition-all flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-sm">restart_alt</span>
+                            <span>Responder otra encuesta</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>
+
+            <!-- NAVIGATION FOOTER -->
+            <div id="surveyFooter" style="display: none;" class="flex justify-between items-center pt-3 mt-3 border-t border-outline-variant/30">
+                <button id="btnPrev" onclick="prevQuestion()" class="px-4 sm:px-5 py-2 sm:py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-1.5 active:scale-95">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    <span>Atrás</span>
+                </button>
+
+                <button id="btnNext" onclick="nextQuestion()" class="px-6 sm:px-8 py-2 sm:py-2.5 bg-primary text-white rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all shadow-md active:scale-95">
+                    <span id="lblNextText">Siguiente</span>
+                    <span id="iconNext" class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+
+        </div>
     </main>
 
     <script>
-        // List of Likert scale configurations with custom colors and emojis matching the Glacier theme
+        // CONFIGURACIÓN DE NIVELES LIKERT
         const LIKERT_LEVELS = [
-            { text: "Totalmente de acuerdo", emoji: "😄", color: "#0046fa", borderClass: "border-primary", bgClass: "bg-primary-fixed/20" },
-            { text: "De acuerdo", emoji: "🙂", color: "#00b9ff", borderClass: "border-[#00b9ff]", bgClass: "bg-cyan-50" },
-            { text: "Ni de acuerdo, ni desacuerdo", emoji: "😐", color: "#914c00", borderClass: "border-secondary-container", bgClass: "bg-secondary-fixed/30" },
-            { text: "En desacuerdo", emoji: "🙁", color: "#ba1a1a", borderClass: "border-error", bgClass: "bg-error-container/30" },
-            { text: "Totalmente en desacuerdo", emoji: "😠", color: "#93000a", borderClass: "border-[#93000a]", bgClass: "bg-red-100" }
+            { val: 5, text: "Totalmente de acuerdo", emoji: "😄", colorClass: "text-emerald-600", activeBg: "border-emerald-500 bg-emerald-50 text-emerald-900" },
+            { val: 4, text: "De acuerdo", emoji: "🙂", colorClass: "text-lime-600", activeBg: "border-lime-500 bg-lime-50 text-lime-900" },
+            { val: 3, text: "Ni de acuerdo, ni desacuerdo", emoji: "😐", colorClass: "text-amber-500", activeBg: "border-amber-500 bg-amber-50 text-amber-900" },
+            { val: 2, text: "En desacuerdo", emoji: "🙁", colorClass: "text-orange-500", activeBg: "border-orange-500 bg-orange-50 text-orange-900" },
+            { val: 1, text: "Totalmente en desacuerdo", emoji: "😠", colorClass: "text-red-600", activeBg: "border-rose-500 bg-rose-50 text-rose-900" }
         ];
 
-        // All questions array structured sequentially
+        // Mapeo numérico para las respuestas Likert
+        const LIKERT_SCORES = {
+            "Totalmente de acuerdo": 5,
+            "De acuerdo": 4,
+            "Ni de acuerdo, ni desacuerdo": 3,
+            "En desacuerdo": 2,
+            "Totalmente en desacuerdo": 1
+        };
+
+        // PREGUNTAS SECUENCIALES (21 en total)
         const QUESTIONS = [
-            // Preguntas 1 y 2: Recomendación eNPS e información cualitativa (no cuentan para clima laboral)
-            {
-                id: "enps",
-                category: "Recomendación eNPS",
-                text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?",
-                type: "scale10",
-                minText: "Nada probable",
-                maxText: "Extremadamente probable"
-            },
-            {
-                id: "enps_reason",
-                category: "Recomendación eNPS",
-                text: "¿Por qué otorgaste esta calificación?",
-                type: "textarea"
-            },
-            // Preguntas 3 a 20 (18 preguntas) para evaluar Clima Laboral
+            // eNPS
+            { id: "enps", category: "Recomendación eNPS", text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?", type: "scale10", minText: "0 = Nada probable", maxText: "10 = Extremadamente probable" },
+            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Por qué otorgaste esta calificación?", type: "textarea" },
             // Orgullo y Pertenencia
             { id: "orgullo_1", category: "Orgullo y Pertenencia", icon: "favorite", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
             { id: "orgullo_2", category: "Orgullo y Pertenencia", icon: "favorite", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
@@ -439,20 +343,11 @@
             { id: "retribucion_1", category: "Retribución y Flexibilidad", icon: "balance", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
             { id: "retribucion_2", category: "Retribución y Flexibilidad", icon: "balance", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
             { id: "retribucion_3", category: "Retribución y Flexibilidad", icon: "balance", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
-            // Pregunta 21: Felicidad General (del 0 al 10)
-            {
-                id: "happiness",
-                category: "Felicidad General",
-                icon: "sentiment_satisfied",
-                text: "Tomando en cuenta todas las preguntas anteriores, del 0 al 10. ¿Qué tan feliz te sientes trabajando en esta empresa?",
-                type: "scale10",
-                startAtZero: true,
-                minText: "Muy infeliz",
-                maxText: "Extremadamente feliz"
-            }
+            // Felicidad General
+            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "Tomando en cuenta todas las preguntas anteriores, del 0 al 10. ¿Qué tan feliz te sientes trabajando en esta empresa?", type: "scale10", startAtZero: true, minText: "0 = Muy infeliz", maxText: "10 = Totalmente feliz" }
         ];
 
-        // Áreas de trabajo disponibles
+        // ÁREAS DE TRABAJO
         const AREAS = [
             { id: "STAFF", name: "STAFF", icon: "badge" },
             { id: "COMERCIAL", name: "COMERCIAL", icon: "trending_up" },
@@ -472,18 +367,17 @@
                 const btn = document.createElement("button");
                 btn.type = "button";
                 const isSelected = selectedArea === area.id;
-                btn.className = `p-3 rounded-2xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${isSelected
+                btn.className = `p-2.5 sm:p-3 rounded-2xl border text-left flex items-center gap-2 transition-all cursor-pointer active:scale-95 ${isSelected
                     ? "border-primary bg-primary/10 text-primary shadow-sm ring-2 ring-primary/30 font-bold"
-                    : "border-outline-variant/40 bg-surface-container-lowest/90 text-on-surface hover:border-primary/50 hover:bg-surface-container-low font-medium"
+                    : "border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:border-primary/50 font-medium"
                     }`;
                 btn.onclick = () => selectArea(area.id);
                 btn.innerHTML = `
-                    <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-primary text-white' : 'bg-surface-container-high text-on-surface-variant'
-                    }">
-                        <span class="material-symbols-outlined text-base">${area.icon}</span>
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-primary text-white' : 'bg-surface-container-high text-on-surface-variant'}">
+                        <span class="material-symbols-outlined text-sm sm:text-base">${area.icon}</span>
                     </div>
                     <div class="min-w-0 flex-1">
-                        <p class="text-[11px] sm:text-xs truncate leading-tight uppercase">${area.name}</p>
+                        <p class="text-[10px] sm:text-xs truncate leading-tight uppercase font-bold">${area.name}</p>
                     </div>
                     ${isSelected ? '<span class="material-symbols-outlined text-primary text-sm shrink-0">check_circle</span>' : ''}
                 `;
@@ -513,57 +407,9 @@
             nextQuestion();
         }
 
-        let currentQuestionIdx = -1; // -1 means Start screen
+        let currentQuestionIdx = -1;
         const surveyResponses = {};
-
-        // Keyboard navigation bindings
-        window.addEventListener("keydown", (e) => {
-            if (currentQuestionIdx < 0 || currentQuestionIdx >= QUESTIONS.length) {
-                if (currentQuestionIdx === -1 && e.key === "Enter") {
-                    startSurvey();
-                }
-                return;
-            }
-
-            const q = QUESTIONS[currentQuestionIdx];
-
-            if (q.type === "likert") {
-                const num = parseInt(e.key);
-                if (num >= 1 && num <= 5) {
-                    const btn = document.querySelector(`#qAnswersContainer .emoji-card[data-val="${num}"]`);
-                    if (btn) btn.click();
-                }
-            } else if (q.type === "scale10") {
-                const num = parseInt(e.key);
-                if (!isNaN(num)) {
-                    let targetVal = num;
-                    if (num === 0 && q.startAtZero) {
-                        targetVal = 0;
-                    }
-                    const btn = document.querySelector(`.pill-btn[data-val="${targetVal}"]`);
-                    if (btn) btn.click();
-                }
-                if (e.key.toLowerCase() === 't') {
-                    const btn = document.querySelector(`.pill-btn[data-val="10"]`);
-                    if (btn) btn.click();
-                }
-            } else if (q.type === "textarea") {
-                if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    const val = surveyResponses[q.id];
-                    if (val && val.trim().length > 0) {
-                        nextQuestion();
-                    }
-                }
-            }
-        });
-
-        // Initialize micro-interactions
-        document.querySelectorAll('.gradient-button').forEach(btn => {
-            btn.addEventListener('mousedown', function () { this.style.transform = 'scale(0.95)'; });
-            btn.addEventListener('mouseup', function () { this.style.transform = 'scale(1)'; });
-            btn.addEventListener('mouseleave', function () { this.style.transform = 'scale(1)'; });
-        });
+        let isTransitioning = false;
 
         function showQuestion(idx) {
             const startScreen = document.getElementById("step_start");
@@ -571,6 +417,8 @@
             const successScreen = document.getElementById("step_success");
             const footer = document.getElementById("surveyFooter");
             const mascot = document.getElementById("mascot_welcome");
+            const topBadge = document.getElementById("topProgressBadge");
+            const topProgressContainer = document.getElementById("topProgressBarContainer");
 
             startScreen.classList.add("hidden");
             dynamicCard.classList.add("hidden");
@@ -580,6 +428,8 @@
                 startScreen.classList.remove("hidden");
                 footer.style.display = "none";
                 if (mascot) mascot.style.display = "block";
+                if (topBadge) topBadge.classList.add("hidden");
+                if (topProgressContainer) topProgressContainer.classList.add("hidden");
                 return;
             }
 
@@ -588,6 +438,8 @@
             if (idx >= QUESTIONS.length) {
                 successScreen.classList.remove("hidden");
                 footer.style.display = "none";
+                if (topBadge) topBadge.classList.add("hidden");
+                if (topProgressContainer) topProgressContainer.classList.add("hidden");
 
                 if (selectedArea) {
                     const badge = document.getElementById("userAreaBadge");
@@ -598,7 +450,7 @@
                     }
                 }
 
-                // Calcular promedio general de clima laboral de esta respuesta y enviar
+                // Calcular promedio general individual y enviar a Google Sheets
                 let totalSum = 0, count = 0;
                 QUESTIONS.filter(q => q.type === "likert").forEach(q => {
                     const ans = surveyResponses[q.id];
@@ -612,26 +464,30 @@
                 return;
             }
 
+            // SHOW QUESTION SCREEN
             footer.style.display = "flex";
             dynamicCard.classList.remove("hidden");
+            dynamicCard.classList.remove("animate-question");
+            void dynamicCard.offsetWidth; // Trigger reflow for animation
+            dynamicCard.classList.add("animate-question");
 
-            // Progreso excluyendo las 2 primeras preguntas (eNPS y su motivo)
+            if (topBadge) topBadge.classList.remove("hidden");
+            if (topProgressContainer) topProgressContainer.classList.remove("hidden");
+
+            // Barra de progreso y contador
             const evaluableTotal = QUESTIONS.length - 2;
             const evaluableIdx = idx - 2;
+            let percent = 0;
             if (evaluableIdx >= 0) {
-                document.getElementById("progressIndex").textContent = `${evaluableIdx + 1} de ${evaluableTotal}`;
-                const percent = Math.round(((evaluableIdx + 1) / evaluableTotal) * 100);
-                const progressBar = document.getElementById("progressBar");
-                if (progressBar) {
-                    progressBar.style.width = `${percent}%`;
-                }
+                document.getElementById("topProgressText").textContent = `Pregunta ${evaluableIdx + 1} / ${evaluableTotal}`;
+                percent = Math.round(((evaluableIdx + 1) / evaluableTotal) * 100);
             } else {
-                document.getElementById("progressIndex").textContent = `Información Inicial (${idx + 1} de 2)`;
-                const progressBar = document.getElementById("progressBar");
-                if (progressBar) {
-                    progressBar.style.width = `0%`;
-                }
+                document.getElementById("topProgressText").textContent = `Inicio (${idx + 1} de 2)`;
+                percent = idx === 0 ? 5 : 10;
             }
+
+            const topBar = document.getElementById("topProgressBar");
+            if (topBar) topBar.style.width = `${percent}%`;
 
             const q = QUESTIONS[idx];
             document.getElementById("qCategory").textContent = q.category;
@@ -641,28 +497,36 @@
             answersContainer.innerHTML = "";
 
             const hint = document.getElementById("kHint");
-            hint.style.display = "flex";
+            const quickTapHint = document.getElementById("quickTapHint");
 
+            // RENDER LIKERT SCALE (Optimizado vertical en móvil, fila táctil)
             if (q.type === "likert") {
+                if (quickTapHint) quickTapHint.classList.remove("hidden");
                 const grid = document.createElement("div");
-                grid.className = "flex flex-col sm:flex-row gap-2 md:gap-4 my-2 w-full justify-center";
+                grid.className = "flex flex-col gap-2 my-1 w-full";
 
-                LIKERT_LEVELS.forEach((level, i) => {
-                    const card = document.createElement("div");
-                    const scoreVal = 5 - i; // 5 = Totalmente de acuerdo, 1 = Totalmente en desacuerdo
-
+                LIKERT_LEVELS.forEach((level) => {
+                    const card = document.createElement("button");
+                    card.type = "button";
                     const isSelected = (surveyResponses[q.id] === level.text);
-                    if (isSelected) {
-                        card.className = `emoji-card flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border-2 ${level.borderClass} ${level.bgClass} cursor-pointer transition-all relative scale-[1.01] shadow-sm w-full`;
-                    } else {
-                        card.className = "emoji-card flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border border-outline-variant/40 bg-surface-container-low/40 hover:bg-surface-container hover:border-primary/50 cursor-pointer transition-all relative group w-full";
-                    }
 
-                    card.setAttribute("data-val", scoreVal);
+                    card.className = `w-full p-3 sm:p-3.5 rounded-2xl border text-left flex items-center justify-between gap-3 transition-all cursor-pointer active:scale-[0.98] ${isSelected
+                        ? `${level.activeBg} ring-2 ring-primary/40 font-bold shadow-sm option-selected`
+                        : "bg-surface-container-lowest/90 border-outline-variant/40 text-on-surface hover:border-primary/50 hover:bg-surface-container-low"
+                        }`;
+
+                    card.setAttribute("data-val", level.val);
                     card.innerHTML = `
-                        <div class="absolute top-2 right-2 text-[10px] text-outline/60 bg-surface-container-high/40 px-1.5 py-0.5 rounded font-mono font-bold hidden sm:block">${scoreVal}</div>
-                        <div class="text-3xl sm:mb-2 group-hover:scale-110 transition-transform shrink-0">${level.emoji}</div>
-                        <div class="text-[12px] font-bold text-left sm:text-center leading-snug ${isSelected ? 'text-on-surface' : 'text-on-surface-variant'}">${level.text}</div>
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span class="text-2xl sm:text-3xl shrink-0">${level.emoji}</span>
+                            <span class="text-xs sm:text-sm leading-tight ${isSelected ? 'font-black' : 'font-semibold'}">${level.text}</span>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-surface-container-high/60 text-outline">${level.val} pts</span>
+                            <div class="w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-primary bg-primary text-white' : 'border-outline-variant/60'}">
+                                ${isSelected ? '<span class="material-symbols-outlined text-xs">check</span>' : ''}
+                            </div>
+                        </div>
                     `;
 
                     card.onclick = () => {
@@ -672,14 +536,17 @@
                     grid.appendChild(card);
                 });
                 answersContainer.appendChild(grid);
-                hint.innerHTML = `Presiona del <span class="key-badge">1</span> al <span class="key-badge">5</span> para responder rápido (5 = Máximo)`;
+                if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">5</span> para responder rápido (5 = Máximo)`;
             }
+
+            // RENDER SCALE 0 TO 10 (Optimizado 2 filas táctiles en móvil)
             else if (q.type === "scale10") {
+                if (quickTapHint) quickTapHint.classList.remove("hidden");
                 const container = document.createElement("div");
-                container.className = "flex flex-col gap-4 w-full";
+                container.className = "flex flex-col gap-3 w-full py-1";
 
                 const grid = document.createElement("div");
-                grid.className = "flex flex-wrap gap-1 md:gap-2.5 justify-center py-2";
+                grid.className = "grid grid-cols-6 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 justify-center";
 
                 const startVal = q.startAtZero ? 0 : 1;
                 for (let i = startVal; i <= 10; i++) {
@@ -687,11 +554,16 @@
                     btn.type = "button";
 
                     const isSelected = (surveyResponses[q.id] === i);
-                    if (isSelected) {
-                        btn.className = "pill-btn w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-bold text-xs md:text-sm bg-gradient-to-br from-primary to-[#C8A0F0] text-white scale-[1.08] shadow-md transition-all";
-                    } else {
-                        btn.className = "pill-btn w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center font-bold text-xs md:text-sm bg-surface-container-low border border-outline-variant/50 text-on-surface-variant hover:border-primary hover:text-primary transition-all";
-                    }
+                    
+                    let colorTier = "hover:border-primary text-on-surface";
+                    if (i <= 6) colorTier = "hover:border-rose-400";
+                    else if (i <= 8) colorTier = "hover:border-amber-400";
+                    else colorTier = "hover:border-emerald-500";
+
+                    btn.className = `h-11 sm:h-12 rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm transition-all active:scale-90 ${isSelected
+                        ? "bg-gradient-to-br from-primary to-[#C8A0F0] text-white ring-2 ring-primary/40 scale-105 shadow-md font-black option-selected"
+                        : `bg-surface-container-lowest border border-outline-variant/50 ${colorTier} shadow-xs`
+                        }`;
 
                     btn.setAttribute("data-val", i);
                     btn.textContent = i;
@@ -704,18 +576,21 @@
                 }
 
                 const labels = document.createElement("div");
-                labels.className = "flex justify-between text-[10px] md:text-xs font-bold text-outline px-1.5 max-w-[340px] md:max-w-[570px] mx-auto w-full mt-1";
+                labels.className = "flex justify-between text-[11px] font-bold text-outline px-1";
                 labels.innerHTML = `<span>${q.minText}</span><span>${q.maxText}</span>`;
 
                 container.appendChild(grid);
                 container.appendChild(labels);
                 answersContainer.appendChild(container);
 
-                hint.innerHTML = `Presiona del <span class="key-badge">0</span> al <span class="key-badge">9</span> (tecla <span class="key-badge">T</span> para 10)`;
+                if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10)`;
             }
+
+            // RENDER TEXTAREA (Pregunta abierta cualitativa)
             else if (q.type === "textarea") {
+                if (quickTapHint) quickTapHint.classList.add("hidden");
                 const textarea = document.createElement("textarea");
-                textarea.className = "w-full min-h-[120px] bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-4 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all resize-none";
+                textarea.className = "w-full min-h-[110px] sm:min-h-[130px] bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-3.5 text-on-surface text-xs sm:text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all resize-none shadow-xs";
                 textarea.placeholder = "Escribe de la manera más clara posible tu respuesta...";
                 textarea.value = surveyResponses[q.id] || "";
 
@@ -725,30 +600,44 @@
                 });
 
                 answersContainer.appendChild(textarea);
-                textarea.focus();
-                hint.innerHTML = `Ingresa tu respuesta para habilitar el botón continuar`;
+                setTimeout(() => textarea.focus(), 150);
+
+                if (hint) hint.innerHTML = `Ingresa tu respuesta y pulsa 'Siguiente' para continuar`;
             }
 
-            dynamicCard.classList.remove("hidden");
             validateNextBtn();
 
             const btnPrev = document.getElementById("btnPrev");
             btnPrev.style.visibility = (idx === 0) ? "hidden" : "visible";
         }
 
-        function selectResponse(questionId, val, element, container) {
+        // AUTO-AVANCE FLUIDO (Smart 1-Tap Advance)
+        function selectResponse(questionId, val, cardElement, container) {
             surveyResponses[questionId] = val;
-            showQuestion(currentQuestionIdx);
+            validateNextBtn();
 
+            // Resaltar visualmente sin destruir el DOM inmediatamente
+            Array.from(container.children).forEach(child => {
+                child.classList.remove("option-selected", "ring-2", "ring-primary/40", "bg-emerald-50", "bg-lime-50", "bg-amber-50", "bg-orange-50", "bg-rose-50", "bg-gradient-to-br", "from-primary", "to-[#C8A0F0]", "text-white", "font-black");
+            });
+            cardElement.classList.add("option-selected");
+
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // Avance automático con leve retardo para ver la confirmación táctil
             setTimeout(() => {
+                isTransitioning = false;
                 if (surveyResponses[questionId] === val && currentQuestionIdx < QUESTIONS.length) {
                     nextQuestion();
                 }
-            }, 350);
+            }, 320);
         }
 
         function validateNextBtn() {
             const btnNext = document.getElementById("btnNext");
+            const lblNext = document.getElementById("lblNextText");
+            const iconNext = document.getElementById("iconNext");
             const q = QUESTIONS[currentQuestionIdx];
 
             let isAnswered = false;
@@ -764,9 +653,11 @@
             btnNext.disabled = !isAnswered;
 
             if (currentQuestionIdx === QUESTIONS.length - 1) {
-                btnNext.innerHTML = `<span>Finalizar</span><span class="material-symbols-outlined text-sm">check</span>`;
+                if (lblNext) lblNext.textContent = "Finalizar";
+                if (iconNext) iconNext.textContent = "check";
             } else {
-                btnNext.innerHTML = `<span>Siguiente</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
+                if (lblNext) lblNext.textContent = "Siguiente";
+                if (iconNext) iconNext.textContent = "arrow_forward";
             }
         }
 
@@ -781,23 +672,6 @@
                 showQuestion(currentQuestionIdx);
             }
         }
-
-        function toggleRaw() {
-            const display = document.getElementById("jsonDisplay");
-            display.classList.toggle("hidden");
-            if (!display.classList.contains("hidden")) {
-                display.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Mapeo numérico para las respuestas Likert (de 1 a 5)
-        const LIKERT_SCORES = {
-            "Totalmente de acuerdo": 5,
-            "De acuerdo": 4,
-            "Ni de acuerdo, ni desacuerdo": 3,
-            "En desacuerdo": 2,
-            "Totalmente en desacuerdo": 1
-        };
 
         function restartSurvey() {
             currentQuestionIdx = -1;
@@ -834,7 +708,7 @@
             try {
                 await fetch(SCRIPT_URL, {
                     method: "POST",
-                    mode: "no-cors", // Requerido para Apps Script Web App
+                    mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
@@ -844,7 +718,47 @@
             }
         }
 
-        // Renderizar opciones de área al cargar
+        // TECLADO EN COMPUTADORA
+        window.addEventListener("keydown", (e) => {
+            if (currentQuestionIdx < 0 || currentQuestionIdx >= QUESTIONS.length) {
+                if (currentQuestionIdx === -1 && e.key === "Enter") {
+                    startSurvey();
+                }
+                return;
+            }
+
+            const q = QUESTIONS[currentQuestionIdx];
+
+            if (q.type === "likert") {
+                const num = parseInt(e.key);
+                if (num >= 1 && num <= 5) {
+                    const btn = document.querySelector(`#qAnswersContainer button[data-val="${num}"]`);
+                    if (btn) btn.click();
+                }
+            } else if (q.type === "scale10") {
+                const num = parseInt(e.key);
+                if (!isNaN(num)) {
+                    let targetVal = num;
+                    if (num === 0 && q.startAtZero) targetVal = 0;
+                    const btn = document.querySelector(`button[data-val="${targetVal}"]`);
+                    if (btn) btn.click();
+                }
+                if (e.key.toLowerCase() === 't') {
+                    const btn = document.querySelector(`button[data-val="10"]`);
+                    if (btn) btn.click();
+                }
+            } else if (q.type === "textarea") {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    const val = surveyResponses[q.id];
+                    if (val && val.trim().length > 0) {
+                        nextQuestion();
+                    }
+                }
+            }
+        });
+
+        // Inicializar selector de áreas
         renderAreaCards();
     </script>
 </body>
