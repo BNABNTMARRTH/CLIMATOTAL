@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Clima Laboral Totalplay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0035c5",
+                        "primary-hover": "#0028a0",
+                        "primary-container": "#0046fa",
+                        "primary-fixed": "#dce1ff",
+                        "secondary": "#914c00",
+                        "surface": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f2fb",
+                        "surface-container": "#efecf5",
+                        "surface-container-high": "#e9e7ef",
+                        "on-surface": "#1a1b21",
+                        "on-surface-variant": "#434653",
+                        "outline": "#747685",
+                        "outline-variant": "#c4c5d6",
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f0f4fd;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 20px 40px -15px rgba(0, 53, 197, 0.07), 0 0 15px rgba(0, 0, 0, 0.03);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.02) translate(-5px, 2px); }
+        }
+
+        .bg-animate {
+            animation: breathe 25s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-on-surface flex flex-col justify-between relative overflow-x-hidden">
+
+    <!-- Background Layer -->
+    <div class="fixed inset-0 z-0 bg-animate pointer-events-none opacity-35 blur-[1px]"
+        style="background-image: url('imagenes_back/stitch_totalplay_creative_innovation_survey/screen_opt.jpg'); background-size: cover; background-position: center center; background-attachment: fixed;">
+    </div>
+
+    <!-- Ambient Aurora Glow Behind Card -->
+    <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[700px] h-[500px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/25 via-[#0035c5]/15 to-transparent blur-[130px]"></div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="w-full max-w-5xl mx-auto p-4 md:p-8 relative z-10 my-auto">
+        <div class="glass-card rounded-[32px] p-6 md:p-10 space-y-6">
+
+            <!-- HEADER -->
+            <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+                <div class="flex items-center gap-4">
+                    <div class="h-12 overflow-hidden flex items-center">
+                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-28 w-auto object-contain -my-8">
+                    </div>
+                    <div class="h-8 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl md:text-2xl font-black text-on-surface tracking-tight">Panel de Administración</h1>
+                            <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase font-mono tracking-wider">Admin</span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant font-medium">Resultados Consolidados de Clima Laboral</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a href="index.html" class="px-3.5 py-1.5 border border-outline-variant/60 hover:border-primary text-xs font-bold text-outline hover:text-primary rounded-full transition-all flex items-center gap-1.5 bg-surface-container-lowest/80">
+                        <span class="material-symbols-outlined text-sm">assignment</span>
+                        <span>Ir a Encuesta</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- TOOLBAR / FILTERS -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
+                <div class="flex items-center gap-2">
+                    <label for="globalAreaFilter" class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                        <span class="material-symbols-outlined text-primary text-base">filter_alt</span>
+                        <span>Filtrar por Área:</span>
+                    </label>
+                    <select id="globalAreaFilter" onchange="applyGlobalAreaFilter()"
+                        class="bg-surface-container-lowest border border-outline-variant/50 text-on-surface font-bold text-xs rounded-xl px-3 py-1.5 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 cursor-pointer shadow-sm">
+                        <option value="ALL">Todas las áreas (Consolidado)</option>
+                        <option value="STAFF">STAFF</option>
+                        <option value="COMERCIAL">COMERCIAL</option>
+                        <option value="PLANTA INTERNA">PLANTA INTERNA</option>
+                        <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
+                        <option value="SERVICIO / COBRANZA">SERVICIO / COBRANZA</option>
+                        <option value="DESARROLLO COMERCIAL">DESARROLLO COMERCIAL</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-2.5 self-end sm:self-auto">
+                    <span id="globalTotalBadge" class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
+                        0 respuestas
+                    </span>
+                    <button onclick="loadGlobalData()" class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center" title="Actualizar datos desde Google Sheets">
+                        <span id="refreshIcon" class="material-symbols-outlined text-base">refresh</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- LOADING INDICATOR -->
+            <div id="globalLoading" class="flex flex-col items-center justify-center py-16 space-y-3">
+                <span class="material-symbols-outlined text-primary text-5xl animate-spin">sync</span>
+                <p class="text-xs text-on-surface-variant font-bold">Cargando respuestas desde Google Sheets...</p>
+            </div>
+
+            <!-- CONFIG WARNING -->
+            <div id="globalConfigWarning" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-800 space-y-2">
+                <div class="flex items-center gap-2 font-bold text-amber-700">
+                    <span class="material-symbols-outlined text-base">warning</span>
+                    <span>Configuración de Google Sheets pendiente</span>
+                </div>
+                <p>Verifica que la constante <code class="bg-amber-100 px-1 py-0.5 rounded font-mono">SCRIPT_URL</code> contenga la URL correcta de tu Web App de Google Apps Script.</p>
+            </div>
+
+            <!-- MAIN METRICS CONTAINER -->
+            <div id="globalMetricsContainer" class="hidden space-y-6">
+
+                <!-- TOP CARDS: eNPS & CLIMA GLOBAL -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Card eNPS Global -->
+                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">eNPS Global Consolidado</span>
+                            <span class="text-[10px] text-outline font-semibold">Recomendación Empresa</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span id="gEnpsScore" class="text-4xl font-black text-emerald-600 font-mono">+0</span>
+                                <p id="gEnpsClass" class="text-xs font-bold text-on-surface-variant mt-0.5">Excelente (Fidelidad Alta)</p>
+                            </div>
+                            <div class="text-right text-xs space-y-0.5">
+                                <p class="text-emerald-600 font-bold">Promotores: <span id="gPctProm">0%</span></p>
+                                <p class="text-amber-500 font-bold">Pasivos: <span id="gPctPas">0%</span></p>
+                                <p class="text-rose-600 font-bold">Detractores: <span id="gPctDet">0%</span></p>
+                            </div>
+                        </div>
+                        <!-- Bar visual eNPS -->
+                        <div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex shadow-inner">
+                            <div id="gBarProm" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
+                            <div id="gBarPas" class="bg-amber-400 h-full transition-all duration-500" style="width: 0%"></div>
+                            <div id="gBarDet" class="bg-rose-500 h-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card Promedio General Clima -->
+                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 shadow-sm flex items-center justify-between">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-outline uppercase tracking-wider">Clima Laboral General</span>
+                            <div class="flex items-baseline gap-2">
+                                <span id="gOverallScore" class="text-4xl font-black text-primary font-mono">0.00</span>
+                                <span class="text-xs text-outline font-bold">/ 5.00</span>
+                            </div>
+                            <p id="gOverallLabel" class="text-xs font-bold text-on-surface-variant">Satisfecho 😄</p>
+                        </div>
+                        <div class="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center bg-primary/5 shadow-inner">
+                            <span id="gOverallEmoji" class="text-4xl">😄</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- DESGLOSE POR DIMENSIÓN -->
+                <div class="space-y-3 pt-2">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por Dimensión</h2>
+                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el desglose de preguntas</p>
+                        </div>
+                    </div>
+                    <div id="gCategoriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-4 text-center text-xs text-outline font-medium relative z-10">
+        Totalplay © 2026 - Sistema de Gestión de Clima Laboral
+    </footer>
+
+    <script>
+        // CONFIGURACIÓN DE CONEXIÓN A GOOGLE SHEETS
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEQpbHW2XAvE2aaZhoFCh8mXQ5E7H26HnjJ2tpKPUrQJDDMZkDaxkJRghzyccx2eYi3w/exec";
+
+        // Mapeo numérico Likert
+        const LIKERT_SCORES = {
+            "Totalmente de acuerdo": 5,
+            "De acuerdo": 4,
+            "Ni de acuerdo, ni desacuerdo": 3,
+            "En desacuerdo": 2,
+            "Totalmente en desacuerdo": 1
+        };
+
+        const QUESTIONS = [
+            { id: "enps", category: "Recomendación eNPS", text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?", type: "scale10" },
+            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Por qué otorgaste esta calificación?", type: "textarea" },
+            // Orgullo y Pertenencia
+            { id: "orgullo_1", category: "Orgullo y Pertenencia", icon: "favorite", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
+            { id: "orgullo_2", category: "Orgullo y Pertenencia", icon: "favorite", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
+            // Mi Formador
+            { id: "formador_1", category: "Mi Formador", icon: "record_voice_over", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
+            { id: "formador_2", category: "Mi Formador", icon: "record_voice_over", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
+            { id: "formador_3", category: "Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
+            { id: "formador_4", category: "Mi Formador", icon: "record_voice_over", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
+            { id: "formador_5", category: "Mi Formador", icon: "record_voice_over", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
+            // Reconocimiento y Entorno
+            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", icon: "stars", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
+            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", icon: "stars", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
+            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", icon: "stars", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
+            // Desarrollo
+            { id: "desarrollo_1", category: "Desarrollo", icon: "settings_suggest", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
+            { id: "desarrollo_2", category: "Desarrollo", icon: "settings_suggest", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
+            { id: "desarrollo_3", category: "Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
+            // Colaboración
+            { id: "colaboracion_1", category: "Colaboración", icon: "groups", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
+            { id: "colaboracion_2", category: "Colaboración", icon: "groups", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
+            // Retribución y Flexibilidad
+            { id: "retribucion_1", category: "Retribución y Flexibilidad", icon: "balance", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
+            { id: "retribucion_2", category: "Retribución y Flexibilidad", icon: "balance", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
+            { id: "retribucion_3", category: "Retribución y Flexibilidad", icon: "balance", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
+            // Felicidad General
+            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "¿Qué tan feliz te sientes trabajando en esta empresa?", type: "scale10" }
+        ];
+
+        function getScoreLabel(score) {
+            if (score >= 4.7) return { text: "Feliz", colorClass: "text-emerald-600", bgBadge: "bg-emerald-500", emoji: "😄" };
+            if (score >= 4.0) return { text: "Satisfecho", colorClass: "text-lime-600", bgBadge: "bg-lime-500", emoji: "🙂" };
+            if (score >= 3.0) return { text: "Indiferente", colorClass: "text-amber-500", bgBadge: "bg-amber-400", emoji: "😐" };
+            if (score >= 2.0) return { text: "Insatisfecho", colorClass: "text-orange-500", bgBadge: "bg-orange-500", emoji: "🙁" };
+            return { text: "Infeliz", colorClass: "text-red-600", bgBadge: "bg-red-600", emoji: "😠" };
+        }
+
+        let rawGlobalData = [];
+
+        async function loadGlobalData() {
+            const loading = document.getElementById("globalLoading");
+            const warning = document.getElementById("globalConfigWarning");
+            const container = document.getElementById("globalMetricsContainer");
+            const refreshIcon = document.getElementById("refreshIcon");
+
+            if (!SCRIPT_URL || SCRIPT_URL.trim() === "") {
+                loading.classList.add("hidden");
+                warning.classList.remove("hidden");
+                container.classList.add("hidden");
+                return;
+            }
+
+            loading.classList.remove("hidden");
+            warning.classList.add("hidden");
+            container.classList.add("hidden");
+            if (refreshIcon) refreshIcon.classList.add("animate-spin");
+
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const result = await response.json();
+
+                if (result.status === "success" && Array.isArray(result.data)) {
+                    rawGlobalData = result.data;
+                    applyGlobalAreaFilter();
+                } else {
+                    alert("No se pudieron cargar los datos globales o la respuesta fue inválida.");
+                }
+            } catch (err) {
+                console.error("Error al consultar datos globales:", err);
+                alert("Ocurrió un error al consultar Google Sheets. Verifica la URL de tu script.");
+            } finally {
+                loading.classList.add("hidden");
+                if (refreshIcon) refreshIcon.classList.remove("animate-spin");
+            }
+        }
+
+        function applyGlobalAreaFilter() {
+            const filterSelect = document.getElementById("globalAreaFilter");
+            const selectedFilter = filterSelect ? filterSelect.value : "ALL";
+
+            let filtered = rawGlobalData;
+            if (selectedFilter !== "ALL") {
+                filtered = rawGlobalData.filter(item => {
+                    const a = (item.responses && item.responses.area) || item.area || "";
+                    return a.toString().trim().toUpperCase() === selectedFilter.trim().toUpperCase();
+                });
+            }
+
+            renderGlobalMetrics(filtered);
+        }
+
+        function renderGlobalMetrics(allData) {
+            const container = document.getElementById("globalMetricsContainer");
+            container.classList.remove("hidden");
+
+            document.getElementById("globalTotalBadge").textContent = `${allData.length} respuesta${allData.length === 1 ? '' : 's'}`;
+
+            if (allData.length === 0) {
+                document.getElementById("gEnpsScore").textContent = "+0";
+                document.getElementById("gEnpsClass").textContent = "Sin datos";
+                document.getElementById("gPctProm").textContent = "0%";
+                document.getElementById("gPctPas").textContent = "0%";
+                document.getElementById("gPctDet").textContent = "0%";
+                document.getElementById("gBarProm").style.width = "0%";
+                document.getElementById("gBarPas").style.width = "0%";
+                document.getElementById("gBarDet").style.width = "0%";
+                document.getElementById("gOverallScore").textContent = "0.00";
+                document.getElementById("gOverallLabel").textContent = "Sin datos";
+                document.getElementById("gOverallEmoji").textContent = "📊";
+                document.getElementById("gCategoriesContainer").innerHTML = `
+                    <div class="col-span-full py-12 text-center text-outline text-xs font-bold bg-surface-container-lowest border border-outline-variant/30 rounded-2xl">
+                        No hay respuestas registradas para el filtro seleccionado aún.
+                    </div>
+                `;
+                return;
+            }
+
+            // 1. CÁLCULO DE eNPS GLOBAL
+            let promotores = 0, pasivos = 0, detractores = 0;
+            let sumClimate = 0, countClimate = 0;
+            const categorySums = {};
+
+            // Inicializar las dimensiones y sus preguntas en orden
+            QUESTIONS.filter(q => q.type === "likert").forEach(q => {
+                if (!categorySums[q.category]) {
+                    categorySums[q.category] = {
+                        icon: q.icon || "star",
+                        total: 0,
+                        count: 0,
+                        questions: []
+                    };
+                }
+                categorySums[q.category].questions.push({
+                    id: q.id,
+                    text: q.text,
+                    total: 0,
+                    count: 0
+                });
+            });
+
+            allData.forEach(item => {
+                const r = item.responses || {};
+                const enpsVal = Number(r.enps);
+                if (!isNaN(enpsVal)) {
+                    if (enpsVal >= 9) promotores++;
+                    else if (enpsVal >= 7) pasivos++;
+                    else detractores++;
+                }
+
+                // Clima Laboral Likert
+                QUESTIONS.filter(q => q.type === "likert").forEach(q => {
+                    const ansText = r[q.id];
+                    if (ansText && LIKERT_SCORES[ansText]) {
+                        const sc = LIKERT_SCORES[ansText];
+                        sumClimate += sc;
+                        countClimate++;
+
+                        if (categorySums[q.category]) {
+                            categorySums[q.category].total += sc;
+                            categorySums[q.category].count += 1;
+
+                            const qItem = categorySums[q.category].questions.find(x => x.id === q.id);
+                            if (qItem) {
+                                qItem.total += sc;
+                                qItem.count += 1;
+                            }
+                        }
+                    }
+                });
+            });
+
+            const totalEnps = promotores + pasivos + detractores || 1;
+            const pctProm = Math.round((promotores / totalEnps) * 100);
+            const pctPas = Math.round((pasivos / totalEnps) * 100);
+            const pctDet = Math.round((detractores / totalEnps) * 100);
+            const enpsScore = pctProm - pctDet;
+
+            const gEnpsScoreElem = document.getElementById("gEnpsScore");
+            gEnpsScoreElem.textContent = (enpsScore >= 0 ? "+" : "") + enpsScore;
+            gEnpsScoreElem.className = `text-4xl font-black font-mono ${enpsScore >= 50 ? 'text-emerald-600' : (enpsScore >= 0 ? 'text-amber-500' : 'text-rose-600')}`;
+            document.getElementById("gEnpsClass").textContent = enpsScore >= 50 ? "Excelente (Fidelidad Alta)" : (enpsScore >= 0 ? "Bueno (Saludable)" : "Atención Requerida");
+
+            document.getElementById("gPctProm").textContent = `${pctProm}%`;
+            document.getElementById("gPctPas").textContent = `${pctPas}%`;
+            document.getElementById("gPctDet").textContent = `${pctDet}%`;
+
+            document.getElementById("gBarProm").style.width = `${pctProm}%`;
+            document.getElementById("gBarPas").style.width = `${pctPas}%`;
+            document.getElementById("gBarDet").style.width = `${pctDet}%`;
+
+            // 2. CÁLCULO PROMEDIO GLOBAL CLIMA
+            const overallAvg = countClimate > 0 ? (sumClimate / countClimate) : 5.0;
+            const meta = getScoreLabel(overallAvg);
+
+            document.getElementById("gOverallScore").textContent = overallAvg.toFixed(2);
+            document.getElementById("gOverallScore").className = `text-4xl font-black font-mono ${meta.colorClass}`;
+            document.getElementById("gOverallLabel").textContent = `${meta.text} ${meta.emoji}`;
+            document.getElementById("gOverallEmoji").textContent = meta.emoji;
+
+            // 3. DESGLOSE POR DIMENSIÓN GLOBAL (CON DETALLE DESPLEGABLE)
+            const catContainer = document.getElementById("gCategoriesContainer");
+            catContainer.innerHTML = "";
+
+            let gCatIdx = 0;
+            for (const [catName, catData] of Object.entries(categorySums)) {
+                const catAvg = catData.count > 0 ? (catData.total / catData.count) : 5.0;
+                const catMeta = getScoreLabel(catAvg);
+
+                const card = document.createElement("div");
+                card.className = "bg-surface-container-lowest border border-outline-variant/40 rounded-2xl overflow-hidden transition-all shadow-sm";
+
+                let qListHtml = "";
+                catData.questions.forEach(qItem => {
+                    const qAvg = qItem.count > 0 ? (qItem.total / qItem.count) : 5.0;
+                    const qMeta = getScoreLabel(qAvg);
+                    qListHtml += `
+                        <div class="flex items-start justify-between gap-3 py-2 border-b border-outline-variant/20 last:border-0 text-xs">
+                            <p class="text-on-surface-variant font-medium leading-relaxed">${qItem.text}</p>
+                            <div class="text-right shrink-0">
+                                <span class="${qMeta.colorClass} font-bold font-mono text-xs">${qAvg.toFixed(2)}</span>
+                                <span class="block text-[10px] text-outline font-semibold">${qMeta.text}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <button type="button" onclick="toggleCategoryDetail('g_cat_body_${gCatIdx}', 'g_cat_arrow_${gCatIdx}')"
+                        class="w-full p-4 flex items-center justify-between text-left hover:bg-surface-container-low/50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">${catData.icon}</span>
+                            <div>
+                                <h3 class="font-bold text-xs md:text-sm text-on-surface">${catName}</h3>
+                                <span class="${catMeta.colorClass} text-[11px] font-bold">${catMeta.text}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <span class="px-3 py-1 rounded-full text-xs font-black font-mono text-white ${catMeta.bgBadge}">${catAvg.toFixed(2)}</span>
+                            <span id="g_cat_arrow_${gCatIdx}" class="material-symbols-outlined text-outline transition-transform">expand_more</span>
+                        </div>
+                    </button>
+                    <div id="g_cat_body_${gCatIdx}" class="hidden px-4 pb-3 pt-1 bg-surface-container-low/30 border-t border-outline-variant/20">
+                        ${qListHtml}
+                    </div>
+                `;
+                catContainer.appendChild(card);
+                gCatIdx++;
+            }
+        }
+
+        function toggleCategoryDetail(bodyId, arrowId) {
+            const body = document.getElementById(bodyId);
+            const arrow = document.getElementById(arrowId);
+            if (body && arrow) {
+                body.classList.toggle("hidden");
+                arrow.classList.toggle("rotate-180");
+            }
+        }
+
+        // Cargar datos automáticamente al abrir la página
+        loadGlobalData();
+    </script>
+</body>
+
+</html>

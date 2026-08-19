@@ -202,165 +202,189 @@
 
     <!-- Main Content centered, absolute no scroll -->
     <main class="h-full w-full flex items-center justify-center p-4 relative z-10">
-        <div
-            class="glass-panel w-full max-w-max-width-content rounded-[32px] p-6 md:p-10 relative overflow-hidden flex flex-col max-h-[95vh] justify-between">
-            <!-- Branding Accent -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/5 rounded-bl-full -mr-10 -mt-10"></div>
+        <div class="relative w-full max-w-[920px] flex items-center justify-center">
 
-            <!-- Integrated TopNavBar -->
-            <header
-                class="flex justify-between items-center w-full pb-2 mb-3 bg-transparent border-b border-outline-variant/30">
-                <div class="flex items-center h-12 overflow-hidden">
-                    <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
-                        class="h-28 w-auto object-contain -my-8">
+            <!-- Mascota flotante a la izquierda (visible en pantalla inicio step_start) -->
+            <div id="mascot_welcome"
+                class="hidden lg:block absolute -left-44 bottom-0 z-20 pointer-events-none transition-all duration-500">
+                <img src="artesencuesta/tplayoficina_sin_fondo.png" alt="Mascota Totalplay"
+                    class="h-[480px] w-auto object-contain drop-shadow-2xl">
+            </div>
+
+            <div
+                class="glass-panel w-full rounded-[32px] p-6 md:p-10 relative overflow-hidden flex flex-col max-h-[95vh] justify-between">
+                <!-- Branding Accent -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/5 rounded-bl-full -mr-10 -mt-10">
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <span
-                        class="material-symbols-outlined text-primary hover:text-primary-container transition-colors scale-95 cursor-pointer">account_circle</span>
+                <!-- Integrated TopNavBar -->
+                <header
+                    class="flex justify-between items-center w-full pb-2 mb-3 bg-transparent border-b border-outline-variant/30">
+                    <div class="flex items-center h-12 overflow-hidden">
+                        <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
+                            class="h-28 w-auto object-contain -my-8">
+                    </div>
+                </header>
+
+                <div class="flex flex-col space-y-6 overflow-y-auto pr-1">
+
+                    <!-- STEP 0: START -->
+                    <div id="step_start" class="flex flex-col items-center text-center space-y-6 py-4">
+                        <!-- Headline Section -->
+                        <div class="space-y-4">
+                            <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-black">
+                                Tu voz hace la <span class="brand-orange-text">diferencia</span>
+                            </h1>
+                            <p
+                                class="text-on-surface-variant font-body-md text-body-md max-w-[600px] mx-auto leading-relaxed">
+                                Bienvenido a la <span class="font-bold text-primary">Encuesta de Clima Laboral</span>.
+                                Responde de manera rápida y sencilla para ayudarnos a construir un mejor lugar para
+                                todos.
+                            </p>
+                        </div>
+
+                        <!-- Stats/Highlights Bento Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full pt-2">
+                            <div
+                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                                <span class="material-symbols-outlined text-primary text-2xl"
+                                    style="font-variation-settings: 'FILL' 0;">timer</span>
+                                <p class="font-label-bold text-label-bold text-on-surface">3 Minutos</p>
+                            </div>
+                            <div
+                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                                <span class="material-symbols-outlined text-primary text-2xl"
+                                    style="font-variation-settings: 'FILL' 0;">lock</span>
+                                <p class="font-label-bold text-label-bold text-on-surface">Anónimo</p>
+                            </div>
+                            <div
+                                class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
+                                <span class="material-symbols-outlined text-primary text-2xl"
+                                    style="font-variation-settings: 'FILL' 0;">bolt</span>
+                                <p class="font-label-bold text-label-bold text-on-surface">Fluido</p>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Área de Trabajo -->
+                        <div class="w-full max-w-xl mx-auto space-y-3 pt-1 text-left">
+                            <div class="flex items-center justify-between">
+                                <label
+                                    class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-primary text-base">domain</span>
+                                    <span>¿A qué área perteneces?</span>
+                                </label>
+                                <span id="areaWarning"
+                                    class="hidden text-xs text-rose-500 font-bold flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">error</span> Selecciona tu área para
+                                    comenzar
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="areaGridContainer">
+                                <!-- Botones de áreas inyectados dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="pt-2 w-full md:w-auto">
+                            <button onclick="startSurvey()"
+                                class="gradient-button w-full md:w-64 py-5 px-8 rounded-full text-white font-label-bold text-label-bold uppercase tracking-widest flex items-center justify-center gap-2 group">
+                                <span>Iniciar Encuesta</span>
+                                <span
+                                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DYNAMIC QUESTION VIEW -->
+                    <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-5 py-2">
+                        <div class="flex items-center gap-2">
+                            <span id="qCategory"
+                                class="text-[11px] font-bold text-primary uppercase tracking-widest">Dimensión</span>
+                            <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
+                        </div>
+
+                        <h2 id="qText"
+                            class="font-headline-lg-mobile md:text-[26px] md:leading-[1.3] text-on-surface tracking-tight font-bold">
+                            Pregunta de prueba</h2>
+
+                        <div id="qAnswersContainer" class="py-1">
+                            <!-- Answers injected here -->
+                        </div>
+
+                        <div id="kHint"
+                            class="flex items-center justify-center gap-2 pt-2 text-center text-xs text-outline font-semibold">
+                            <!-- Keyboard Hint injected here -->
+                        </div>
+                    </div>
+
+                    <!-- STEP SUCCESS (PANTALLA DE AGRADECIMIENTO) -->
+                    <div id="step_success" class="hidden flex flex-col items-center text-center space-y-6 py-6 max-w-lg mx-auto">
+                        <!-- Icono de Confirmación -->
+                        <div class="relative">
+                            <div class="w-20 h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-md">
+                                <span class="material-symbols-outlined text-4xl">check_circle</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <span id="userAreaBadge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
+                                <span class="material-symbols-outlined text-sm">domain</span>
+                                <span id="lblUserArea">Área</span>
+                            </span>
+                            <h1 class="font-headline-xl text-2xl md:text-3xl text-on-surface tracking-tight font-black">
+                                ¡Muchas gracias por tu participación!
+                            </h1>
+                            <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
+                                Tus respuestas han sido enviadas de forma <span class="font-bold text-primary">segura y anónima</span>. Tu opinión es fundamental para continuar construyendo un mejor entorno de trabajo para todos en <span class="font-bold text-on-surface">Totalplay</span>.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-surface-container-low/60 border border-outline-variant/30 text-xs text-on-surface-variant max-w-md w-full">
+                            <p class="flex items-center justify-center gap-1.5 font-bold text-on-surface">
+                                <span class="material-symbols-outlined text-base text-primary">shield</span>
+                                <span>Confidencialidad Garantizada</span>
+                            </p>
+                            <p class="mt-1 text-[11px]">Tus valoraciones se consolidan de manera general con las de tu equipo.</p>
+                        </div>
+
+                        <div class="pt-2">
+                            <button onclick="restartSurvey()" class="px-6 py-3 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-primary hover:border-primary transition-all flex items-center gap-2">
+                                <span class="material-symbols-outlined text-base">restart_alt</span>
+                                <span>Responder otra encuesta</span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
-            </header>
 
-            <div class="flex flex-col space-y-6 overflow-y-auto pr-1">
+                <!-- NAVIGATION FOOTER -->
+                <div id="surveyFooter" style="display: none;"
+                    class="flex justify-between items-center pt-4 mt-4 border-t border-outline-variant/30">
+                    <button id="btnPrev" onclick="prevQuestion()"
+                        class="px-6 py-3 border border-outline-variant/60 rounded-full text-sm font-label-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">arrow_back</span>
+                        <span>Atrás</span>
+                    </button>
 
-                <!-- STEP 0: START -->
-                <div id="step_start" class="flex flex-col items-center text-center space-y-6 py-4">
-                    <!-- Headline Section -->
-                    <div class="space-y-4">
-                        <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-black">
-                            Tu voz hace la <span class="brand-orange-text">diferencia</span>
-                        </h1>
-                        <p
-                            class="text-on-surface-variant font-body-md text-body-md max-w-[600px] mx-auto leading-relaxed">
-                            Bienvenido a la <span class="font-bold text-primary">Encuesta de Satisfacción y
-                                Felicidad</span>. Responde de manera rápida y fluida para ayudarnos a construir un mejor
-                            lugar para todos. Tu opinión es el motor de nuestro crecimiento.
-                        </p>
-                    </div>
-
-                    <!-- Stats/Highlights Bento Row -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full pt-2">
-                        <div
-                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-primary text-2xl"
-                                style="font-variation-settings: 'FILL' 0;">timer</span>
-                            <p class="font-label-bold text-label-bold text-on-surface">3 Minutos</p>
-                        </div>
-                        <div
-                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-primary text-2xl"
-                                style="font-variation-settings: 'FILL' 0;">lock</span>
-                            <p class="font-label-bold text-label-bold text-on-surface">Anónimo</p>
-                        </div>
-                        <div
-                            class="bg-surface-container-low/50 p-4 rounded-2xl border border-outline-variant/30 flex items-center justify-center gap-3 backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-primary text-2xl"
-                                style="font-variation-settings: 'FILL' 0;">bolt</span>
-                            <p class="font-label-bold text-label-bold text-on-surface">Fluido</p>
+                    <!-- Centered Linear Progress Indicator -->
+                    <div class="flex flex-col items-center gap-1.5">
+                        <span id="progressIndex" class="font-label-bold text-[12px] text-primary">1 de 21</span>
+                        <div class="w-24 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+                            <div id="progressBar"
+                                class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300"
+                                style="width: 0%;"></div>
                         </div>
                     </div>
 
-                    <!-- CTA -->
-                    <div class="pt-4 w-full md:w-auto">
-                        <button onclick="nextQuestion()"
-                            class="gradient-button w-full md:w-64 py-5 px-8 rounded-full text-white font-label-bold text-label-bold uppercase tracking-widest flex items-center justify-center gap-2 group">
-                            <span>Iniciar Encuesta</span>
-                            <span
-                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                        </button>
-                        <p class="mt-4 text-[12px] text-outline italic">Haz clic para comenzar tu experiencia</p>
-                    </div>
-                </div>
-
-                <!-- DYNAMIC QUESTION VIEW -->
-                <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-5 py-2">
-                    <div class="flex items-center gap-2">
-                        <span id="qCategory"
-                            class="text-[11px] font-bold text-primary uppercase tracking-widest">Dimensión</span>
-                        <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
-                    </div>
-
-                    <h2 id="qText"
-                        class="font-headline-lg-mobile md:text-[26px] md:leading-[1.3] text-on-surface tracking-tight font-bold">
-                        Pregunta de prueba</h2>
-
-                    <div id="qAnswersContainer" class="py-1">
-                        <!-- Answers injected here -->
-                    </div>
-
-                    <div id="kHint" class="flex items-center justify-center gap-2 text-xs text-outline font-semibold">
-                        <!-- Keyboard Hint injected here -->
-                    </div>
-                </div>
-
-                <!-- STEP SUCCESS -->
-                <div id="step_success" class="hidden flex flex-col items-center text-center space-y-5 pt-4">
-                    <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined text-3xl"
-                            style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                    </div>
-
-                    <h1 class="font-headline-lg text-on-surface tracking-tight font-black">¡Muchas gracias por
-                        participar!</h1>
-                    <p class="text-on-surface-variant font-body-md text-body-md max-w-[500px]">
-                        Tus respuestas se han guardado con éxito. Tu opinión nos ayuda a construir un mejor lugar para
-                        todos día con día.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-4 w-full max-w-sm pt-2">
-                        <div
-                            class="bg-surface-container p-5 rounded-2xl border border-outline-variant/30 text-center shadow-sm">
-                            <p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">eNPS
-                                otorgado</p>
-                            <p id="resEnps" class="font-headline-xl text-primary font-black mt-2">-</p>
-                        </div>
-                        <div
-                            class="bg-surface-container p-5 rounded-2xl border border-outline-variant/30 text-center shadow-sm">
-                            <p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Felicidad
-                                Laboral</p>
-                            <p id="resHappiness" class="font-headline-xl text-secondary-container font-black mt-2">-</p>
-                        </div>
-                    </div>
-
-                    <div class="pt-2">
-                        <button onclick="toggleRaw()"
-                            class="raw-btn px-4 py-2 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-on-surface transition-colors">
-                            Ver respuesta JSON
-                        </button>
-                        <pre id="jsonDisplay"
-                            class="hidden text-left p-4 rounded-xl bg-surface-container-high/90 border border-outline-variant/40 mt-4 max-w-md overflow-x-auto text-[11px] font-mono text-primary-fixed-dim"></pre>
-                    </div>
+                    <button id="btnNext" onclick="nextQuestion()"
+                        class="px-8 py-3 bg-primary text-white rounded-full text-sm font-label-bold uppercase tracking-wider flex items-center gap-2 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all">
+                        <span>Siguiente</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
                 </div>
 
             </div>
-
-            <!-- NAVIGATION FOOTER -->
-            <div id="surveyFooter" style="display: none;"
-                class="flex justify-between items-center pt-4 mt-4 border-t border-outline-variant/30">
-                <button id="btnPrev" onclick="prevQuestion()"
-                    class="px-6 py-3 border border-outline-variant/60 rounded-full text-sm font-label-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-2">
-                    <span class="material-symbols-outlined text-sm">arrow_back</span>
-                    <span>Atrás</span>
-                </button>
-
-                <!-- Centered Linear Progress Indicator -->
-                <div class="flex flex-col items-center gap-1.5">
-                    <span id="progressIndex" class="font-label-bold text-[12px] text-primary">1 de 21</span>
-                    <div class="w-24 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
-                        <div id="progressBar"
-                            class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300"
-                            style="width: 0%;"></div>
-                    </div>
-                </div>
-
-                <button id="btnNext" onclick="nextQuestion()"
-                    class="px-8 py-3 bg-primary text-white rounded-full text-sm font-label-bold uppercase tracking-wider flex items-center gap-2 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all">
-                    <span>Siguiente</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
-            </div>
-
-        </div>
     </main>
 
     <script>
@@ -375,6 +399,7 @@
 
         // All questions array structured sequentially
         const QUESTIONS = [
+            // Preguntas 1 y 2: Recomendación eNPS e información cualitativa (no cuentan para clima laboral)
             {
                 id: "enps",
                 category: "Recomendación eNPS",
@@ -389,34 +414,36 @@
                 text: "¿Por qué otorgaste esta calificación?",
                 type: "textarea"
             },
-            // Orgullo
-            { id: "orgullo_1", category: "Orgullo y Pertenencia", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
-            { id: "orgullo_2", category: "Orgullo y Pertenencia", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
-            // Mi formador
-            { id: "formador_1", category: "Mi Formador", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
-            { id: "formador_2", category: "Mi Formador", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
-            { id: "formador_3", category: "Mi Formador", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
-            { id: "formador_4", category: "Mi Formador", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
-            { id: "formador_5", category: "Mi Formador", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
-            // Reconocimiento
-            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
-            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
-            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
+            // Preguntas 3 a 20 (18 preguntas) para evaluar Clima Laboral
+            // Orgullo y Pertenencia
+            { id: "orgullo_1", category: "Orgullo y Pertenencia", icon: "favorite", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
+            { id: "orgullo_2", category: "Orgullo y Pertenencia", icon: "favorite", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
+            // Mi Formador
+            { id: "formador_1", category: "Mi Formador", icon: "record_voice_over", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
+            { id: "formador_2", category: "Mi Formador", icon: "record_voice_over", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
+            { id: "formador_3", category: "Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
+            { id: "formador_4", category: "Mi Formador", icon: "record_voice_over", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
+            { id: "formador_5", category: "Mi Formador", icon: "record_voice_over", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
+            // Reconocimiento y Entorno
+            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", icon: "stars", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
+            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", icon: "stars", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
+            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", icon: "stars", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
             // Desarrollo
-            { id: "desarrollo_1", category: "Desarrollo", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
-            { id: "desarrollo_2", category: "Desarrollo", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
-            { id: "desarrollo_3", category: "Desarrollo", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
+            { id: "desarrollo_1", category: "Desarrollo", icon: "settings_suggest", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
+            { id: "desarrollo_2", category: "Desarrollo", icon: "settings_suggest", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
+            { id: "desarrollo_3", category: "Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
             // Colaboración
-            { id: "colaboracion_1", category: "Colaboración", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
-            { id: "colaboracion_2", category: "Colaboración", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
-            // Retribución
-            { id: "retribucion_1", category: "Retribución y Flexibilidad", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
-            { id: "retribucion_2", category: "Retribución y Flexibilidad", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
-            { id: "retribucion_3", category: "Retribución y Flexibilidad", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
-            // Happiness
+            { id: "colaboracion_1", category: "Colaboración", icon: "groups", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
+            { id: "colaboracion_2", category: "Colaboración", icon: "groups", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
+            // Retribución y Flexibilidad
+            { id: "retribucion_1", category: "Retribución y Flexibilidad", icon: "balance", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
+            { id: "retribucion_2", category: "Retribución y Flexibilidad", icon: "balance", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
+            { id: "retribucion_3", category: "Retribución y Flexibilidad", icon: "balance", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
+            // Pregunta 21: Felicidad General (del 0 al 10)
             {
                 id: "happiness",
                 category: "Felicidad General",
+                icon: "sentiment_satisfied",
                 text: "Tomando en cuenta todas las preguntas anteriores, del 0 al 10. ¿Qué tan feliz te sientes trabajando en esta empresa?",
                 type: "scale10",
                 startAtZero: true,
@@ -425,6 +452,67 @@
             }
         ];
 
+        // Áreas de trabajo disponibles
+        const AREAS = [
+            { id: "STAFF", name: "STAFF", icon: "badge" },
+            { id: "COMERCIAL", name: "COMERCIAL", icon: "trending_up" },
+            { id: "PLANTA INTERNA", name: "PLANTA INTERNA", icon: "router" },
+            { id: "PLANTA EXTERNA", name: "PLANTA EXTERNA", icon: "cell_tower" },
+            { id: "SERVICIO / COBRANZA", name: "SERVICIO / COBRANZA", icon: "support_agent" },
+            { id: "DESARROLLO COMERCIAL", name: "DESARROLLO COMERCIAL", icon: "rocket_launch" }
+        ];
+        let selectedArea = null;
+
+        function renderAreaCards() {
+            const container = document.getElementById("areaGridContainer");
+            if (!container) return;
+            container.innerHTML = "";
+
+            AREAS.forEach(area => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                const isSelected = selectedArea === area.id;
+                btn.className = `p-3 rounded-2xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${isSelected
+                    ? "border-primary bg-primary/10 text-primary shadow-sm ring-2 ring-primary/30 font-bold"
+                    : "border-outline-variant/40 bg-surface-container-lowest/90 text-on-surface hover:border-primary/50 hover:bg-surface-container-low font-medium"
+                    }`;
+                btn.onclick = () => selectArea(area.id);
+                btn.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-primary text-white' : 'bg-surface-container-high text-on-surface-variant'
+                    }">
+                        <span class="material-symbols-outlined text-base">${area.icon}</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-[11px] sm:text-xs truncate leading-tight uppercase">${area.name}</p>
+                    </div>
+                    ${isSelected ? '<span class="material-symbols-outlined text-primary text-sm shrink-0">check_circle</span>' : ''}
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectArea(areaId) {
+            selectedArea = areaId;
+            surveyResponses.area = areaId;
+            const warning = document.getElementById("areaWarning");
+            if (warning) warning.classList.add("hidden");
+            renderAreaCards();
+        }
+
+        function startSurvey() {
+            if (!selectedArea) {
+                const warning = document.getElementById("areaWarning");
+                if (warning) warning.classList.remove("hidden");
+                const container = document.getElementById("areaGridContainer");
+                if (container) {
+                    container.classList.add("ring-2", "ring-rose-500/50", "rounded-2xl");
+                    setTimeout(() => container.classList.remove("ring-2", "ring-rose-500/50"), 1200);
+                }
+                return;
+            }
+            nextQuestion();
+        }
+
         let currentQuestionIdx = -1; // -1 means Start screen
         const surveyResponses = {};
 
@@ -432,7 +520,7 @@
         window.addEventListener("keydown", (e) => {
             if (currentQuestionIdx < 0 || currentQuestionIdx >= QUESTIONS.length) {
                 if (currentQuestionIdx === -1 && e.key === "Enter") {
-                    nextQuestion();
+                    startSurvey();
                 }
                 return;
             }
@@ -442,8 +530,8 @@
             if (q.type === "likert") {
                 const num = parseInt(e.key);
                 if (num >= 1 && num <= 5) {
-                    const cards = document.querySelectorAll("#qAnswersContainer .emoji-card");
-                    if (cards[num - 1]) cards[num - 1].click();
+                    const btn = document.querySelector(`#qAnswersContainer .emoji-card[data-val="${num}"]`);
+                    if (btn) btn.click();
                 }
             } else if (q.type === "scale10") {
                 const num = parseInt(e.key);
@@ -462,7 +550,10 @@
             } else if (q.type === "textarea") {
                 if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
-                    nextQuestion();
+                    const val = surveyResponses[q.id];
+                    if (val && val.trim().length > 0) {
+                        nextQuestion();
+                    }
                 }
             }
         });
@@ -479,6 +570,7 @@
             const dynamicCard = document.getElementById("dynamicQuestionCard");
             const successScreen = document.getElementById("step_success");
             const footer = document.getElementById("surveyFooter");
+            const mascot = document.getElementById("mascot_welcome");
 
             startScreen.classList.add("hidden");
             dynamicCard.classList.add("hidden");
@@ -487,26 +579,58 @@
             if (idx === -1) {
                 startScreen.classList.remove("hidden");
                 footer.style.display = "none";
+                if (mascot) mascot.style.display = "block";
                 return;
             }
+
+            if (mascot) mascot.style.display = "none";
 
             if (idx >= QUESTIONS.length) {
                 successScreen.classList.remove("hidden");
                 footer.style.display = "none";
 
-                document.getElementById("resEnps").textContent = surveyResponses["enps"] || "-";
-                document.getElementById("resHappiness").textContent = surveyResponses["happiness"] || "-";
-                document.getElementById("jsonDisplay").textContent = JSON.stringify(surveyResponses, null, 4);
+                if (selectedArea) {
+                    const badge = document.getElementById("userAreaBadge");
+                    const lbl = document.getElementById("lblUserArea");
+                    if (badge && lbl) {
+                        lbl.textContent = `Área: ${selectedArea}`;
+                        badge.classList.remove("hidden");
+                    }
+                }
+
+                // Calcular promedio general de clima laboral de esta respuesta y enviar
+                let totalSum = 0, count = 0;
+                QUESTIONS.filter(q => q.type === "likert").forEach(q => {
+                    const ans = surveyResponses[q.id];
+                    if (ans && LIKERT_SCORES[ans]) {
+                        totalSum += LIKERT_SCORES[ans];
+                        count++;
+                    }
+                });
+                const overallAvg = count > 0 ? (totalSum / count) : 5.0;
+                sendResponseToGoogleSheets(overallAvg);
                 return;
             }
 
             footer.style.display = "flex";
+            dynamicCard.classList.remove("hidden");
 
-            document.getElementById("progressIndex").textContent = `${idx + 1} de ${QUESTIONS.length}`;
-            const percent = Math.round(((idx + 1) / QUESTIONS.length) * 100);
-            const progressBar = document.getElementById("progressBar");
-            if (progressBar) {
-                progressBar.style.width = `${percent}%`;
+            // Progreso excluyendo las 2 primeras preguntas (eNPS y su motivo)
+            const evaluableTotal = QUESTIONS.length - 2;
+            const evaluableIdx = idx - 2;
+            if (evaluableIdx >= 0) {
+                document.getElementById("progressIndex").textContent = `${evaluableIdx + 1} de ${evaluableTotal}`;
+                const percent = Math.round(((evaluableIdx + 1) / evaluableTotal) * 100);
+                const progressBar = document.getElementById("progressBar");
+                if (progressBar) {
+                    progressBar.style.width = `${percent}%`;
+                }
+            } else {
+                document.getElementById("progressIndex").textContent = `Información Inicial (${idx + 1} de 2)`;
+                const progressBar = document.getElementById("progressBar");
+                if (progressBar) {
+                    progressBar.style.width = `0%`;
+                }
             }
 
             const q = QUESTIONS[idx];
@@ -525,16 +649,18 @@
 
                 LIKERT_LEVELS.forEach((level, i) => {
                     const card = document.createElement("div");
+                    const scoreVal = 5 - i; // 5 = Totalmente de acuerdo, 1 = Totalmente en desacuerdo
 
                     const isSelected = (surveyResponses[q.id] === level.text);
                     if (isSelected) {
-                        card.className = `flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border-2 ${level.borderClass} ${level.bgClass} cursor-pointer transition-all relative scale-[1.01] shadow-sm w-full`;
+                        card.className = `emoji-card flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border-2 ${level.borderClass} ${level.bgClass} cursor-pointer transition-all relative scale-[1.01] shadow-sm w-full`;
                     } else {
-                        card.className = "flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border border-outline-variant/40 bg-surface-container-low/40 hover:bg-surface-container hover:border-primary/50 cursor-pointer transition-all relative group w-full";
+                        card.className = "emoji-card flex flex-row sm:flex-col items-center gap-3 sm:justify-center p-3 md:p-4 rounded-xl md:rounded-2xl border border-outline-variant/40 bg-surface-container-low/40 hover:bg-surface-container hover:border-primary/50 cursor-pointer transition-all relative group w-full";
                     }
 
+                    card.setAttribute("data-val", scoreVal);
                     card.innerHTML = `
-                        <div class="absolute top-2 right-2 text-[10px] text-outline/60 bg-surface-container-high/40 px-1.5 py-0.5 rounded font-mono font-bold hidden sm:block">${i + 1}</div>
+                        <div class="absolute top-2 right-2 text-[10px] text-outline/60 bg-surface-container-high/40 px-1.5 py-0.5 rounded font-mono font-bold hidden sm:block">${scoreVal}</div>
                         <div class="text-3xl sm:mb-2 group-hover:scale-110 transition-transform shrink-0">${level.emoji}</div>
                         <div class="text-[12px] font-bold text-left sm:text-center leading-snug ${isSelected ? 'text-on-surface' : 'text-on-surface-variant'}">${level.text}</div>
                     `;
@@ -546,7 +672,7 @@
                     grid.appendChild(card);
                 });
                 answersContainer.appendChild(grid);
-                hint.innerHTML = `Presiona del <span class="key-badge">1</span> al <span class="key-badge">5</span> para responder rápido`;
+                hint.innerHTML = `Presiona del <span class="key-badge">1</span> al <span class="key-badge">5</span> para responder rápido (5 = Máximo)`;
             }
             else if (q.type === "scale10") {
                 const container = document.createElement("div");
@@ -600,7 +726,7 @@
 
                 answersContainer.appendChild(textarea);
                 textarea.focus();
-                hint.innerHTML = `Presiona <span class="key-badge">Enter</span> para continuar`;
+                hint.innerHTML = `Ingresa tu respuesta para habilitar el botón continuar`;
             }
 
             dynamicCard.classList.remove("hidden");
@@ -629,7 +755,7 @@
             if (q) {
                 const val = surveyResponses[q.id];
                 if (q.type === "textarea") {
-                    isAnswered = true;
+                    isAnswered = (val !== undefined && val !== null && val.trim().length > 0);
                 } else {
                     isAnswered = (val !== undefined && val !== null);
                 }
@@ -663,6 +789,63 @@
                 display.scrollIntoView({ behavior: 'smooth' });
             }
         }
+
+        // Mapeo numérico para las respuestas Likert (de 1 a 5)
+        const LIKERT_SCORES = {
+            "Totalmente de acuerdo": 5,
+            "De acuerdo": 4,
+            "Ni de acuerdo, ni desacuerdo": 3,
+            "En desacuerdo": 2,
+            "Totalmente en desacuerdo": 1
+        };
+
+        function restartSurvey() {
+            currentQuestionIdx = -1;
+            selectedArea = null;
+            for (const key in surveyResponses) {
+                delete surveyResponses[key];
+            }
+            renderAreaCards();
+            showQuestion(-1);
+        }
+
+        // CONFIGURACIÓN DE CONEXIÓN A GOOGLE SHEETS
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEQpbHW2XAvE2aaZhoFCh8mXQ5E7H26HnjJ2tpKPUrQJDDMZkDaxkJRghzyccx2eYi3w/exec";
+
+        async function sendResponseToGoogleSheets(climateAvg) {
+            if (!SCRIPT_URL || SCRIPT_URL.trim() === "") return;
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const localTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+            const payload = {
+                id: "RESP-" + now.getTime(),
+                timestamp: localTimestamp,
+                climateAvg: climateAvg,
+                responses: surveyResponses
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors", // Requerido para Apps Script Web App
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                console.log("Respuesta enviada con éxito a Google Sheets");
+            } catch (err) {
+                console.error("Error al enviar respuesta a Google Sheets:", err);
+            }
+        }
+
+        // Renderizar opciones de área al cargar
+        renderAreaCards();
     </script>
 </body>
 
