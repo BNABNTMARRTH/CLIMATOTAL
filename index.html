@@ -54,21 +54,25 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        h1, h2, h3, .font-headline {
+        h1,
+        h2,
+        h3,
+        .font-headline {
             font-family: 'Montserrat', sans-serif;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 20px 40px -15px rgba(0, 53, 197, 0.08), 0 0 15px rgba(0, 0, 0, 0.03);
+            transform: translateZ(0);
         }
 
         .gradient-button {
             background: linear-gradient(135deg, #0035c5 0%, #C8A0F0 100%);
-            transition: all 0.25s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
             box-shadow: 0 4px 14px rgba(0, 53, 197, 0.25);
         }
 
@@ -81,38 +85,38 @@
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.02) translate(-5px, 2px); }
+
+            0%,
+            100% {
+                transform: scale(1) translate3d(0, 0, 0);
+            }
+
+            50% {
+                transform: scale(1.02) translate3d(-4px, 2px, 0);
+            }
         }
 
         .bg-animate {
             animation: breathe 25s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         @keyframes questionAppear {
             from {
                 opacity: 0;
-                transform: translateY(12px) scale(0.99);
+                transform: translate3d(0, 6px, 0);
             }
+
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translate3d(0, 0, 0);
             }
         }
 
         .animate-question {
-            animation: questionAppear 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* Pulse highlight on option selection */
-        @keyframes selectPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.98); }
-            100% { transform: scale(1.01); }
-        }
-
-        .option-selected {
-            animation: selectPulse 0.3s ease-out forwards;
+            animation: questionAppear 0.14s ease-out forwards;
+            will-change: transform, opacity;
         }
     </style>
 </head>
@@ -126,35 +130,45 @@
 
     <!-- Ambient Aurora Glow -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div class="w-[600px] h-[450px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/20 via-[#0035c5]/10 to-transparent blur-[120px]"></div>
+        <div
+            class="w-[600px] h-[450px] rounded-full bg-gradient-to-tr from-[#C8A0F0]/20 via-[#0035c5]/10 to-transparent blur-[120px]">
+        </div>
     </div>
 
     <!-- MAIN CARD CONTAINER -->
     <main class="w-full max-w-[840px] relative z-10 my-auto">
-        
+
         <!-- Mascota visible solo en desktop en pantalla de inicio -->
-        <div id="mascot_welcome" class="hidden lg:block absolute -left-44 bottom-0 z-20 pointer-events-none transition-all duration-500">
-            <img src="artesencuesta/tplayoficina_sin_fondo.png" alt="Mascota Totalplay" class="h-[460px] w-auto object-contain drop-shadow-2xl">
+        <div id="mascot_welcome"
+            class="hidden lg:block absolute -left-44 bottom-0 z-20 pointer-events-none transition-all duration-500">
+            <img src="artesencuesta/tplayoficina_sin_fondo.png" alt="Mascota Totalplay"
+                class="h-[460px] w-auto object-contain drop-shadow-2xl">
         </div>
 
-        <div class="glass-panel w-full rounded-3xl p-4 sm:p-7 md:p-9 relative overflow-hidden flex flex-col justify-between">
-            
+        <div
+            class="glass-panel w-full rounded-3xl p-4 sm:p-7 md:p-9 relative overflow-hidden flex flex-col justify-between">
+
             <!-- TOP NAVBAR -->
             <header class="flex justify-between items-center w-full pb-3 mb-2 border-b border-outline-variant/30">
                 <div class="flex items-center h-10 sm:h-12 overflow-hidden">
-                    <img src="logos_total/logo total png gris (1).png" alt="Totalplay" class="h-24 sm:h-28 w-auto object-contain -my-7 sm:-my-8">
+                    <img src="logos_total/logo total png gris (1).png" alt="Totalplay"
+                        class="h-24 sm:h-28 w-auto object-contain -my-7 sm:-my-8">
                 </div>
 
                 <!-- Live question counter & badge (visible only during survey) -->
-                <div id="topProgressBadge" class="hidden flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono">
+                <div id="topProgressBadge"
+                    class="hidden flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono">
                     <span class="material-symbols-outlined text-xs sm:text-sm">analytics</span>
                     <span id="topProgressText">Pregunta 1 / 20</span>
                 </div>
             </header>
 
             <!-- STICKY TOP PROGRESS BAR -->
-            <div id="topProgressBarContainer" class="hidden w-full h-1.5 bg-outline-variant/30 rounded-full overflow-hidden mb-3">
-                <div id="topProgressBar" class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300" style="width: 0%;"></div>
+            <div id="topProgressBarContainer"
+                class="hidden w-full h-1.5 bg-outline-variant/30 rounded-full overflow-hidden mb-3">
+                <div id="topProgressBar"
+                    class="h-full bg-gradient-to-r from-primary to-[#C8A0F0] rounded-full transition-all duration-300"
+                    style="width: 0%;"></div>
             </div>
 
             <!-- DYNAMIC CONTENT CONTAINER -->
@@ -162,53 +176,97 @@
 
                 <!-- STEP 0: START SCREEN -->
                 <div id="step_start" class="flex flex-col items-center text-center space-y-4 sm:space-y-6 py-2 sm:py-4">
-                    
+
                     <!-- Headline Section -->
                     <div class="space-y-2 sm:space-y-3">
-                        <h1 class="text-2xl sm:text-4xl md:text-5xl text-on-surface tracking-tight font-black font-headline">
+                        <h1
+                            class="text-2xl sm:text-4xl md:text-5xl text-on-surface tracking-tight font-black font-headline">
                             Tu voz hace la <span class="brand-orange-text">diferencia</span>
                         </h1>
-                        <p class="text-on-surface-variant text-xs sm:text-sm md:text-base max-w-[560px] mx-auto leading-relaxed">
-                            Bienvenido a la <span class="font-bold text-primary">Encuesta de Clima Laboral</span>. Tu opinión sincera y anónima nos ayuda a mejorar día a día.
+                        <p
+                            class="text-on-surface-variant text-xs sm:text-sm md:text-base max-w-[560px] mx-auto leading-relaxed">
+                            Bienvenido a la <span class="font-bold text-primary">Encuesta de Clima Laboral</span>. Tu
+                            opinión sincera y anónima nos ayuda a mejorar día a día.
                         </p>
                     </div>
 
                     <!-- Highlight Badges (3 columns on all screens) -->
                     <div class="grid grid-cols-3 gap-2 sm:gap-3 w-full max-w-lg pt-1">
-                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                        <div
+                            class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
                             <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">timer</span>
                             <span class="text-[11px] sm:text-xs font-bold text-on-surface">3 Min</span>
                         </div>
-                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                        <div
+                            class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
                             <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">lock</span>
                             <span class="text-[11px] sm:text-xs font-bold text-on-surface">100% Anónimo</span>
                         </div>
-                        <div class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                        <div
+                            class="bg-surface-container-low/70 p-2.5 sm:p-3.5 rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
                             <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">bolt</span>
                             <span class="text-[11px] sm:text-xs font-bold text-on-surface">1-Tap Rápido</span>
                         </div>
                     </div>
 
-                    <!-- Work Area Selector -->
-                    <div class="w-full max-w-xl mx-auto space-y-2.5 pt-2 text-left">
-                        <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+                    <!-- Work Area & District Selector -->
+                    <div class="w-full max-w-xl mx-auto space-y-3.5 pt-2 text-left">
+                        <!-- Paso 1: Selección de Área -->
+                        <div class="space-y-1.5">
+                            <label for="areaSelect"
+                                class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-base">domain</span>
-                                <span>¿A qué área perteneces?</span>
+                                <span>1. Selecciona tu Área de Trabajo:</span>
                             </label>
-                            <span id="areaWarning" class="hidden text-xs text-rose-500 font-bold flex items-center gap-1 animate-pulse">
-                                <span class="material-symbols-outlined text-sm">error</span> Selecciona tu área
-                            </span>
+                            <select id="areaSelect" onchange="onAreaChange(this.value)"
+                                class="w-full bg-surface-container-lowest border-2 border-outline-variant/50 text-on-surface font-bold text-xs sm:text-sm rounded-2xl px-4 py-3.5 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-sm transition-all">
+                                <option value="" disabled selected>-- Elige tu área de trabajo --</option>
+                                <option value="STAFF">STAFF</option>
+                                <option value="COMERCIAL">COMERCIAL</option>
+                                <option value="PLANTA INTERNA">PLANTA INTERNA</option>
+                                <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
+                                <option value="SERVICIO / COBRANZA">SERVICIO / COBRANZA</option>
+                                <option value="DESARROLLO COMERCIAL">DESARROLLO COMERCIAL</option>
+                            </select>
                         </div>
 
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5" id="areaGridContainer">
-                            <!-- Inyectado dinámicamente -->
+                        <!-- Paso 2: Selección de Distrito (Desbloqueado al elegir área) -->
+                        <div id="distritoSection"
+                            class="space-y-1.5 opacity-50 pointer-events-none transition-all duration-300">
+                            <label for="distritoSelect"
+                                class="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center justify-between">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-primary text-base">location_on</span>
+                                    <span>2. Selecciona tu Distrito:</span>
+                                </span>
+                                <span id="distritoHint" class="text-[10px] font-semibold text-outline">(Primero
+                                    selecciona tu área)</span>
+                            </label>
+                            <select id="distritoSelect" onchange="onDistritoChange(this.value)" disabled
+                                class="w-full bg-surface-container-lowest border-2 border-outline-variant/50 text-on-surface font-bold text-xs sm:text-sm rounded-2xl px-4 py-3.5 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-sm transition-all">
+                                <option value="" disabled selected>-- Elige tu distrito --</option>
+                                <option value="SAN LUIS POTOSI">SAN LUIS POTOSI</option>
+                                <option value="QUERETARO">QUERETARO</option>
+                                <option value="TULTITLAN">TULTITLAN</option>
+                                <option value="AZCAPOTZALCO">AZCAPOTZALCO</option>
+                                <option value="NICOLAS ROMERO">NICOLAS ROMERO</option>
+                                <option value="TLALNEPANTLA">TLALNEPANTLA</option>
+                                <option value="NAUCALPAN">NAUCALPAN</option>
+                                <option value="GUADALUPE TEPEYAC">GUADALUPE TEPEYAC</option>
+                            </select>
+                        </div>
+
+                        <div id="formWarning"
+                            class="hidden text-xs text-rose-500 font-bold flex items-center justify-center gap-1 pt-1 animate-pulse">
+                            <span class="material-symbols-outlined text-sm">error</span>
+                            <span id="warningMsg">Por favor selecciona tu área y distrito</span>
                         </div>
                     </div>
 
                     <!-- CTA Iniciar -->
                     <div class="pt-2 w-full max-w-xs">
-                        <button onclick="startSurvey()" class="gradient-button w-full py-4 px-6 rounded-full text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg">
+                        <button onclick="startSurvey()"
+                            class="gradient-button w-full py-4 px-6 rounded-full text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg">
                             <span>Comenzar Encuesta</span>
                             <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -217,13 +275,15 @@
 
                 <!-- STEP 1+: DYNAMIC QUESTION CARD -->
                 <div id="dynamicQuestionCard" class="hidden flex flex-col space-y-3 sm:space-y-4 py-1">
-                    
+
                     <div class="flex items-center gap-2">
-                        <span id="qCategory" class="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest">Dimensión</span>
+                        <span id="qCategory"
+                            class="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest">Dimensión</span>
                         <div class="flex-grow h-[1px] bg-outline-variant/30"></div>
                     </div>
 
-                    <h2 id="qText" class="text-base sm:text-xl md:text-2xl text-on-surface tracking-tight font-bold font-headline leading-snug">
+                    <h2 id="qText"
+                        class="text-base sm:text-xl md:text-2xl text-on-surface tracking-tight font-bold font-headline leading-snug">
                         Pregunta
                     </h2>
 
@@ -237,40 +297,46 @@
                         <!-- Respuestas inyectadas dinámicamente -->
                     </div>
 
-                    <div id="kHint" class="hidden sm:flex items-center justify-center gap-2 pt-1 text-center text-xs text-outline font-semibold">
+                    <div id="kHint"
+                        class="hidden sm:flex items-center justify-center gap-2 pt-1 text-center text-xs text-outline font-semibold">
                         <!-- Teclado en desktop -->
                     </div>
                 </div>
 
                 <!-- STEP SUCCESS (AGRADECIMIENTO) -->
-                <div id="step_success" class="hidden flex flex-col items-center text-center space-y-4 sm:space-y-5 py-6 max-w-lg mx-auto animate-question">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-md">
+                <div id="step_success"
+                    class="hidden flex flex-col items-center text-center space-y-4 sm:space-y-5 py-6 max-w-lg mx-auto animate-question">
+                    <div
+                        class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-md">
                         <span class="material-symbols-outlined text-3xl sm:text-4xl">check_circle</span>
                     </div>
 
                     <div class="space-y-2">
-                        <span id="userAreaBadge" class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
-                            <span class="material-symbols-outlined text-sm">domain</span>
-                            <span id="lblUserArea">Área</span>
-                        </span>
+                        <div class="flex flex-wrap items-center justify-center gap-2">
+                            <span id="userAreaBadge"
+                                class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
+                                <span class="material-symbols-outlined text-sm">domain</span>
+                                <span id="lblUserArea">Área</span>
+                            </span>
+                            <span id="userDistritoBadge"
+                                class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-bold font-mono uppercase">
+                                <span class="material-symbols-outlined text-sm">location_on</span>
+                                <span id="lblUserDistrito">Distrito</span>
+                            </span>
+                        </div>
                         <h1 class="text-2xl sm:text-3xl text-on-surface tracking-tight font-black font-headline">
                             ¡Muchas gracias por tu participación!
                         </h1>
                         <p class="text-on-surface-variant text-xs sm:text-sm leading-relaxed">
-                            Tus respuestas han sido enviadas de forma <span class="font-bold text-primary">segura y anónima</span>. Tu opinión es clave para seguir construyendo un mejor Totalplay para todos.
+                            Tus respuestas han sido enviadas de forma <span class="font-bold text-primary">segura y
+                                anónima</span>. Tu opinión es clave para seguir construyendo un mejor Totalplay para
+                            todos.
                         </p>
-                    </div>
-
-                    <div class="p-3.5 rounded-2xl bg-surface-container-low/80 border border-outline-variant/30 text-xs text-on-surface-variant max-w-md w-full">
-                        <p class="flex items-center justify-center gap-1.5 font-bold text-on-surface">
-                            <span class="material-symbols-outlined text-base text-primary">shield</span>
-                            <span>Confidencialidad Garantizada</span>
-                        </p>
-                        <p class="mt-0.5 text-[11px]">Tus valoraciones se consolidan de manera general con las de tu equipo.</p>
                     </div>
 
                     <div class="pt-2">
-                        <button onclick="restartSurvey()" class="px-5 py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-primary hover:border-primary transition-all flex items-center gap-1.5">
+                        <button onclick="restartSurvey()"
+                            class="px-5 py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-primary hover:border-primary transition-all flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-sm">restart_alt</span>
                             <span>Responder otra encuesta</span>
                         </button>
@@ -280,13 +346,16 @@
             </div>
 
             <!-- NAVIGATION FOOTER -->
-            <div id="surveyFooter" style="display: none;" class="flex justify-between items-center pt-3 mt-3 border-t border-outline-variant/30">
-                <button id="btnPrev" onclick="prevQuestion()" class="px-4 sm:px-5 py-2 sm:py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-1.5 active:scale-95">
+            <div id="surveyFooter" style="display: none;"
+                class="flex justify-between items-center pt-3 mt-3 border-t border-outline-variant/30">
+                <button id="btnPrev" onclick="prevQuestion()"
+                    class="px-4 sm:px-5 py-2 sm:py-2.5 border border-outline-variant/60 rounded-full text-xs font-bold text-outline hover:text-on-surface hover:border-on-surface transition-all flex items-center gap-1.5 active:scale-95">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
                     <span>Atrás</span>
                 </button>
 
-                <button id="btnNext" onclick="nextQuestion()" class="px-6 sm:px-8 py-2 sm:py-2.5 bg-primary text-white rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all shadow-md active:scale-95">
+                <button id="btnNext" onclick="nextQuestion()"
+                    class="px-6 sm:px-8 py-2 sm:py-2.5 bg-primary text-white rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-primary-container disabled:opacity-30 disabled:pointer-events-none transition-all shadow-md active:scale-95">
                     <span id="lblNextText">Siguiente</span>
                     <span id="iconNext" class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
@@ -314,96 +383,115 @@
             "Totalmente en desacuerdo": 1
         };
 
-        // PREGUNTAS SECUENCIALES (21 en total)
+        // PREGUNTAS SECUENCIALES (30 en total)
         const QUESTIONS = [
             // eNPS
-            { id: "enps", category: "Recomendación eNPS", text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?", type: "scale10", minText: "0 = Nada probable", maxText: "10 = Extremadamente probable" },
-            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Por qué otorgaste esta calificación?", type: "textarea" },
-            // Orgullo y Pertenencia
-            { id: "orgullo_1", category: "Orgullo y Pertenencia", icon: "favorite", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
-            { id: "orgullo_2", category: "Orgullo y Pertenencia", icon: "favorite", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
-            // Mi Formador
-            { id: "formador_1", category: "Mi Formador", icon: "record_voice_over", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
-            { id: "formador_2", category: "Mi Formador", icon: "record_voice_over", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
-            { id: "formador_3", category: "Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
-            { id: "formador_4", category: "Mi Formador", icon: "record_voice_over", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
-            { id: "formador_5", category: "Mi Formador", icon: "record_voice_over", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
-            // Reconocimiento y Entorno
-            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", icon: "stars", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
-            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", icon: "stars", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
-            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", icon: "stars", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
-            // Desarrollo
-            { id: "desarrollo_1", category: "Desarrollo", icon: "settings_suggest", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
-            { id: "desarrollo_2", category: "Desarrollo", icon: "settings_suggest", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
-            { id: "desarrollo_3", category: "Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
-            // Colaboración
-            { id: "colaboracion_1", category: "Colaboración", icon: "groups", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
-            { id: "colaboracion_2", category: "Colaboración", icon: "groups", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
-            // Retribución y Flexibilidad
-            { id: "retribucion_1", category: "Retribución y Flexibilidad", icon: "balance", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
-            { id: "retribucion_2", category: "Retribución y Flexibilidad", icon: "balance", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
-            { id: "retribucion_3", category: "Retribución y Flexibilidad", icon: "balance", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
-            // Felicidad General
-            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "Tomando en cuenta todas las preguntas anteriores, del 0 al 10. ¿Qué tan feliz te sientes trabajando en esta empresa?", type: "scale10", startAtZero: true, minText: "0 = Muy infeliz", maxText: "10 = Totalmente feliz" }
+            { id: "enps", category: "Recomendación eNPS", text: "Del 1 al 10, ¿Qué tan probable es que recomiendes a un familiar o amigo trabajar en Totalplay Región Norponiente?", type: "scale10", minText: "1 = Nada probable", maxText: "10 = Extremadamente probable" },
+            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Qué es lo principal que influye en tu calificación?", type: "textarea", placeholder: "Escribe tus comentarios aquí..." },
+
+            // NIVEL 1. ORGULLO Y PERTENENCIA
+            { id: "orgullo_1", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Me siento orgullos@ de trabajar en Totalplay Región Norponiente.", type: "likert" },
+            { id: "orgullo_2", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Siento que mi trabajo aporta algo importante para que la empresa logre sus objetivos.", type: "likert" },
+            { id: "orgullo_3", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Considero que en el distrito hago cosas que hacen sentirme orgullos@ laboralmente.", type: "likert" },
+            { id: "orgullo_4", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Considero que ser parte de la Región Norponiente es algo que puedo mencionar con orgullo.", type: "likert" },
+
+            // NIVEL 2. MI FORMADOR
+            { id: "formador_1", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Confío en mi formador y siento que puedo aprender de él/ella.", type: "likert" },
+            { id: "formador_2", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Mi formador tiene sesiones de retroalimentación conmigo para saber qué estoy haciendo bien y qué puedo mejorar.", type: "likert" },
+            { id: "formador_3", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, me gustaría volver a trabajar con mi formador en otro proyecto o equipo.", type: "likert" },
+            { id: "formador_4", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Mi formador me trata con respeto y me hace sentir que mi trabajo y mi persona son importantes.", type: "likert" },
+            { id: "formador_5", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Tengo las herramientas, información y equipo que necesito para hacer bien mi trabajo.", type: "likert" },
+
+            // NIVEL 3. RECONOCIMIENTO Y ENTORNO
+            { id: "reconocimiento_1", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando hago bien mi trabajo, siento que la empresa lo reconoce y lo valora.", type: "likert" },
+            { id: "reconocimiento_2", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Hay personas dentro de la empresa que me inspiran por la forma en que trabajan y aportan buenas ideas.", type: "likert" },
+            { id: "reconocimiento_3", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Tengo la libertad de dar mi opinión y decir lo que pienso.", type: "likert" },
+            { id: "reconocimiento_4", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Siento que en mi equipo recibimos un trato justo, sin preferencias ni favoritismos.", type: "likert" },
+            { id: "reconocimiento_5", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando tengo un problema o algo no está funcionando bien, siento que se lo puedo decir a mi jefe sin miedo a represalias.", type: "likert" },
+            { id: "reconocimiento_6", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando los colaboradores damos ideas o propuestas para mejorar nuestro trabajo, sentimos que son escuchadas y tomadas en cuenta.", type: "likert" },
+
+            // NIVEL 4. DESARROLLO
+            { id: "desarrollo_1", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "En mi trabajo puedo aprovechar lo que sé hacer bien y mis habilidades.", type: "likert" },
+            { id: "desarrollo_2", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Siento que las promociones o cambios de puesto se dan de manera justa.", type: "likert" },
+            { id: "desarrollo_3", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades para aprender, crecer y tener un mejor puesto dentro de la empresa.", type: "likert" },
+            { id: "desarrollo_4", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Me veo logrando una carrera profesional en Totalplay en los próximos 2 años o más.", type: "likert" },
+
+            // NIVEL 5. COLABORACIÓN
+            { id: "colaboracion_1", category: "Nivel 5. Colaboración", icon: "groups", text: "En mi área tenemos la información y comunicación que necesitamos para trabajar bien en equipo.", type: "likert" },
+            { id: "colaboracion_2", category: "Nivel 5. Colaboración", icon: "groups", text: "Cuando necesito ayuda de otra área o persona, siento que existe disposición para trabajar juntos y resolver las cosas.", type: "likert" },
+
+            // NIVEL 6. RETRIBUCIÓN Y FLEXIBILIDAD
+            { id: "retribucion_1", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Siento que la empresa se preocupa por mi bienestar y por cómo me siento en el trabajo.", type: "likert" },
+            { id: "retribucion_2", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Considero que el sueldo que recibo por mi trabajo es justo de acuerdo con mis resultados y responsabilidades.", type: "likert" },
+            { id: "retribucion_3", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Mi trabajo me permite tener tiempo para atender mis actividades personales y familiares.", type: "likert" },
+            { id: "retribucion_4", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Siento que la cantidad de trabajo que tengo es razonable y puedo realizarlo sin afectar mi bienestar.", type: "likert" },
+            { id: "retribucion_5", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "La gestión de mi jefe directo influye en como me siento en mi trabajo actualmente.", type: "likert" },
+
+            // FELICIDAD GENERAL
+            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "Del 1 al 10, Pensando en todo lo anterior, ¿qué tan feliz te sientes trabajando en Totalplay Región Norponiente?", type: "scale10", minText: "1 = Muy infeliz", maxText: "10 = Totalmente feliz" },
+            { id: "happiness_reason", category: "Felicidad General", icon: "lightbulb", text: "¿Qué ayudaría a que te sientas totalmente feliz de trabajar en Totalplay Región Norponiente?", type: "textarea", placeholder: "Escribe aquí qué sugerencias o cambios te ayudarían..." }
         ];
 
-        // ÁREAS DE TRABAJO
-        const AREAS = [
-            { id: "STAFF", name: "STAFF", icon: "badge" },
-            { id: "COMERCIAL", name: "COMERCIAL", icon: "trending_up" },
-            { id: "PLANTA INTERNA", name: "PLANTA INTERNA", icon: "router" },
-            { id: "PLANTA EXTERNA", name: "PLANTA EXTERNA", icon: "cell_tower" },
-            { id: "SERVICIO / COBRANZA", name: "SERVICIO / COBRANZA", icon: "support_agent" },
-            { id: "DESARROLLO COMERCIAL", name: "DESARROLLO COMERCIAL", icon: "rocket_launch" }
-        ];
         let selectedArea = null;
+        let selectedDistrito = null;
 
-        function renderAreaCards() {
-            const container = document.getElementById("areaGridContainer");
-            if (!container) return;
-            container.innerHTML = "";
+        function onAreaChange(val) {
+            selectedArea = val;
+            surveyResponses.area = val;
+            const distSec = document.getElementById("distritoSection");
+            const distSel = document.getElementById("distritoSelect");
+            const distHint = document.getElementById("distritoHint");
+            const warning = document.getElementById("formWarning");
 
-            AREAS.forEach(area => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                const isSelected = selectedArea === area.id;
-                btn.className = `p-2.5 sm:p-3 rounded-2xl border text-left flex items-center gap-2 transition-all cursor-pointer active:scale-95 ${isSelected
-                    ? "border-primary bg-primary/10 text-primary shadow-sm ring-2 ring-primary/30 font-bold"
-                    : "border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:border-primary/50 font-medium"
-                    }`;
-                btn.onclick = () => selectArea(area.id);
-                btn.innerHTML = `
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-primary text-white' : 'bg-surface-container-high text-on-surface-variant'}">
-                        <span class="material-symbols-outlined text-sm sm:text-base">${area.icon}</span>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <p class="text-[10px] sm:text-xs truncate leading-tight uppercase font-bold">${area.name}</p>
-                    </div>
-                    ${isSelected ? '<span class="material-symbols-outlined text-primary text-sm shrink-0">check_circle</span>' : ''}
-                `;
-                container.appendChild(btn);
-            });
+            if (warning) warning.classList.add("hidden");
+
+            if (val) {
+                if (distSec) {
+                    distSec.classList.remove("opacity-50", "pointer-events-none");
+                    distSec.classList.add("opacity-100");
+                }
+                if (distSel) {
+                    distSel.disabled = false;
+                }
+                if (distHint) {
+                    distHint.textContent = "(Obligatorio)";
+                    distHint.classList.remove("text-outline");
+                    distHint.classList.add("text-primary", "font-bold");
+                }
+            }
         }
 
-        function selectArea(areaId) {
-            selectedArea = areaId;
-            surveyResponses.area = areaId;
-            const warning = document.getElementById("areaWarning");
+        function onDistritoChange(val) {
+            selectedDistrito = val;
+            surveyResponses.distrito = val;
+            const warning = document.getElementById("formWarning");
             if (warning) warning.classList.add("hidden");
-            renderAreaCards();
         }
 
         function startSurvey() {
+            const warning = document.getElementById("formWarning");
+            const warningMsg = document.getElementById("warningMsg");
+
             if (!selectedArea) {
-                const warning = document.getElementById("areaWarning");
-                if (warning) warning.classList.remove("hidden");
-                const container = document.getElementById("areaGridContainer");
-                if (container) {
-                    container.classList.add("ring-2", "ring-rose-500/50", "rounded-2xl");
-                    setTimeout(() => container.classList.remove("ring-2", "ring-rose-500/50"), 1200);
+                if (warning && warningMsg) {
+                    warningMsg.textContent = "Por favor selecciona tu Área de trabajo.";
+                    warning.classList.remove("hidden");
                 }
+                const areaSel = document.getElementById("areaSelect");
+                if (areaSel) areaSel.focus();
                 return;
             }
+
+            if (!selectedDistrito) {
+                if (warning && warningMsg) {
+                    warningMsg.textContent = "Por favor selecciona tu Distrito.";
+                    warning.classList.remove("hidden");
+                }
+                const distSel = document.getElementById("distritoSelect");
+                if (distSel) distSel.focus();
+                return;
+            }
+
             nextQuestion();
         }
 
@@ -441,12 +529,18 @@
                 if (topBadge) topBadge.classList.add("hidden");
                 if (topProgressContainer) topProgressContainer.classList.add("hidden");
 
-                if (selectedArea) {
-                    const badge = document.getElementById("userAreaBadge");
-                    const lbl = document.getElementById("lblUserArea");
-                    if (badge && lbl) {
-                        lbl.textContent = `Área: ${selectedArea}`;
-                        badge.classList.remove("hidden");
+                if (selectedArea || selectedDistrito) {
+                    const badgeArea = document.getElementById("userAreaBadge");
+                    const lblArea = document.getElementById("lblUserArea");
+                    if (badgeArea && lblArea) {
+                        lblArea.textContent = `Área: ${selectedArea || 'N/A'}`;
+                        badgeArea.classList.remove("hidden");
+                    }
+                    const badgeDistrito = document.getElementById("userDistritoBadge");
+                    const lblDistrito = document.getElementById("lblUserDistrito");
+                    if (badgeDistrito && lblDistrito) {
+                        lblDistrito.textContent = `Distrito: ${selectedDistrito || 'N/A'}`;
+                        badgeDistrito.classList.remove("hidden");
                     }
                 }
 
@@ -475,23 +569,29 @@
             if (topProgressContainer) topProgressContainer.classList.remove("hidden");
 
             // Barra de progreso y contador
-            const evaluableTotal = QUESTIONS.length - 2;
-            const evaluableIdx = idx - 2;
-            let percent = 0;
-            if (evaluableIdx >= 0) {
-                document.getElementById("topProgressText").textContent = `Pregunta ${evaluableIdx + 1} / ${evaluableTotal}`;
-                percent = Math.round(((evaluableIdx + 1) / evaluableTotal) * 100);
-            } else {
-                document.getElementById("topProgressText").textContent = `Inicio (${idx + 1} de 2)`;
-                percent = idx === 0 ? 5 : 10;
-            }
+            const totalQ = QUESTIONS.length;
+            const currentNum = idx + 1;
+            const percent = Math.round((currentNum / totalQ) * 100);
 
+            document.getElementById("topProgressText").textContent = `Pregunta ${currentNum} de ${totalQ}`;
             const topBar = document.getElementById("topProgressBar");
             if (topBar) topBar.style.width = `${percent}%`;
 
             const q = QUESTIONS[idx];
+            let qText = q.text;
+
+            // Pregunta 2 condicional según calificación eNPS
+            if (q.id === "enps_reason") {
+                const enpsVal = Number(surveyResponses["enps"]);
+                if (!isNaN(enpsVal) && enpsVal <= 8) {
+                    qText = "¿Qué es lo principal que influye en tu calificación?";
+                } else {
+                    qText = "Cuéntanos con tus propias palabras qué es lo que más influye en tu respuesta.";
+                }
+            }
+
             document.getElementById("qCategory").textContent = q.category;
-            document.getElementById("qText").textContent = q.text;
+            document.getElementById("qText").textContent = qText;
 
             const answersContainer = document.getElementById("qAnswersContainer");
             answersContainer.innerHTML = "";
@@ -544,14 +644,14 @@
                 if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">5</span> para responder rápido (5 = Máximo)`;
             }
 
-            // RENDER SCALE 0 TO 10 (Botones proporcionales y centrados)
+            // RENDER SCALE 1 TO 10 (En línea en Web/Desktop, 5 y 5 en móvil)
             else if (q.type === "scale10") {
                 if (quickTapHint) quickTapHint.classList.remove("hidden");
                 const container = document.createElement("div");
                 container.className = "flex flex-col gap-3.5 w-full max-w-2xl mx-auto py-2";
 
                 const grid = document.createElement("div");
-                grid.className = "grid grid-cols-6 sm:flex sm:flex-nowrap gap-1.5 sm:gap-2 md:gap-2.5 justify-center items-center w-full";
+                grid.className = "grid grid-cols-5 md:flex md:flex-nowrap gap-2 md:gap-2.5 justify-center items-center w-full";
 
                 const startVal = q.startAtZero ? 0 : 1;
                 for (let i = startVal; i <= 10; i++) {
@@ -559,15 +659,15 @@
                     btn.type = "button";
 
                     const isSelected = (surveyResponses[q.id] === i);
-                    
+
                     let colorTier = "hover:border-primary text-on-surface";
                     if (i <= 6) colorTier = "hover:border-rose-400";
                     else if (i <= 8) colorTier = "hover:border-amber-400";
                     else colorTier = "hover:border-emerald-500";
 
-                    btn.className = `w-full sm:w-12 sm:h-12 md:w-14 md:h-14 aspect-square sm:aspect-auto h-11 rounded-xl sm:rounded-2xl flex items-center justify-center font-bold text-xs sm:text-sm md:text-base transition-all active:scale-95 shrink-0 ${isSelected
+                    btn.className = `w-full md:w-12 md:h-12 lg:w-14 lg:h-14 h-12 rounded-2xl flex items-center justify-center font-bold text-sm sm:text-base transition-all active:scale-95 shrink-0 ${isSelected
                         ? "bg-gradient-to-br from-primary to-[#C8A0F0] text-white ring-2 ring-primary/40 scale-105 shadow-md font-black option-selected"
-                        : `bg-surface-container-lowest border border-outline-variant/50 ${colorTier} shadow-xs`
+                        : `bg-surface-container-lowest border-2 border-outline-variant/50 ${colorTier} shadow-xs`
                         }`;
 
                     btn.setAttribute("data-val", i);
@@ -588,7 +688,7 @@
                 container.appendChild(labels);
                 answersContainer.appendChild(container);
 
-                if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10)`;
+                if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> o <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10)`;
             }
 
             // RENDER TEXTAREA (Pregunta abierta cualitativa)
@@ -616,27 +716,27 @@
             btnPrev.style.visibility = (idx === 0) ? "hidden" : "visible";
         }
 
-        // AUTO-AVANCE FLUIDO (Smart 1-Tap Advance)
+        // AUTO-AVANCE FLUIDO Y ULTRA RÁPIDO (Instant 1-Tap Advance)
         function selectResponse(questionId, val, cardElement, container) {
             surveyResponses[questionId] = val;
             validateNextBtn();
 
-            // Resaltar visualmente sin destruir el DOM inmediatamente
+            // Resaltar visualmente de inmediato
             Array.from(container.children).forEach(child => {
-                child.classList.remove("option-selected", "ring-2", "ring-primary/40", "bg-emerald-50", "bg-lime-50", "bg-amber-50", "bg-orange-50", "bg-rose-50", "bg-gradient-to-br", "from-primary", "to-[#C8A0F0]", "text-white", "font-black");
+                child.classList.remove("ring-2", "ring-primary/40", "bg-emerald-50", "bg-lime-50", "bg-amber-50", "bg-orange-50", "bg-rose-50", "bg-gradient-to-br", "from-primary", "to-[#C8A0F0]", "text-white", "font-black");
             });
-            cardElement.classList.add("option-selected");
+            cardElement.classList.add("ring-2", "ring-primary/40");
 
             if (isTransitioning) return;
             isTransitioning = true;
 
-            // Avance automático con leve retardo para ver la confirmación táctil
+            // Avance casi instantáneo con micro-confirmación táctil (110ms)
             setTimeout(() => {
                 isTransitioning = false;
                 if (surveyResponses[questionId] === val && currentQuestionIdx < QUESTIONS.length) {
                     nextQuestion();
                 }
-            }, 320);
+            }, 110);
         }
 
         function validateNextBtn() {
@@ -681,10 +781,34 @@
         function restartSurvey() {
             currentQuestionIdx = -1;
             selectedArea = null;
+            selectedDistrito = null;
             for (const key in surveyResponses) {
                 delete surveyResponses[key];
             }
-            renderAreaCards();
+
+            const areaSel = document.getElementById("areaSelect");
+            if (areaSel) areaSel.value = "";
+
+            const distSec = document.getElementById("distritoSection");
+            const distSel = document.getElementById("distritoSelect");
+            const distHint = document.getElementById("distritoHint");
+            if (distSec) {
+                distSec.classList.add("opacity-50", "pointer-events-none");
+                distSec.classList.remove("opacity-100");
+            }
+            if (distSel) {
+                distSel.value = "";
+                distSel.disabled = true;
+            }
+            if (distHint) {
+                distHint.textContent = "(Primero selecciona tu área)";
+                distHint.classList.add("text-outline");
+                distHint.classList.remove("text-primary", "font-bold");
+            }
+
+            const warning = document.getElementById("formWarning");
+            if (warning) warning.classList.add("hidden");
+
             showQuestion(-1);
         }
 
@@ -762,9 +886,6 @@
                 }
             }
         });
-
-        // Inicializar selector de áreas
-        renderAreaCards();
     </script>
 </body>
 

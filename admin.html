@@ -179,32 +179,56 @@
 
             <!-- TOOLBAR / FILTERS -->
             <div
-                class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
-                <div class="flex items-center gap-2">
-                    <label for="globalAreaFilter"
-                        class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
-                        <span class="material-symbols-outlined text-primary text-base">filter_alt</span>
-                        <span>Filtrar por Área:</span>
-                    </label>
-                    <select id="globalAreaFilter" onchange="applyGlobalAreaFilter()"
-                        class="bg-surface-container-lowest border border-outline-variant/50 text-on-surface font-bold text-xs rounded-xl px-3 py-1.5 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 cursor-pointer shadow-sm">
-                        <option value="ALL">Todas las áreas (Consolidado)</option>
-                        <option value="STAFF">STAFF</option>
-                        <option value="COMERCIAL">COMERCIAL</option>
-                        <option value="PLANTA INTERNA">PLANTA INTERNA</option>
-                        <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
-                        <option value="SERVICIO / COBRANZA">SERVICIO / COBRANZA</option>
-                        <option value="DESARROLLO COMERCIAL">DESARROLLO COMERCIAL</option>
-                    </select>
+                class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface-container-low/60 border border-outline-variant/30 p-3.5 rounded-2xl">
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Filtro por Área -->
+                    <div class="flex items-center gap-1.5">
+                        <label for="globalAreaFilter"
+                            class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                            <span class="material-symbols-outlined text-primary text-base">domain</span>
+                            <span>Área:</span>
+                        </label>
+                        <select id="globalAreaFilter" onchange="applyGlobalFilters()"
+                            class="bg-surface-container-lowest border border-outline-variant/50 text-on-surface font-bold text-xs rounded-xl px-2.5 py-1.5 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 cursor-pointer shadow-sm">
+                            <option value="ALL">Todas las áreas</option>
+                            <option value="STAFF">STAFF</option>
+                            <option value="COMERCIAL">COMERCIAL</option>
+                            <option value="PLANTA INTERNA">PLANTA INTERNA</option>
+                            <option value="PLANTA EXTERNA">PLANTA EXTERNA</option>
+                            <option value="SERVICIO / COBRANZA">SERVICIO / COBRANZA</option>
+                            <option value="DESARROLLO COMERCIAL">DESARROLLO COMERCIAL</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtro por Distrito -->
+                    <div class="flex items-center gap-1.5">
+                        <label for="globalDistritoFilter"
+                            class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+                            <span class="material-symbols-outlined text-primary text-base">location_on</span>
+                            <span>Distrito:</span>
+                        </label>
+                        <select id="globalDistritoFilter" onchange="applyGlobalFilters()"
+                            class="bg-surface-container-lowest border border-outline-variant/50 text-on-surface font-bold text-xs rounded-xl px-2.5 py-1.5 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 cursor-pointer shadow-sm">
+                            <option value="ALL">Todos los distritos</option>
+                            <option value="SAN LUIS POTOSI">SAN LUIS POTOSI</option>
+                            <option value="QUERETARO">QUERETARO</option>
+                            <option value="TULTITLAN">TULTITLAN</option>
+                            <option value="AZCAPOTZALCO">AZCAPOTZALCO</option>
+                            <option value="NICOLAS ROMERO">NICOLAS ROMERO</option>
+                            <option value="TLALNEPANTLA">TLALNEPANTLA</option>
+                            <option value="NAUCALPAN">NAUCALPAN</option>
+                            <option value="GUADALUPE TEPEYAC">GUADALUPE TEPEYAC</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-2.5 self-end sm:self-auto">
+                <div class="flex items-center gap-2.5 self-end md:self-auto">
                     <span id="globalTotalBadge"
                         class="bg-primary/10 text-primary text-xs font-black px-3.5 py-1.5 rounded-full font-mono">
                         0 respuestas
                     </span>
                     <button onclick="loadGlobalData()"
-                        class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center"
+                        class="p-2 bg-surface-container-lowest hover:bg-primary hover:text-white text-primary border border-outline-variant/40 rounded-full transition-all shadow-sm flex items-center justify-center cursor-pointer"
                         title="Actualizar datos desde Google Sheets">
                         <span id="refreshIcon" class="material-symbols-outlined text-base">refresh</span>
                     </button>
@@ -279,13 +303,25 @@
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por
-                                Dimensión</h2>
-                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el
-                                desglose de preguntas</p>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Promedio General por Dimensión</h2>
+                            <p class="text-xs text-outline font-medium">Haz clic en cualquier tarjeta para desplegar el desglose de preguntas</p>
                         </div>
                     </div>
                     <div id="gCategoriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- COMENTARIOS CUALITATIVOS Y SUGERENCIAS -->
+                <div class="space-y-3 pt-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-base font-bold text-on-surface tracking-tight">Comentarios y Sugerencias de Colaboradores</h2>
+                            <p class="text-xs text-outline font-medium">Motivos de calificación eNPS y qué ayudaría a estar totalmente felices</p>
+                        </div>
+                        <span id="gCommentsBadge" class="bg-surface-container-high text-on-surface-variant text-[11px] font-bold px-2.5 py-1 rounded-full font-mono">0 respuestas</span>
+                    </div>
+                    <div id="gCommentsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
                         <!-- Inyectado dinámicamente -->
                     </div>
                 </div>
@@ -296,7 +332,7 @@
     </main>
 
     <footer class="py-4 text-center text-xs text-outline font-medium relative z-10">
-        Totalplay® 2026 - San Luis
+        Totalplay® 2026 - Región Norponiente
     </footer>
 
     <script>
@@ -308,47 +344,65 @@
             "Totalmente de acuerdo": 5,
             "De acuerdo": 4,
             "Ni de acuerdo, ni desacuerdo": 3,
+            "Ni de acuerdo ni en desacuerdo": 3,
             "En desacuerdo": 2,
             "Totalmente en desacuerdo": 1
         };
 
         const QUESTIONS = [
-            { id: "enps", category: "Recomendación eNPS", text: "¿Qué tanto recomendarías a un familiar o amigo trabajar en Grupo Salinas?", type: "scale10" },
-            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Por qué otorgaste esta calificación?", type: "textarea" },
-            // Orgullo y Pertenencia
-            { id: "orgullo_1", category: "Orgullo y Pertenencia", icon: "favorite", text: "El propósito de mi empresa me hace sentir que mi trabajo es importante", type: "likert" },
-            { id: "orgullo_2", category: "Orgullo y Pertenencia", icon: "favorite", text: "Estoy orgulloso (a) de trabajar para esta empresa", type: "likert" },
-            // Mi Formador
-            { id: "formador_1", category: "Mi Formador", icon: "record_voice_over", text: "Confío en las decisiones de mi formador y aprendo de él", type: "likert" },
-            { id: "formador_2", category: "Mi Formador", icon: "record_voice_over", text: "Recibo retroalimentación útil, suficiente y con seguimiento por parte de mi formador", type: "likert" },
-            { id: "formador_3", category: "Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, seguiría a mi formador de equipo en otro proyecto porque es inteligente, tiene capacidad para comunicar y desarrollar a su equipo", type: "likert" },
-            { id: "formador_4", category: "Mi Formador", icon: "record_voice_over", text: "Mi formador me hace sentir valorado como persona y profesional", type: "likert" },
-            { id: "formador_5", category: "Mi Formador", icon: "record_voice_over", text: "Cuento con toda la información, herramientas o el equipo necesario para hacer mi trabajo", type: "likert" },
-            // Reconocimiento y Entorno
-            { id: "reconocimiento_1", category: "Reconocimiento y Entorno", icon: "stars", text: "En mi empresa se reconocen los logros y nos hacen sentir valorados", type: "likert" },
-            { id: "reconocimiento_2", category: "Reconocimiento y Entorno", icon: "stars", text: "Dentro de mi empresa hay personas que me inspiran y hacen un buen trabajo al planear las estrategias y aportan valor", type: "likert" },
-            { id: "reconocimiento_3", category: "Reconocimiento y Entorno", icon: "stars", text: "Puedo expresar mi opinión sobre cualquier tema sin miedo a represalias", type: "likert" },
-            // Desarrollo
-            { id: "desarrollo_1", category: "Desarrollo", icon: "settings_suggest", text: "En mis funciones se aprovechan bien mis talentos", type: "likert" },
-            { id: "desarrollo_2", category: "Desarrollo", icon: "settings_suggest", text: "En mi empresa las promociones o movimientos se dan solamente a las personas que lo merecen", type: "likert" },
-            { id: "desarrollo_3", category: "Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades reales de desarrollo, crecimiento y aprendizaje profesional dentro de la empresa", type: "likert" },
-            // Colaboración
-            { id: "colaboracion_1", category: "Colaboración", icon: "groups", text: "Tengo acceso a la información y comunicación en mi área que me permite trabajar de manera efectiva y colaborativa", type: "likert" },
-            { id: "colaboracion_2", category: "Colaboración", icon: "groups", text: "Las áreas y personas colaboran de manera efectiva para ayudar a que la empresa tenga más éxito", type: "likert" },
-            // Retribución y Flexibilidad
-            { id: "retribucion_1", category: "Retribución y Flexibilidad", icon: "balance", text: "La empresa cuida que yo esté bien como persona, en mi entorno laboral", type: "likert" },
-            { id: "retribucion_2", category: "Retribución y Flexibilidad", icon: "balance", text: "Mi compensación total es adecuada por mis resultados y el trabajo que realizo día a día", type: "likert" },
-            { id: "retribucion_3", category: "Retribución y Flexibilidad", icon: "balance", text: "El tiempo que dedico a mi trabajo no afecta mis actividades personales", type: "likert" },
-            // Felicidad General
-            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "¿Qué tan feliz te sientes trabajando en esta empresa?", type: "scale10" }
+            { id: "enps", category: "Recomendación eNPS", text: "Del 1 al 10, ¿Qué tan probable es que recomiendes a un familiar o amigo trabajar en Totalplay Región Norponiente?", type: "scale10" },
+            { id: "enps_reason", category: "Recomendación eNPS", text: "¿Qué es lo principal que influye en tu calificación?", type: "textarea" },
+            
+            // NIVEL 1. ORGULLO Y PERTENENCIA
+            { id: "orgullo_1", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Me siento orgulloso(a) de trabajar en Totalplay Region Norponiente.", type: "likert" },
+            { id: "orgullo_2", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Siento que mi trabajo aporta algo importante para que la empresa logre sus objetivos.", type: "likert" },
+            { id: "orgullo_3", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Considero que en el distrito hago cosas que me hacen sentirme orgulloso laboralmente.", type: "likert" },
+            { id: "orgullo_4", category: "Nivel 1. Orgullo y Pertenencia", icon: "favorite", text: "Considero que ser parte de la región Norponiente es algo que puedo mencionar con orgullo.", type: "likert" },
+
+            // NIVEL 2. MI FORMADOR
+            { id: "formador_1", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Confío en mi formador y siento que puedo aprender de él/ella.", type: "likert" },
+            { id: "formador_2", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Mi formador tiene sesiones de retroalimentación conmigo para sabes qué estoy haciendo bien y qué puedo mejorar.", type: "likert" },
+            { id: "formador_3", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Si pudiera elegir, me gustaría volver a trabajar con mi formador en otro proyecto o equipo.", type: "likert" },
+            { id: "formador_4", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Mi formador me trata con respeto y me hace sentir que mi trabajo y mi persona son importantes.", type: "likert" },
+            { id: "formador_5", category: "Nivel 2. Mi Formador", icon: "record_voice_over", text: "Tengo las herramientas, información y equipo que necesito para hacer bien mi trabajo.", type: "likert" },
+
+            // NIVEL 3. RECONOCIMIENTO Y ENTORNO
+            { id: "reconocimiento_1", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando hago bien mi trabajo, siento que la empresa lo reconoce y lo valora.", type: "likert" },
+            { id: "reconocimiento_2", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Hay personas dentro de la empresa que me inspiran por la forma en que trabajan y aportan buenas ideas.", type: "likert" },
+            { id: "reconocimiento_3", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Tengo la libertad de dar mi opinión y decir lo que pienso.", type: "likert" },
+            { id: "reconocimiento_4", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Siento que en mi equipo recibimos un trato justo, sin preferencias ni favoritismos.", type: "likert" },
+            { id: "reconocimiento_5", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando tengo un problema o algo no está funcionando bien, siento que se lo puedo decir a mi jefe sin miedo a represalias.", type: "likert" },
+            { id: "reconocimiento_6", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando los colaboradores damos ideas o propuestas para mejorar nuestro trabajo, sentimos que son escuchadas y tomadas en cuenta.", type: "likert" },
+
+            // NIVEL 4. DESARROLLO
+            { id: "desarrollo_1", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "En mi trabajo puedo aprovechar lo que sé hacer bien y mis habilidades.", type: "likert" },
+            { id: "desarrollo_2", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Siento que las promociones o cambios de puesto se dan de manera justa.", type: "likert" },
+            { id: "desarrollo_3", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Siento que tengo oportunidades para aprender, crecer y tener un mejor puesto dentro de la empresa.", type: "likert" },
+            { id: "desarrollo_4", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "Me veo logrando una carrera profesional en Totalplay en los próximos 2 años o más.", type: "likert" },
+
+            // NIVEL 5. COLABORACIÓN
+            { id: "colaboracion_1", category: "Nivel 5. Colaboración", icon: "groups", text: "En mi área tenemos la información y comunicación que necesitamos para trabajar bien en equipo.", type: "likert" },
+            { id: "colaboracion_2", category: "Nivel 5. Colaboración", icon: "groups", text: "Cuando necesito ayuda de otra área o persona, siento que existe disposición para trabajar juntos y resolver las cosas.", type: "likert" },
+
+            // NIVEL 6. RETRIBUCIÓN Y FLEXIBILIDAD
+            { id: "retribucion_1", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Siento que la empresa se preocupa por mi bienestar y por cómo me siento en el trabajo.", type: "likert" },
+            { id: "retribucion_2", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Considero que el sueldo que recibo por mi trabajo es justo de acuerdo con mis resultados y responsabilidades.", type: "likert" },
+            { id: "retribucion_3", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Mi trabajo me permite tener tiempo para atender mis actividades personales y familiares.", type: "likert" },
+            { id: "retribucion_4", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "Siento que la cantidad de trabajo que tengo es razonable y puedo realizarlo sin afectar mi bienestar.", type: "likert" },
+            { id: "retribucion_5", category: "Nivel 6. Retribución y Flexibilidad", icon: "balance", text: "La gestión de mi jefe directo influye en como me siento en mi trabajo actualmente.", type: "likert" },
+
+            // FELICIDAD GENERAL
+            { id: "happiness", category: "Felicidad General", icon: "sentiment_satisfied", text: "Del 1 al 10, Pensando en todo lo anterior, ¿qué tan feliz te sientes trabajando en Totalplay Region Norponiente?", type: "scale10" },
+            { id: "happiness_reason", category: "Felicidad General", icon: "lightbulb", text: "¿Qué ayudaría a que te sientas totalmente feliz de trabajar en Totalplay Región Norponiente?", type: "textarea" }
         ];
 
+        // ESCALA DE MEDICION OFICIAL
         function getScoreLabel(score) {
-            if (score >= 4.7) return { text: "Feliz", colorClass: "text-emerald-600", bgBadge: "bg-emerald-500", emoji: "😄" };
-            if (score >= 4.0) return { text: "Satisfecho", colorClass: "text-lime-600", bgBadge: "bg-lime-500", emoji: "🙂" };
-            if (score >= 3.0) return { text: "Indiferente", colorClass: "text-amber-500", bgBadge: "bg-amber-400", emoji: "😐" };
-            if (score >= 2.0) return { text: "Insatisfecho", colorClass: "text-orange-500", bgBadge: "bg-orange-500", emoji: "🙁" };
-            return { text: "Infeliz", colorClass: "text-red-600", bgBadge: "bg-red-600", emoji: "😠" };
+            if (score >= 4.78) return { text: "Felices", colorClass: "text-emerald-600", bgBadge: "bg-emerald-500", emoji: "😄" };
+            if (score >= 4.38) return { text: "Satisfechos", colorClass: "text-lime-600", bgBadge: "bg-lime-500", emoji: "🙂" };
+            if (score >= 4.00) return { text: "Indiferentes", colorClass: "text-amber-500", bgBadge: "bg-amber-400", emoji: "😐" };
+            if (score >= 3.23) return { text: "Insatisfechos", colorClass: "text-orange-500", bgBadge: "bg-orange-500", emoji: "🙁" };
+            return { text: "Infelices", colorClass: "text-red-600", bgBadge: "bg-red-600", emoji: "😠" };
         }
 
         // GESTIÓN DE TOKEN DE ACCESO
@@ -412,7 +466,7 @@
 
                 if (result.status === "success" && Array.isArray(result.data)) {
                     rawGlobalData = result.data;
-                    applyGlobalAreaFilter();
+                    applyGlobalFilters();
                 } else {
                     alert("No se pudieron cargar los datos globales o la respuesta fue inválida.");
                 }
@@ -426,15 +480,25 @@
             }
         }
 
-        function applyGlobalAreaFilter() {
-            const filterSelect = document.getElementById("globalAreaFilter");
-            const selectedFilter = filterSelect ? filterSelect.value : "ALL";
+        function applyGlobalFilters() {
+            const areaSelect = document.getElementById("globalAreaFilter");
+            const distritoSelect = document.getElementById("globalDistritoFilter");
+            const selectedArea = areaSelect ? areaSelect.value : "ALL";
+            const selectedDistrito = distritoSelect ? distritoSelect.value : "ALL";
 
             let filtered = rawGlobalData;
-            if (selectedFilter !== "ALL") {
-                filtered = rawGlobalData.filter(item => {
+
+            if (selectedArea !== "ALL") {
+                filtered = filtered.filter(item => {
                     const a = (item.responses && item.responses.area) || item.area || "";
-                    return a.toString().trim().toUpperCase() === selectedFilter.trim().toUpperCase();
+                    return a.toString().trim().toUpperCase() === selectedArea.trim().toUpperCase();
+                });
+            }
+
+            if (selectedDistrito !== "ALL") {
+                filtered = filtered.filter(item => {
+                    const d = (item.responses && item.responses.distrito) || item.distrito || "";
+                    return d.toString().trim().toUpperCase() === selectedDistrito.trim().toUpperCase();
                 });
             }
 
@@ -464,6 +528,12 @@
                         No hay respuestas registradas para el filtro seleccionado aún.
                     </div>
                 `;
+                document.getElementById("gCommentsContainer").innerHTML = `
+                    <div class="col-span-full py-8 text-center text-outline text-xs font-bold bg-surface-container-lowest border border-outline-variant/30 rounded-2xl">
+                        Sin comentarios registrados para este filtro.
+                    </div>
+                `;
+                document.getElementById("gCommentsBadge").textContent = "0 respuestas";
                 return;
             }
 
@@ -488,6 +558,8 @@
                     count: 0
                 });
             });
+
+            const commentsList = [];
 
             allData.forEach(item => {
                 const r = item.responses || {};
@@ -517,6 +589,20 @@
                         }
                     }
                 });
+
+                // Recopilar comentarios cualitativos
+                if ((r.enps_reason && r.enps_reason.trim()) || (r.happiness_reason && r.happiness_reason.trim())) {
+                    commentsList.push({
+                        id: item.id,
+                        timestamp: item.timestamp,
+                        area: (r.area || item.area || 'N/A'),
+                        distrito: (r.distrito || item.distrito || 'N/A'),
+                        enps: r.enps !== undefined ? r.enps : 'N/A',
+                        enps_reason: r.enps_reason || '',
+                        happiness: r.happiness !== undefined ? r.happiness : 'N/A',
+                        happiness_reason: r.happiness_reason || ''
+                    });
+                }
             });
 
             const totalEnps = promotores + pasivos + detractores || 1;
@@ -576,7 +662,7 @@
 
                 card.innerHTML = `
                     <button type="button" onclick="toggleCategoryDetail('g_cat_body_${gCatIdx}', 'g_cat_arrow_${gCatIdx}')"
-                        class="w-full p-4 flex items-center justify-between text-left hover:bg-surface-container-low/50 transition-colors">
+                        class="w-full p-4 flex items-center justify-between text-left hover:bg-surface-container-low/50 transition-colors cursor-pointer">
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary text-xl">${catData.icon}</span>
                             <div>
@@ -595,6 +681,61 @@
                 `;
                 catContainer.appendChild(card);
                 gCatIdx++;
+            }
+
+            // 4. RENDER COMENTARIOS CUALITATIVOS
+            const commentsContainer = document.getElementById("gCommentsContainer");
+            document.getElementById("gCommentsBadge").textContent = `${commentsList.length} con comentarios`;
+
+            if (commentsList.length === 0) {
+                commentsContainer.innerHTML = `
+                    <div class="col-span-full py-8 text-center text-outline text-xs font-bold bg-surface-container-lowest border border-outline-variant/30 rounded-2xl">
+                        No hay comentarios de texto libre en las respuestas filtradas.
+                    </div>
+                `;
+            } else {
+                commentsContainer.innerHTML = "";
+                commentsList.forEach(c => {
+                    const card = document.createElement("div");
+                    card.className = "bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-4 shadow-sm space-y-3";
+                    
+                    let enpsHtml = "";
+                    if (c.enps_reason) {
+                        enpsHtml = `
+                            <div class="bg-surface-container-low/50 p-3 rounded-xl border border-outline-variant/20 space-y-1">
+                                <div class="flex items-center justify-between text-[11px] font-bold">
+                                    <span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-xs">thumb_up</span> Motivo Recomendación (eNPS ${c.enps}/10):</span>
+                                </div>
+                                <p class="text-xs text-on-surface-variant italic font-medium leading-relaxed">"${c.enps_reason}"</p>
+                            </div>
+                        `;
+                    }
+
+                    let happinessHtml = "";
+                    if (c.happiness_reason) {
+                        happinessHtml = `
+                            <div class="bg-surface-container-low/50 p-3 rounded-xl border border-outline-variant/20 space-y-1">
+                                <div class="flex items-center justify-between text-[11px] font-bold">
+                                    <span class="text-emerald-600 flex items-center gap-1"><span class="material-symbols-outlined text-xs">sentiment_satisfied</span> Propuesta para Felicidad Total (Score ${c.happiness}/10):</span>
+                                </div>
+                                <p class="text-xs text-on-surface-variant italic font-medium leading-relaxed">"${c.happiness_reason}"</p>
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-bold uppercase">${c.area}</span>
+                                <span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary text-[10px] font-bold uppercase">${c.distrito}</span>
+                            </div>
+                            <span class="text-[10px] text-outline font-mono">${c.timestamp || ''}</span>
+                        </div>
+                        ${enpsHtml}
+                        ${happinessHtml}
+                    `;
+                    commentsContainer.appendChild(card);
+                });
             }
         }
 
