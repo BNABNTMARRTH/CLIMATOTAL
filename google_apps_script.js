@@ -188,7 +188,9 @@ function doPost(e) {
       areaName,
       distritoName,
       responses.enps !== undefined ? responses.enps : "",
-      responses.enps_reason || "",
+      (responses.enps_general_reason && responses.enps_reason && responses.enps_general_reason !== responses.enps_reason)
+        ? ("Influencia: " + responses.enps_general_reason + " | Detalle: " + responses.enps_reason)
+        : (responses.enps_reason || responses.enps_general_reason || ""),
       responses.happiness !== undefined ? responses.happiness : "",
       responses.happiness_reason || "",
       responses.orgullo_1 || "",

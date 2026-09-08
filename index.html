@@ -408,7 +408,7 @@
             { id: "reconocimiento_3", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Tengo la libertad de dar mi opinión y decir lo que pienso.", type: "likert" },
             { id: "reconocimiento_4", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Siento que en mi equipo recibimos un trato justo, sin preferencias ni favoritismos.", type: "likert" },
             { id: "reconocimiento_5", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando tengo un problema o algo no está funcionando bien, siento que se lo puedo decir a mi jefe sin miedo a represalias.", type: "likert" },
-            { id: "reconocimiento_6", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando los colaboradores damos ideas o propuestas para mejorar nuestro trabajo, sentimos que son escuchadas y tomadas en cuenta.", type: "likert" },
+            { id: "reconocimiento_6", category: "Nivel 3. Reconocimiento y Entorno", icon: "stars", text: "Cuando propongo ideas para mejorar mi trabajo, siento que son escuchadas y tomadas en cuenta.", type: "likert" },
 
             // NIVEL 4. DESARROLLO
             { id: "desarrollo_1", category: "Nivel 4. Desarrollo", icon: "settings_suggest", text: "En mi trabajo puedo aprovechar lo que sé hacer bien y mis habilidades.", type: "likert" },
@@ -578,20 +578,8 @@
             if (topBar) topBar.style.width = `${percent}%`;
 
             const q = QUESTIONS[idx];
-            let qText = q.text;
-
-            // Pregunta 2 condicional según calificación eNPS
-            if (q.id === "enps_reason") {
-                const enpsVal = Number(surveyResponses["enps"]);
-                if (!isNaN(enpsVal) && enpsVal <= 8) {
-                    qText = "¿Qué es lo principal que influye en tu calificación?";
-                } else {
-                    qText = "Cuéntanos con tus propias palabras qué es lo que más influye en tu respuesta.";
-                }
-            }
-
             document.getElementById("qCategory").textContent = q.category;
-            document.getElementById("qText").textContent = qText;
+            document.getElementById("qText").textContent = q.text;
 
             const answersContainer = document.getElementById("qAnswersContainer");
             answersContainer.innerHTML = "";
@@ -646,12 +634,42 @@
 
             // RENDER SCALE 1 TO 10 (En línea en Web/Desktop, 5 y 5 en móvil)
             else if (q.type === "scale10") {
-                if (quickTapHint) quickTapHint.classList.remove("hidden");
+                const isEnpsQ = (q.id === "enps");
+                if (quickTapHint) {
+                    if (isEnpsQ) quickTapHint.classList.add("hidden");
+                    else quickTapHint.classList.remove("hidden");
+                }
+
                 const container = document.createElement("div");
                 container.className = "flex flex-col gap-3.5 w-full max-w-2xl mx-auto py-2";
 
                 const grid = document.createElement("div");
                 grid.className = "grid grid-cols-5 md:flex md:flex-nowrap gap-2 md:gap-2.5 justify-center items-center w-full";
+
+                let enpsSubSection = null;
+                let enpsTextarea = null;
+
+                if (isEnpsQ) {
+                    enpsSubSection = document.createElement("div");
+                    enpsSubSection.id = "enpsSubSection";
+                    const isEnpsAlreadySelected = (surveyResponses["enps"] !== undefined && surveyResponses["enps"] !== null);
+                    enpsSubSection.className = `mt-3 pt-3 border-t border-outline-variant/30 flex flex-col space-y-2 ${isEnpsAlreadySelected ? 'block animate-question' : 'hidden'}`;
+                    enpsSubSection.innerHTML = `
+                        <label for="enpsGeneralInput" class="text-xs sm:text-sm font-bold text-on-surface flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-primary text-base">chat</span>
+                            <span>Cuéntanos con tus propias palabras qué es lo que más influye en tu respuesta:</span>
+                        </label>
+                        <textarea id="enpsGeneralInput"
+                            class="w-full min-h-[90px] sm:min-h-[105px] bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-3.5 text-on-surface text-xs sm:text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all resize-none shadow-xs"
+                            placeholder="Escribe de la manera más clara posible tu respuesta...">${surveyResponses["enps_general_reason"] || ""}</textarea>
+                    `;
+
+                    enpsTextarea = enpsSubSection.querySelector("#enpsGeneralInput");
+                    enpsTextarea.addEventListener("input", (e) => {
+                        surveyResponses["enps_general_reason"] = e.target.value;
+                        validateNextBtn();
+                    });
+                }
 
                 const startVal = q.startAtZero ? 0 : 1;
                 for (let i = startVal; i <= 10; i++) {
@@ -674,7 +692,27 @@
                     btn.textContent = i;
 
                     btn.onclick = () => {
-                        selectResponse(q.id, i, btn, grid);
+                        if (isEnpsQ) {
+                            surveyResponses["enps"] = i;
+                            Array.from(grid.children).forEach(child => {
+                                child.classList.remove("bg-gradient-to-br", "from-primary", "to-[#C8A0F0]", "text-white", "ring-2", "ring-primary/40", "scale-105", "shadow-md", "font-black", "option-selected");
+                                child.classList.add("bg-surface-container-lowest");
+                            });
+                            btn.classList.remove("bg-surface-container-lowest");
+                            btn.classList.add("bg-gradient-to-br", "from-primary", "to-[#C8A0F0]", "text-white", "ring-2", "ring-primary/40", "scale-105", "shadow-md", "font-black", "option-selected");
+
+                            if (enpsSubSection) {
+                                enpsSubSection.classList.remove("hidden");
+                                enpsSubSection.classList.add("block", "animate-question");
+                                if (enpsTextarea) {
+                                    setTimeout(() => enpsTextarea.focus(), 100);
+                                }
+                            }
+                            if (hint) hint.innerHTML = `Ingresa tu respuesta y pulsa 'Siguiente' para continuar`;
+                            validateNextBtn();
+                        } else {
+                            selectResponse(q.id, i, btn, grid);
+                        }
                     };
 
                     grid.appendChild(btn);
@@ -686,9 +724,20 @@
 
                 container.appendChild(grid);
                 container.appendChild(labels);
+                if (enpsSubSection) {
+                    container.appendChild(enpsSubSection);
+                }
                 answersContainer.appendChild(container);
 
-                if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> o <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10)`;
+                if (isEnpsQ) {
+                    if (surveyResponses["enps"] !== undefined && surveyResponses["enps"] !== null) {
+                        if (hint) hint.innerHTML = `Ingresa tu respuesta y pulsa 'Siguiente' para continuar`;
+                    } else {
+                        if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> o <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10) para calificar`;
+                    }
+                } else {
+                    if (hint) hint.innerHTML = `Presiona del <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">1</span> al <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">9</span> (tecla <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">0</span> o <span class="px-1.5 py-0.5 bg-surface-container-high rounded font-mono text-[10px] font-bold">T</span> para 10)`;
+                }
             }
 
             // RENDER TEXTAREA (Pregunta abierta cualitativa)
@@ -747,10 +796,15 @@
 
             let isAnswered = false;
             if (q) {
-                const val = surveyResponses[q.id];
-                if (q.type === "textarea") {
+                if (q.id === "enps") {
+                    const hasScore = (surveyResponses["enps"] !== undefined && surveyResponses["enps"] !== null);
+                    const hasText = (surveyResponses["enps_general_reason"] || "").trim().length > 0;
+                    isAnswered = hasScore && hasText;
+                } else if (q.type === "textarea") {
+                    const val = surveyResponses[q.id];
                     isAnswered = (val !== undefined && val !== null && val.trim().length > 0);
                 } else {
+                    const val = surveyResponses[q.id];
                     isAnswered = (val !== undefined && val !== null);
                 }
             }
@@ -767,15 +821,38 @@
         }
 
         function nextQuestion() {
-            currentQuestionIdx++;
-            showQuestion(currentQuestionIdx);
+            if (currentQuestionIdx === 0) {
+                const enpsVal = Number(surveyResponses["enps"]);
+                if (enpsVal >= 9) {
+                    // Si califican 9 o 10, pasa directo a la Pregunta 3 (índice 2: orgullo_1)
+                    currentQuestionIdx = 2;
+                } else {
+                    // Si califican 8 o menos, pasa a la Pregunta 2 (índice 1: enps_reason)
+                    currentQuestionIdx = 1;
+                }
+            } else {
+                currentQuestionIdx++;
+            }
+
+            if (currentQuestionIdx < QUESTIONS.length) {
+                showQuestion(currentQuestionIdx);
+            } else {
+                showQuestion(QUESTIONS.length);
+            }
         }
 
         function prevQuestion() {
-            if (currentQuestionIdx > 0) {
+            if (currentQuestionIdx === 2) {
+                const enpsVal = Number(surveyResponses["enps"]);
+                if (enpsVal >= 9) {
+                    currentQuestionIdx = 0;
+                } else {
+                    currentQuestionIdx = 1;
+                }
+            } else if (currentQuestionIdx > 0) {
                 currentQuestionIdx--;
-                showQuestion(currentQuestionIdx);
             }
+            showQuestion(currentQuestionIdx);
         }
 
         function restartSurvey() {
@@ -817,6 +894,11 @@
 
         async function sendResponseToGoogleSheets(climateAvg) {
             if (!SCRIPT_URL || SCRIPT_URL.trim() === "") return;
+
+            // Asegurar que exista motivo de eNPS para cualquier calificación
+            if (!surveyResponses.enps_reason && surveyResponses.enps_general_reason) {
+                surveyResponses.enps_reason = surveyResponses.enps_general_reason;
+            }
 
             const now = new Date();
             const year = now.getFullYear();
@@ -865,10 +947,24 @@
                     if (btn) btn.click();
                 }
             } else if (q.type === "scale10") {
+                // Si el usuario está escribiendo en el textarea de la misma tarjeta, no interceptar números
+                if (document.activeElement && document.activeElement.tagName === "TEXTAREA") {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                        const hasScore = (surveyResponses["enps"] !== undefined && surveyResponses["enps"] !== null);
+                        const hasText = (surveyResponses["enps_general_reason"] || "").trim().length > 0;
+                        if (hasScore && hasText) {
+                            e.preventDefault();
+                            nextQuestion();
+                        }
+                    }
+                    return;
+                }
+
                 const num = parseInt(e.key);
                 if (!isNaN(num)) {
                     let targetVal = num;
                     if (num === 0 && q.startAtZero) targetVal = 0;
+                    else if (num === 0 && !q.startAtZero) targetVal = 10;
                     const btn = document.querySelector(`button[data-val="${targetVal}"]`);
                     if (btn) btn.click();
                 }

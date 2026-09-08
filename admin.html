@@ -591,7 +591,7 @@
                 });
 
                 // Recopilar comentarios cualitativos
-                if ((r.enps_reason && r.enps_reason.trim()) || (r.happiness_reason && r.happiness_reason.trim())) {
+                if ((r.enps_reason && r.enps_reason.trim()) || (r.enps_general_reason && r.enps_general_reason.trim()) || (r.happiness_reason && r.happiness_reason.trim())) {
                     commentsList.push({
                         id: item.id,
                         timestamp: item.timestamp,
@@ -599,6 +599,7 @@
                         distrito: (r.distrito || item.distrito || 'N/A'),
                         enps: r.enps !== undefined ? r.enps : 'N/A',
                         enps_reason: r.enps_reason || '',
+                        enps_general_reason: r.enps_general_reason || '',
                         happiness: r.happiness !== undefined ? r.happiness : 'N/A',
                         happiness_reason: r.happiness_reason || ''
                     });
@@ -700,13 +701,26 @@
                     card.className = "bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-4 shadow-sm space-y-3";
                     
                     let enpsHtml = "";
-                    if (c.enps_reason) {
+                    const reasonDetractor = (c.enps_reason || '').trim();
+                    const reasonGeneral = (c.enps_general_reason || '').trim();
+
+                    if (reasonDetractor || reasonGeneral) {
+                        let innerText = "";
+                        if (reasonDetractor && reasonGeneral && reasonDetractor !== reasonGeneral) {
+                            innerText = `
+                                <p class="text-xs text-on-surface font-medium leading-relaxed mb-1"><span class="font-bold text-primary">Influencia general:</span> "${reasonGeneral}"</p>
+                                <p class="text-xs text-rose-600 font-medium leading-relaxed"><span class="font-bold text-rose-700">Factor principal (calif. baja):</span> "${reasonDetractor}"</p>
+                            `;
+                        } else {
+                            innerText = `<p class="text-xs text-on-surface-variant italic font-medium leading-relaxed">"${reasonDetractor || reasonGeneral}"</p>`;
+                        }
+
                         enpsHtml = `
                             <div class="bg-surface-container-low/50 p-3 rounded-xl border border-outline-variant/20 space-y-1">
                                 <div class="flex items-center justify-between text-[11px] font-bold">
-                                    <span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-xs">thumb_up</span> Motivo Recomendación (eNPS ${c.enps}/10):</span>
+                                    <span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-xs">thumb_up</span> Comentario eNPS (${c.enps}/10):</span>
                                 </div>
-                                <p class="text-xs text-on-surface-variant italic font-medium leading-relaxed">"${c.enps_reason}"</p>
+                                ${innerText}
                             </div>
                         `;
                     }
